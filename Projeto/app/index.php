@@ -1,6 +1,5 @@
 <?php
 include 'header.php';
-include 'conexao.php';
 
 //ORGANIZAR DIRECIONAMENTOS DAS PÁGINAS
 
