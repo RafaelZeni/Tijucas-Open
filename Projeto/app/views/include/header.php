@@ -1,3 +1,13 @@
+<?php
+  function base_url()
+  {
+    return dirname($_SERVER['SCRIPT_FILENAME']);
+  }
+
+  // Obtém a URL atual
+  $current_page = $_SERVER['REQUEST_URI'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,16 +21,25 @@
 <body>
 
 <header>
-  <div class="logo"> <img src="conteudo_livre/assets/imgs/logo.jpeg" alt="Logo Tijucas Open"> </div>
-    <nav>
-      <ul>
-        <!-- Arrumar endereçamento -->
-        <li class="destaque"><a href="./index.php">Início</a></li>
-        <li><a href="./IndexPages/Lojas.php">Lojas</a></li>
-        <li><a href="./IndexPages/Gastronimia.php">Gastronomia</a></li>
-        <li><a href="../página fale conosco/index.html">Fale Conosco</a></li>
-      </ul>
-    </nav>
+  <div class="logo">
+    <img src='/Tijucas-Open/Projeto/public/conteudo_livre/assets/imgs/logo.jpeg' alt="Logo Tijucas Open">
+  </div>
+  <nav>
+    <ul>
+      <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/main.php') ? 'destaque' : '' ?>">
+        <a href="/Tijucas-Open/Projeto/public/main.php">Início</a>
+      </li>
+      <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/lojas.php') ? 'destaque' : '' ?>">
+        <a href="/Tijucas-Open/Projeto/public/conteudo_livre/lojas.php">Lojas</a>
+      </li>
+      <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/gastronomia.php') ? 'destaque' : '' ?>">
+        <a href="/Tijucas-Open/Projeto/public/conteudo_livre/gastronomia.php">Gastronomia</a>
+      </li>
+      <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/contato.php') ? 'destaque' : '' ?>">
+        <a href="/Tijucas-Open/Projeto/public/conteudo_livre/contato.php">Fale Conosco</a>
+      </li>
+    </ul>
+  </nav>
   <a href="../página login/index.html"><button class="btn-entrar">Entrar</button></a>
 </header>
 

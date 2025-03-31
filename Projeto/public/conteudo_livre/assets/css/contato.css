@@ -74,35 +74,27 @@ nav ul li a {
   position: relative;
 }
 
-.lojas {
-  text-align: center;
-  margin: 50px 0 white;
-  background-color: white;
+.explorar-texto {
+  background-color: #3b5c2f;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 20px;
+  font-size: 22px;
+  position: absolute;
+  left: 40%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-h2 {
-  font-size: 34px;
+.explorar img {
+  width: 50%;
+  border-radius: 50px 0 0 50px;
+  display: block;
+  border: none;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
-
-.grid-lojas {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  justify-content: center;
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: white;
-}
-
-.loja {
-  width: 100px;
-  height: 100px;
-  background-color: #d3d3d3;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  margin-inline: 60px;
-}
-
 .destaque {
   border-bottom: solid #3b5c2f 3px;
 }
@@ -124,4 +116,52 @@ footer .info {
 
 footer .info div {
   max-width: 250px;
+}
+
+.form-container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-inline: 20%;
+  margin-block: 40px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  text-align: left;
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: none;
+}
+
+.enviar {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #3b5c2f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
 }
