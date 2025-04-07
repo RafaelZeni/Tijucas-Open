@@ -1,21 +1,15 @@
-<?php
-  include '../../app/views/include/header.php';
-?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <title>Tijucas Open</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/css/lojas.css">
+    <link rel="stylesheet" href="conteudo_livre/assets/css/lojas.css">
 </head>
 <body>
     
     <section class="banner">
-        <img src="./assets/imgs/bannerInterior.jpg" alt="Estacionamento Tijucas Open">
+        <img src="conteudo_livre/assets/imgs/bannerEstacionamento.png" alt="Estacionamento Tijucas Open">
     </section>
 
     <section class="lojas">

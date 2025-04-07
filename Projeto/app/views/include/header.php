@@ -29,7 +29,7 @@
       </li>
     </ul>
   </nav>
-  <a href="../página login/index.html"><button class="btn-entrar">Entrar</button></a>
+  <a href="index.php?page=entrar"><button class="btn-entrar">Entrar</button></a>
 </header>
 
 </body>

@@ -1,5 +1,4 @@
 <?php
-include '../../app/views/include/header.php';
 require '../../app/database/connection.php'; // função conecta_db()
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("sssss", $cnpj, $nome, $telefone, $email, $senhaHash);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Locatário cadastrado com sucesso!'); window.location.href = 'login_data.html';</script>";
+        echo "<script>alert('Locatário cadastrado com sucesso!'); window.location.href = 'proprietario.php';</script>";
     } else {
         echo "<script>alert('Erro ao cadastrar: " . $conn->error . "');</script>";
     }
@@ -37,8 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Tijucas Open</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="">
 </head>
 <body>
@@ -47,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <img src="./assets/imgs/maisde40espaços.jpeg" alt="Estacionamento Tijucas Open">
     <div class="quadrado">
         <section class="form-container">
-            <h3>Entrar</h3>
+            <h3>Cadastrar Locatário</h3>
             <form method="post">
                 <label for="cnpjCAD">CNPJ</label>
                 <input type="text" id="cnpjCAD" name="cnpjCAD" required placeholder="Digite o CNPJ">
@@ -70,28 +67,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div> 
 </section>
 
-<footer>
-    <div class="info">
-        <div class="horarios">
-            <h4>Horários:</h4>
-            <p>Lojas: Seg a Sáb: 10:00 às 22:00 | Dom: 11:00 às 21:00</p>
-            <p>Alimentação: Seg a Sáb: 12:00 às 23:00 | Dom: 12:00 às 22:00</p>
-        </div>
-        <div class="endereco">
-            <h4>Endereço:</h4>
-            <p>Rua XV de Novembro, 1306, Tijucas-SC</p>
-        </div>
-        <div class="contato">
-            <h4>Contato:</h4>
-            <p>Para mais informações, ligue para: XXX-XXXX-XXXX</p>
-        </div>
-        <div class="estacionamento">
-            <h4>Estacionamento:</h4>
-            <p>Gratuito todos os dias da semana</p>
-        </div>
-    </div>
-</footer>
-
-<script src="./script.js"></script>
 </body>
 </html>
