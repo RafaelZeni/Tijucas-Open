@@ -5,9 +5,9 @@
 // $password = "BDSynergy";
 // $dbname = "synergy_db";
 function conecta_db() {
-  $db_name = "db_tijucas"; //db_tijucas
-  $user = "root"; // tijucasopendb
-  $pass = ""; // TijUcasOpenBancodeDados
+  $db_name = "db_tijucas"; //db_tijucas //db_tijucasopen
+  $user = "root"; // tijucasopendb //dbtijucasopen
+  $pass = ""; // TijUcasOpenBancodeDados 
   $server = "localhost:3307"; // 
   
   $conexao = new mysqli($server, $user, $pass, $db_name);
