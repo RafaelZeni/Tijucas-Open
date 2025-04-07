@@ -26,4 +26,7 @@ if(isset($_GET['page'])) {
   include 'main.php';
 }
 
+include '../app/views/include/footer.php';
+
+
 ?>
