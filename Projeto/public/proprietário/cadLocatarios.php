@@ -4,7 +4,7 @@ require '../../app/database/connection.php'; // função conecta_db()
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cnpj = str_replace(['.', '/', '-'], '', $_POST['cnpjCAD']);
     $nome     = $_POST['nomeCAD'];
-    $telefone = $_POST['telefoneCAD'];
+    $telefone = str_replace(['(', ')', ' ', '-'], '', $_POST['telefoneCAD']);
     $email    = $_POST['emailCAD'];
     $senha    = $_POST['passCAD'];
 
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="text" id="nomeCAD" name="nomeCAD" required placeholder="Digite o Nome da empresa">
 
                 <label for="telefoneCAD">Telefone</label>
-                <input type="text" id="telefoneCAD" name="telefoneCAD" required placeholder="Digite o Telefone">
+                <input type="text" id="telefoneCAD" name="telefoneCAD" required placeholder="Digite o Telefone"oninput="formatarTelefone(this)">
 
                 <label for="emailCAD">Email</label>
                 <input type="email" id="emailCAD" name="emailCAD" required placeholder="Digite o E-mail">
@@ -68,26 +68,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </section>
 <script>
     function formatarCNPJ(input) {
-    let valor = input.value.replace(/\D/g, ''); // remove tudo que não for dígito
+      let valor = input.value.replace(/\D/g, ''); 
 
-    if (valor.length > 14) valor = valor.slice(0, 14); // limita a 14 dígitos
+      if (valor.length > 14) valor = valor.slice(0, 14); 
 
-    let formatado = valor;
+      let formatado = valor;
 
-    if (valor.length > 2) {
-      formatado = valor.slice(0, 2) + '.' + valor.slice(2);
-    }
-    if (valor.length > 5) {
-      formatado = formatado.slice(0, 6) + '.' + formatado.slice(6);
-    }
-    if (valor.length > 8) {
-      formatado = formatado.slice(0, 10) + '/' + formatado.slice(10);
-    }
-    if (valor.length > 12) {
-      formatado = formatado.slice(0, 15) + '-' + formatado.slice(15);
-    }
+      if (valor.length > 2) {
+        formatado = valor.slice(0, 2) + '.' + valor.slice(2);
+      }
+      if (valor.length > 5) {
+        formatado = formatado.slice(0, 6) + '.' + formatado.slice(6);
+      }
+      if (valor.length > 8) {
+        formatado = formatado.slice(0, 10) + '/' + formatado.slice(10);
+      }
+      if (valor.length > 12) {
+        formatado = formatado.slice(0, 15) + '-' + formatado.slice(15);
+      }
 
-    input.value = formatado;
+      input.value = formatado;
+
+    function mascararTelefone(input) {
+      let valor = input.value.replace(/\D/g, '').slice(0, 11); // só números, até 11 dígitos
+      let formatado = valor;
+
+      if (valor.length >= 1) {
+        formatado = '(' + valor.substring(0, 2);
+      }
+      if (valor.length >= 3) {
+        formatado += ') ' + valor.substring(2, valor.length >= 7 ? 7 : valor.length);
+      }
+      if (valor.length >= 7) {
+        formatado += '-' + valor.substring(7);
+      }
+
+      input.value = formatado;
+    }
   }
 </script>
 </body>
