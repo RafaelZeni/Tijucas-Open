@@ -67,44 +67,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div> 
 </section>
 <script>
-    function formatarCNPJ(input) {
-      let valor = input.value.replace(/\D/g, ''); 
+  function formatarCNPJ(input) {
+    let valor = input.value.replace(/\D/g, ''); 
 
-      if (valor.length > 14) valor = valor.slice(0, 14); 
+    if (valor.length > 14) valor = valor.slice(0, 14); 
 
-      let formatado = valor;
+    let formatado = valor;
 
-      if (valor.length > 2) {
-        formatado = valor.slice(0, 2) + '.' + valor.slice(2);
-      }
-      if (valor.length > 5) {
-        formatado = formatado.slice(0, 6) + '.' + formatado.slice(6);
-      }
-      if (valor.length > 8) {
-        formatado = formatado.slice(0, 10) + '/' + formatado.slice(10);
-      }
-      if (valor.length > 12) {
-        formatado = formatado.slice(0, 15) + '-' + formatado.slice(15);
-      }
-
-      input.value = formatado;
-
-    function mascararTelefone(input) {
-      let valor = input.value.replace(/\D/g, '').slice(0, 11); // só números, até 11 dígitos
-      let formatado = valor;
-
-      if (valor.length >= 1) {
-        formatado = '(' + valor.substring(0, 2);
-      }
-      if (valor.length >= 3) {
-        formatado += ') ' + valor.substring(2, valor.length >= 7 ? 7 : valor.length);
-      }
-      if (valor.length >= 7) {
-        formatado += '-' + valor.substring(7);
-      }
-
-      input.value = formatado;
+    if (valor.length > 2) {
+      formatado = valor.slice(0, 2) + '.' + valor.slice(2);
     }
+    if (valor.length > 5) {
+      formatado = formatado.slice(0, 6) + '.' + formatado.slice(6);
+    }
+    if (valor.length > 8) {
+      formatado = formatado.slice(0, 10) + '/' + formatado.slice(10);
+    }
+    if (valor.length > 12) {
+      formatado = formatado.slice(0, 15) + '-' + formatado.slice(15);
+    }
+
+    input.value = formatado;
+  }
+  function mascararTelefone(input) {
+    let valor = input.value.replace(/\D/g, '').slice(0, 11); // só números, até 11 dígitos
+    let formatado = valor;
+
+    if (valor.length >= 1) {
+      formatado = '(' + valor.substring(0, 2);
+    }
+    if (valor.length >= 3) {
+      formatado += ') ' + valor.substring(2, valor.length >= 7 ? 7 : valor.length);
+    }
+    if (valor.length >= 7) {
+      formatado += '-' + valor.substring(7);
+    }
+
+    input.value = formatado;
   }
 </script>
 </body>
