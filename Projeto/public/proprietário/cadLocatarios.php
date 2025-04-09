@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="text" id="nomeCAD" name="nomeCAD" required placeholder="Digite o Nome da empresa">
 
                 <label for="telefoneCAD">Telefone</label>
-                <input type="text" id="telefoneCAD" name="telefoneCAD" required placeholder="Digite o Telefone"oninput="formatarTelefone(this)">
+                <input type="text" id="telefoneCAD" name="telefoneCAD" required placeholder="Digite o Telefone" maxlength="15" oninput="mascararTelefone(this)">
 
                 <label for="emailCAD">Email</label>
                 <input type="email" id="emailCAD" name="emailCAD" required placeholder="Digite o E-mail">
