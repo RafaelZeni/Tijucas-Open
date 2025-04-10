@@ -14,6 +14,12 @@ if(isset($_GET['page'])) {
     include 'acessarRelatorios.php';
     
 
+  } else if ($_GET['page'] == 'removerlocatario') {
+    include 'removerLoc.php';
+
+  } else if ($_GET['page'] == 'editarlocatario') {
+    include 'editarLoc.php';
+
   } else {
     header('location: index.php');
 

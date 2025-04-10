@@ -1,0 +1,131 @@
+/* Reset de Margens e Padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Banner */
+.banner {
+  width: 100%;
+  max-width: 1200px;
+  background-color: #ffffff;
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Imagem do Banner */
+.banner img {
+  width: 100%;
+  height: auto;
+  max-width: 600px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Caixa quadrada que contém o formulário */
+.quadrado {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Formulário */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* Título do formulário */
+h3 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Labels */
+label {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Campos de entrada */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+}
+
+/* Botão de envio */
+button.enviar {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button.enviar:hover {
+  background-color: #0056b3;
+}
+
+/* Efeitos de foco nos inputs */
+input:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+}
+
+/* Margens do Banner */
+section.banner {
+  padding: 50px 10px;
+}
+
+/* Seção de aviso */
+.alert {
+  font-size: 16px;
+  padding: 10px;
+  margin: 20px 0;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+}
+
+/* Para dispositivos móveis */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 20px;
+  }
+
+  .banner img {
+    max-width: 100%;
+  }
+}

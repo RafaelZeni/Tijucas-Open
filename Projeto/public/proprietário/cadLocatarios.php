@@ -1,5 +1,5 @@
 <?php
-require '../../app/database/connection.php'; // função conecta_db()
+require '../../app/database/connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cnpj = str_replace(['.', '/', '-'], '', $_POST['cnpjCAD']);
@@ -8,17 +8,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email    = $_POST['emailCAD'];
     $senha    = $_POST['passCAD'];
 
-    // Criptografa a senha antes de enviar pra procedure
     $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
     $conn = conecta_db();
 
-    // Chamada da procedure
     $stmt = $conn->prepare("CALL pr_AdicionarLocatario(?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $cnpj, $nome, $telefone, $email, $senhaHash);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Locatário cadastrado com sucesso!'); window.location.href = 'proprietario.php';</script>";
+        echo "<script>alert('Locatário cadastrado com sucesso!'); window.location.href = 'gerenciarLocatarios.php';</script>";
     } else {
         echo "<script>alert('Erro ao cadastrar: " . $conn->error . "');</script>";
     }
@@ -36,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Tijucas Open</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="conteudo_livre/assets/css/cadLocatarios.php.css">
+    <link rel="stylesheet" href="./assets/cadloc.css">
 </head>
 <body>
 
