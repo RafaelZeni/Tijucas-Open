@@ -27,6 +27,9 @@
       <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/contato.php') ? 'destaque' : '' ?>">
         <a href="index.php?page=contato">Fale Conosco</a>
       </li>
+      <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/mapa.php') ? 'destaque' : '' ?>">
+        <a href="index.php?page=mapa">Mapa-interativo</a>
+      </li>
     </ul>
   </nav>
   <a href="index.php?page=entrar"><button class="btn-entrar">Entrar</button></a>

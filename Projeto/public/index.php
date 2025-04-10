@@ -17,6 +17,8 @@ if(isset($_GET['page'])) {
   } else if ($_GET['page'] == 'entrar') {
     include '../public/conteudo_livre/login.php';
 
+  } else if ($_GET['page'] == 'mapa') {
+    include '../public/conteudo_livre/mapa.php';
 
   } else {
     header('location: index.php');

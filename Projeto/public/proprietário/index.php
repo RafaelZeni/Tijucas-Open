@@ -12,6 +12,7 @@ if(isset($_GET['page'])) {
 
   } else if ($_GET['page'] == 'acessarRelatorios') {
     include 'acessarRelatorios.php';
+    
 
   } else {
     header('location: index.php');
