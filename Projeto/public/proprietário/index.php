@@ -1,6 +1,5 @@
 <?php
 
-include '../app/views/include/header.php';
 
 //ORGANIZAR DIRECIONAMENTOS DAS PÁGINAS
 
@@ -23,7 +22,6 @@ if(isset($_GET['page'])) {
   include 'proprietario.php';
 }
 
-include '../app/views/include/footer.php';
 
 
 ?>

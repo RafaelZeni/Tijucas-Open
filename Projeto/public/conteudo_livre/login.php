@@ -22,10 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             switch ($row['tipo_usu']) {
                 case 'proprietario':
-                    header("Location: ./proprietário/proprietario.php"); 
+                    header("Location: ./proprietário/index.php"); 
                     break;
                 case 'locatario':
-                    header("Location: ./locatário/locatario.php");
+                    header("Location: ./locatário/index.php");
                     break;
                 default:
                     header("Location: login.php");
