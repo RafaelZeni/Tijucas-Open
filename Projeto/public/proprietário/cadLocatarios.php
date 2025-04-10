@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="text" id="cnpjCAD" name="cnpjCAD" required placeholder="Digite o CNPJ" oninput="formatarCNPJ(this)">
 
                 <label for="nomeCAD">Nome</label>
-                <input type="text" id="nomeCAD" name="nomeCAD" required placeholder="Digite o Nome da empresa">
+                <input type="text" id="nomeCAD" name="nomeCAD" required placeholder="Digite o Nome da empresa" oninput="apenasLetras(this)">
 
                 <label for="telefoneCAD">Telefone</label>
                 <input type="text" id="telefoneCAD" name="telefoneCAD" required placeholder="Digite o Telefone" maxlength="15" oninput="mascararTelefone(this)">
@@ -104,6 +104,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     input.value = formatado;
+  }
+  function apenasLetras(campo) {
+    campo.value = campo.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '');
   }
 </script>
 </body>
