@@ -21,6 +21,7 @@
         <div class="row">
             <div class="col">
                 <a href="cadLocatarios.php" class="btn btn-primary mb-3">Cadastrar Locatário</a>
+                <a href="proprietario.php" class="btn btn-dark mb-3">Voltar</a>
                 <table class="table">
                     <thead>
                         <tr>
