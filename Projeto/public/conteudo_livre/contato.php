@@ -13,8 +13,8 @@
     <section class="form-container">
         <h2>Fale Conosco:</h2>
         <form action="../página agradecimento/index.html" method="POST">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" required placeholder="DIgite seu nome aqui...">
+        <label for="nomeCAD">Nome</label>
+        <input type="text" id="nomeCAD" name="nomeCAD" required placeholder="Digite o Nome da empresa" oninput="apenasLetras(this)">
 
             <label for="sobrenome">Sobrenome</label>
             <input type="text" id="sobrenome" name="sobrenome" required placeholder="Digite seu sobrenome aqui...">
@@ -28,7 +28,10 @@
             <a class="enviar" href="../página agradecimento/index.html">Enviar</a>
         </form>
     </section>
-
-    <script src="./script.js"></script>
+    <script>
+        function apenasLetras(input) {
+            input.value = input.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '');
+        }
+    </script>
 </body>
 </html>

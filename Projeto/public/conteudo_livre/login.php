@@ -72,7 +72,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </section>
     </div> 
 </section>
-
-<script src="./script.js"></script>
 </body>
 </html>
