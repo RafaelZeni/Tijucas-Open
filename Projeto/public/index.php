@@ -17,6 +17,7 @@ if(isset($_GET['page'])) {
   } else if ($_GET['page'] == 'entrar') {
     include '../public/conteudo_livre/login.php';
 
+
   } else {
     header('location: index.php');
 
