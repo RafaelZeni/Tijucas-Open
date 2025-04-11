@@ -44,13 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="quadrado">
         <section class="form-container">
             <h3>Cadastrar Locatário</h3>
-            <a href="gerenciarLocatarios.php" class="btn btn-dark mb-3">Voltar</a>
+            <a href="index.php?page=gerenciarLocatarios" class="btn btn-dark mb-3">Voltar</a>
             <form method="post">
-                <label for="cnpjCAD">CNPJ</label>
-                <input type="text" id="cnpjCAD" name="cnpjCAD" required placeholder="Digite o CNPJ" oninput="formatarCNPJ(this)">
-
                 <label for="nomeCAD">Nome</label>
                 <input type="text" id="nomeCAD" name="nomeCAD" required placeholder="Digite o Nome da empresa" oninput="apenasLetras(this)">
+
+                <label for="cnpjCAD">CNPJ</label>
+                <input type="text" id="cnpjCAD" name="cnpjCAD" required placeholder="Digite o CNPJ" oninput="formatarCNPJ(this)">
 
                 <label for="telefoneCAD">Telefone</label>
                 <input type="text" id="telefoneCAD" name="telefoneCAD" required placeholder="Digite o Telefone" maxlength="15" oninput="mascararTelefone(this)">

@@ -21,10 +21,10 @@
 
     <div class="container">
         <div class="button-container">
-            <a href="visualizarEspacos.php" class="action-button">
+            <a href="index.php?page=visualizarEspacos" class="action-button">
                 <span>Visualizar Espaços</span>
             </a>
-            <a href="gestãoContratos.php" class="action-button">
+            <a href="index.php?page=gestaoContratos" class="action-button">
                 <span>Gestão de Contratos</span>
             </a>
         </div>

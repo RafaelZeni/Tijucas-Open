@@ -28,6 +28,19 @@
     }
 ?>
 
+<?php
+          $empresa_id = $_GET['id'];
+          $obj = conecta_db();
+          $query = "SELECT * FROM tb_locatarios WHERE empresa_id = ?";
+          $stmt = $obj->prepare($query);
+          $stmt->bind_param("i", $empresa_id);
+          $stmt->execute();
+          $result = $stmt->get_result();
+          $locatario = $result->fetch_object();
+          $stmt->close();
+          $obj->close();
+        ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,25 +55,14 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col">
-        <h2>Editar Locatário - ID: <?php echo $_GET['id']; ?> </h2>
-        <a href="gerenciarLocatarios.php" class="btn btn-dark mb-3">Voltar</a>
+        <h2>Editando Locatário - <?php echo $locatario->empresa_nome; ?></h2>
+
+        <a href="index.php?page=gerenciarLocatarios" class="btn btn-dark mb-3">Voltar</a>
       </div>
     </div>
 
     <div class="row">
       <div class="col">
-        <?php
-          $empresa_id = $_GET['id'];
-          $obj = conecta_db();
-          $query = "SELECT * FROM tb_locatarios WHERE empresa_id = ?";
-          $stmt = $obj->prepare($query);
-          $stmt->bind_param("i", $empresa_id);
-          $stmt->execute();
-          $result = $stmt->get_result();
-          $locatario = $result->fetch_object();
-          $stmt->close();
-          $obj->close();
-        ?>
 
         <form method="POST" action="editarLoc.php?id=<?php echo $_GET['id']; ?>">
           <div class="mb-3">

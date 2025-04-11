@@ -14,6 +14,9 @@ if(isset($_GET['page'])) {
     include 'acessarRelatorios.php';
     
 
+  } else if ($_GET['page'] == 'cadLocatarios') {
+    include 'cadLocatarios.php';
+
   } else if ($_GET['page'] == 'removerlocatario') {
     include 'removerLoc.php';
 
