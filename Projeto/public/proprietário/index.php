@@ -1,5 +1,6 @@
 <?php
 
+include '../../app/views/include/headerProp.php';
 
 //ORGANIZAR DIRECIONAMENTOS DAS PÁGINAS
 
