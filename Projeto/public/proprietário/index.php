@@ -1,6 +1,5 @@
 <?php
 
-include '../../app/views/include/headerProp.php';
 
 //ORGANIZAR DIRECIONAMENTOS DAS PÁGINAS
 
@@ -33,6 +32,7 @@ if(isset($_GET['page'])) {
   }
 
 } else {
+  include '../../app/views/include/headerProp.php';
   include 'proprietario.php';
 }
 
