@@ -7,7 +7,7 @@
     <title>Header Proprietário</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../conteudo_livre/assets/css/main.css" rel="stylesheet">
-    <link href="./assets/proprietario.css" rel="stylesheet">
+    <link href="../../app/views/include/headerProp.css" rel="stylesheet">
 </head>
 
 <body>

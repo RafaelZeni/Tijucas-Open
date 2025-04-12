@@ -34,13 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Tijucas Open</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/cadloc.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/cadloc.css">
 </head>
 <body>
 
 <section class="banner">
-    <img src="./assets/imgs/maisde40espaços" alt="Estacionamento Tijucas Open">
+    <img src="../conteudo_livre/assets/imgs/maisde40espaços.jpeg" alt="Estacionamento Tijucas Open">
     <div class="quadrado">
         <section class="form-container">
             <h3>Cadastrar Locatário</h3>
