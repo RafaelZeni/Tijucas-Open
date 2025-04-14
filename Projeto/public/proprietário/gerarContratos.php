@@ -34,13 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Preenche os dados 
         if ($i === 1) {
-            $pdf->SetXY(35, 104);
+            $pdf->SetXY(30, 104);
             $pdf->Write(10, utf8_decode($nome));
 
-            $pdf->SetXY(35, 147);
+            $pdf->SetXY(30, 147);
             $pdf->Write(10, utf8_decode($cnpj));
 
-            $pdf->SetXY(35, 167);
+            $pdf->SetXY(30, 167);
             $pdf->Write(10, utf8_decode($endereco));
         }
 
