@@ -4,58 +4,6 @@ body {
   background-color: white;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: white;
-  transition: background-color 0.3s, opacity 0.3s;
-  z-index: 1000;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-header.scrolled {
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(5px);
-}
-
-.logo img {
-  height: 60px;
-  border-radius: 20px;
-  margin-left: 20px;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-}
-
-nav ul li a {
-  text-decoration: none;
-  color: black;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.btn-entrar {
-  background-color: #3b5c2f;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  cursor: pointer;
-  font-size: 18px;
-  position: relative;
-  right: 0;
-  border-radius: 10px;
-  margin-right: 20px;
-}
-
 .banner img {
   margin-top: 100px;
   width: 100%;
@@ -101,27 +49,4 @@ h2 {
   border-radius: 8px;
   margin-bottom: 20px;
   margin-inline: 60px;
-}
-
-.destaque {
-  border-bottom: solid #3b5c2f 3px;
-}
-footer {
-  padding: 40px;
-  display: flex;
-  justify-content: space-between;
-  text-align: left;
-  background-color: #f4f4f4;
-}
-
-footer .info {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-footer .info div {
-  max-width: 250px;
 }
