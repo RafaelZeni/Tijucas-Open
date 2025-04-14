@@ -42,6 +42,5 @@
     </section>
     
 
-    <script src="./UtilsPages/Js/Lojas.js"></script>
 </body>
 </html>

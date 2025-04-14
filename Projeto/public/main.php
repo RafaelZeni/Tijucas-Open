@@ -16,6 +16,5 @@
         <img src="conteudo_livre/assets/imgs/imagemInterior.jpg" alt="Interior Tijucas Open">
     </section>
 
-    <script src="conteudo_livre/assets/js/main.js"></script>
 </body>
 </html>
