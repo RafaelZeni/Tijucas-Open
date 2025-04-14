@@ -21,4 +21,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/defaultwebsite/public # ou a pasta certa no servidor
-            git pull
+            git pull origin main
