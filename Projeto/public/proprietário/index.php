@@ -1,5 +1,6 @@
 <?php
 
+include '../../app/views/include/headerProp.php';
 
 //ORGANIZAR DIRECIONAMENTOS DAS PÁGINAS
 
@@ -9,10 +10,12 @@ if(isset($_GET['page'])) {
     
   } else if ($_GET['page'] == 'gerenciarContratos') {
     include 'gerenciarContratos.php';
+
+  } else if ($_GET['page'] == 'gerenciarEspacos') {
+    include 'gerenciarEspacos.php';
     
   } else if ($_GET['page'] == 'acessarRelatorios') {
-    include 'acessarRelatorios.php';
-    
+    include 'acessarRelatorios.php';    
     
   } else if ($_GET['page'] == 'gerarContratos') {
     include 'gerarContratos.php';
@@ -25,6 +28,12 @@ if(isset($_GET['page'])) {
     
   } else if ($_GET['page'] == 'editarlocatario') {
     include 'editarLoc.php';
+
+  } else if ($_GET['page'] == 'removercontrato') {
+    include 'editarLoc.php';
+
+  } else if ($_GET['page'] == 'editarcontrato') {
+    include 'editarLoc.php';
     
   } else {
     header('location: index.php');
@@ -32,7 +41,6 @@ if(isset($_GET['page'])) {
   }
   
 } else {
-  include '../../app/views/include/headerProp.php';
   include 'proprietario.php';
 }
 
