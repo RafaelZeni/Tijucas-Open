@@ -1,21 +1,24 @@
-name: Deploy to Umbler
+name: Deploy via SSH to Umbler
 
 on:
   push:
     branches:
-      - main # ou a branch que você usa para deploy
+      - main # ou a branch que você usa pra fazer o deploy
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout código
+      - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Envia arquivos para Umbler via API
-        uses: umbler/deploy-action@v1.0.0
+      - name: Executar comandos via SSH
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          api_key: ${{ secrets.UMBLER_API_KEY }}
-          site: ${{ secrets.UMBLER_SITE }}
-          email: ${{ secrets.UMBLER_EMAIL }}
-          dir: Tijucas-Open
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/defaultwebsite/public # ou a pasta certa no servidor
+            git pull
