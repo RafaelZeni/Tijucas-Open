@@ -1,30 +1,29 @@
 <?php
-// Carrega automaticamente todas as bibliotecas instaladas pelo Composer
+// Carrega as bibliotecas instaladas pelo Composer
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-// Usa a classe Fpdi para importar e manipular arquivos PDF existentes
+//FDPI pra manipular os PDfs salvos
 use setasign\Fpdi\Fpdi;
 
-// Verifica se o formulário foi enviado via POST
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Captura os dados enviados pelo formulário
     $nome = $_POST['nome'];
     $cnpj = $_POST['cnpj'];
     $endereco = $_POST['endereco'];
-    $modelo = $_POST['modelo']; // ex: "assets/imgs/1.pdf"
+    $modelo = $_POST['modelo']; 
     $dataBr = DateTime::createFromFormat('Y-m-d', $_POST['data'])->format('d/m/Y');
- // nova data
+ 
 
-    // Gera o caminho completo até o arquivo PDF modelo
+    //caminho completo até o arquivo PDF modelo
     $caminhoPdf = __DIR__ . '/' . $modelo;
 
-    // Cria uma nova instância do FPDI
+    //nova instância do FPDI
     $pdf = new Fpdi();
 
-    // Conta quantas páginas o PDF possui
+    //quantas páginas o PDF possui
     $totalPaginas = $pdf->setSourceFile($caminhoPdf);
 
-    // Loop por todas as páginas do PDF
+    //Loop por todas as páginas do PDF
     for ($i = 1; $i <= $totalPaginas; $i++) {
         $pdf->AddPage();                 // Cria uma nova página no PDF final
         $tpl = $pdf->importPage($i);     // Importa a página $i do contrato
@@ -33,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdf->SetFont('Arial');
         $pdf->SetTextColor(0, 0, 0);
 
-        // Preenche os dados na primeira página
+        // Preenche os dados 
         if ($i === 1) {
             $pdf->SetXY(35, 104);
             $pdf->Write(10, utf8_decode($nome));
