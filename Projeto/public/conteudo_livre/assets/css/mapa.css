@@ -17,6 +17,28 @@ body {
   text-align: center;
 }
 
+.link-andar button {  
+  padding: 10px 20px; /* Espaçamento interno */
+  background-color: #3b5c2f; /* Cor de fundo */
+  color: white; /* Cor do texto */
+  border: none; /* Remove a borda padrão */
+  border-radius: 5px; /* Deixa as bordas arredondadas */
+  cursor: pointer; /* Muda o cursor ao passar por cima */
+  margin: 5px; /* Espaçamento entre os botões */
+  font-size: 1em; /* Tamanho da fonte (ajuste conforme necessário) */
+  font-family: Arial, sans-serif; /* Fonte (você pode alterar) */
+  transition: background-color 0.3s ease; /* Adiciona uma transição suave para o hover */
+}
+
+.link-andar button:hover {
+  background-color: #5c8a4e; /* Cor de fundo mais clara ao passar o mouse */
+}
+
+.link-andar button:focus {
+  outline: none; /* Remove a borda de foco padrão */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Adiciona uma sombra sutil ao receber foco */
+}
+
 #botaoregistro {
   padding: 10px 20px;
   background-color: #3b5c2f;
@@ -31,4 +53,19 @@ body {
   margin: 0 auto;
   max-width: 100%;
   text-align: center;
+}
+
+.mapa-container {
+  height: 600px;
+  width: 95%;
+  max-width: 1000px;
+  margin: 0 auto;
+  border: 2px solid #3b5c2f;
+  border-radius: 10px;
+}
+#map {
+  height: 600px;
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid #3b5c2f;
 }
