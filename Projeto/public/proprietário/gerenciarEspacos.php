@@ -24,8 +24,9 @@
                             <td>#</td>
                             <td>ID</td>
                             <td>Piso</td>
-                            <td>Área</td>
+                            <td>Área(m<sup>2</sup>)</td>
                             <td>Status</td>
+                            <td>Ocupado Por</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,18 +34,22 @@
                             require '../../app/database/connection.php';
 
                             $obj = conecta_db();
-                            $query = "SELECT espaco_id, espaco_piso, espaco_area, espaco_status FROM tb_espacos";
+                            $query = "SELECT e.espaco_id, e.espaco_piso, e.espaco_area, e.espaco_status, lo.empresa_nome 
+                            FROM tb_espacos e 
+                            LEFT JOIN tb_lojas l ON e.espaco_id = l.espaco_id
+                            LEFT JOIN tb_contrato c ON l.loja_id = c.loja_id
+                            LEFT JOIN tb_locatarios lo ON c.empresa_id = lo.empresa_id";
                             $resultado = $obj->query($query);
 
                             while($linha = $resultado->fetch_object()){
                                 $html = "<tr>";
-                                $html .= "<td><a class='btn btn-danger' href='index.php?page=removerEspaco&id=".$linha->espaco_id."'>Excluir</a>";
-                                $html .= "<a class='btn btn-success' href='index.php?page=editarEspaco&id=".$linha->espaco_id."'>Editar</a></td>";
+                                $html .= "<td><a class='btn btn-success' href='index.php?page=editarEspaco&id=".$linha->espaco_id."'>Editar</a></td>";
                                 $html .= "<td>".$linha->espaco_id."</td>";
                                 $html .= "<td>".$linha->espaco_piso."</td>";
                                 $html .= "<td>".$linha->espaco_area."</td>";
                                 $html .= "<td>".$linha->espaco_status."</td>";
-                                $html .= "<tr>";
+                                $html .= "<td>".$linha->empresa_nome."</td>";
+                                $html .= "</tr>";
                                 echo $html;
                             }
                         ?>
