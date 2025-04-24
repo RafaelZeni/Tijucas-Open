@@ -1,81 +1,75 @@
 <?php
-// Carrega as bibliotecas instaladas pelo Composer
 require_once __DIR__ . '/../../vendor/autoload.php';
-
-//FDPI pra manipular os PDfs salvos
 use setasign\Fpdi\Fpdi;
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    ob_clean(); // limpa qualquer saída anterior
+    ob_start(); // inicia buffer de saída
+
     $nome = $_POST['nome'];
     $cnpj = $_POST['cnpj'];
-    $endereco = $_POST['endereco'];
+    $loja = $_POST['loja'];
+    $espaço = $_POST['espaço'];
     $modelo = $_POST['modelo']; 
-    $dataBr = DateTime::createFromFormat('Y-m-d', $_POST['data'])->format('d/m/Y');
- 
+    $data = DateTime::createFromFormat('Y-m-d', $_POST['data']);
+    $dataBr = $data->format('d/m/Y');
 
-    //caminho completo até o arquivo PDF modelo
     $caminhoPdf = __DIR__ . '/' . $modelo;
-
-    //nova instância do FPDI
     $pdf = new Fpdi();
-
-    //quantas páginas o PDF possui
     $totalPaginas = $pdf->setSourceFile($caminhoPdf);
 
-    //Loop por todas as páginas do PDF
     for ($i = 1; $i <= $totalPaginas; $i++) {
-        $pdf->AddPage();                 // Cria uma nova página no PDF final
-        $tpl = $pdf->importPage($i);     // Importa a página $i do contrato
-        $pdf->useTemplate($tpl);         // Usa a página importada como fundo
+        $pdf->AddPage();
+        $tpl = $pdf->importPage($i);
+        $pdf->useTemplate($tpl);
 
         $pdf->SetFont('Arial');
         $pdf->SetTextColor(0, 0, 0);
 
-        // Preenche os dados 
         if ($i === 1) {
-            $pdf->SetXY(30, 104);
+            $pdf->SetXY(112, 117);
             $pdf->Write(10, utf8_decode($nome));
 
-            $pdf->SetXY(30, 147);
+            
+            $pdf->SetXY(30, 117); 
+            $pdf->Write(10, utf8_decode("Cristiano Ramos de Lima"));  
+            
+
+            $pdf->SetXY(128, 69);
             $pdf->Write(10, utf8_decode($cnpj));
 
-            $pdf->SetXY(30, 167);
-            $pdf->Write(10, utf8_decode($endereco));
+            $pdf->SetXY(61, 229);
+            $pdf->Write(10, utf8_decode($espaço));
+
+            $pdf->SetXY(50, 235);
+            $pdf->Write(10, utf8_decode($loja));
         }
 
-        // Preenche a data no final da segunda página
-        if ($i === 2) {
-            $pdf->SetXY(44, 241); // Ajuste se quiser mudar a posição
-            $pdf->Write(10, utf8_decode( $dataBr));
+        if ($i === 5) {
+            $pdf->SetXY(45, 163);
+            $pdf->Write(10, utf8_decode(" $dataBr"));
         }
     }
 
-    // Gera e envia o PDF para download com o nome personalizado
     $pdf->Output('D', "Contrato_" . utf8_decode($nome) . ".pdf");
     exit;
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gerar Contrato</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="p-4">
 
   <a href="index.php?page=gerenciarContratos" class="btn btn-dark mb-3">Voltar</a>
-
-  <h2>Preencha os dados do locatário e selecione o contrato:</h2>
+  <h2>Preencha os dados do locatário para criar o contrato:</h2>
     
   <form method="POST">
-      <div class="mb-3">
-          <label class="form-label">Nome:</label>
-          <input type="text" name="nome" class="form-control" required>
-      </div>
 
       <div class="mb-3">
           <label class="form-label">CNPJ:</label>
@@ -83,20 +77,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 
       <div class="mb-3">
-          <label class="form-label">Endereço:</label>
-          <input type="text" name="endereco" class="form-control" required>
+          <label class="form-label">Nome:</label>
+          <input type="text" name="nome" class="form-control" required>
       </div>
 
       <div class="mb-3">
-          <label class="form-label">Data:</label>
+          <label class="form-label">Nome da Loja:</label>
+          <input type="text" name="loja" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+          <label class="form-label">Selecione o espaço alugado:</label>
+          <select name="espaço" class="form-select" required>
+              <?php
+                for ($i = 1; $i <= 24; $i++) {
+                    echo "<option value='Espaço $i'>Espaço $i</option>";
+                }
+              ?>
+          </select>
+      </div>
+
+      <div class="mb-3">
+          <label class="form-label">Data de Início: (Contrato valido por 12 meses)</label>
           <input type="date" name="data" class="form-control" required>
       </div>
 
       <div class="mb-3">
-          <label class="form-label">Selecione o tipo de contrato:</label>
+          <label class="form-label">Tipo de contrato:</label>
           <select name="modelo" class="form-select" required>
-              <option value="assets/imgs/1.pdf">MIDIA PREMIUM</option>
-              <option value="assets/imgs/2.pdf">MIDIA INTERMEDIÁRIO</option>
+              <option value="assets/imgs/1.pdf">CONTRATO DE LOCAÇÃO</option>
           </select>
       </div>
 
