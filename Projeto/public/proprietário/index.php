@@ -33,7 +33,10 @@ if(isset($_GET['page'])) {
     include 'gerenciarEspacos.php';
     
   } else if ($_GET['page'] == 'editarEspaco') {
-    include 'editarEspaco.php';    
+    include 'editarEspaco.php';
+    
+  } else if ($_GET['page'] == 'cadLojas') {
+    include 'cadLojas.php'; 
 
   } else if ($_GET['page'] == 'acessarRelatorios') {
     include 'acessarRelatorios.php';    
