@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'proprietario') {
+if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'locatario') {
     header("Location: /Tijucas-Open/Projeto/public/index.php?page=entrar");
     exit();
 }
