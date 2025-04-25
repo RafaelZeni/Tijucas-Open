@@ -9,10 +9,10 @@ if (isset($_POST['espaco_piso']) && isset($_POST['espaco_area']) && isset($_POST
 
     $obj = conecta_db();
 
-    $query = "CALL pr_editarEspaco(?, ?, ?, ?)";
+    $query = "CALL pr_editarEspaco(?, ?)";
 
     $stmt = $obj->prepare($query);
-    $stmt->bind_param("isss", $espaco_id, $espaco_piso, $espaco_area, $espaco_status);
+    $stmt->bind_param("is", $espaco_id, $espaco_area);
     $resultado = $stmt->execute();
 
     if ($resultado) {

@@ -1,14 +1,3 @@
-<?php
-
-/* ANÁLISE NECESSÁRIA */
-
-
-
-?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,6 +26,7 @@
               <th>ID</th>
               <th>Nome da Empresa</th>
               <th>Data do Início</th>
+              <th>Data do Término</th>
             </tr>
           </thead>
           <tbody>
@@ -48,6 +38,13 @@
             $resultado = $obj->query($query);
 
             while ($linha = $resultado->fetch_object()) {
+              //Rafael: faz com que apareça a data de fim, como definida no contrato, 12 meses após a data inicial
+              $data_inicio = new DateTime($linha->data_inicio);
+              $data_inicio_formatada = $data_inicio->format('d-m-Y');
+
+              $data_fim = $data_inicio->add(new DateInterval('P12M'))->format('d-m-Y');
+
+
               $html = "<tr>";
               $html .= "<td>
                           <a class='btn btn-danger' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "'>Excluir</a>
@@ -55,7 +52,8 @@
                       </td>";
               $html .= "<td>" . $linha->contrato_id . "</td>";
               $html .= "<td>" . $linha->empresa_nome . "</td>";
-              $html .= "<td>" . $linha->data_inicio . "</td>";
+              $html .= "<td>" . $data_inicio_formatada . "</td>";
+              $html .= "<td>" . $data_fim . "</td>";
               $html .= "</tr>";
               echo $html;
             }
