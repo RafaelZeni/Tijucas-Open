@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'proprietario') {
+    header("Location: /Tijucas-Open/Projeto/public/index.php?page=entrar");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
