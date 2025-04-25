@@ -1,4 +1,30 @@
 <?php
+/* ANÁLISE NECESSÁRIA */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 require_once __DIR__ . '/../../vendor/autoload.php';
 use setasign\Fpdi\Fpdi;
 
@@ -69,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <a href="index.php?page=gerenciarContratos" class="btn btn-dark mb-3">Voltar</a>
   <h2>Preencha os dados do locatário para criar o contrato:</h2>
     
-  <form method="POST">
+  <form method="POST" action="addContrato.php">
 
       <div class="mb-3">
           <label class="form-label">CNPJ:</label>

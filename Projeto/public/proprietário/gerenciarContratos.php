@@ -1,3 +1,14 @@
+<?php
+
+/* ANÁLISE NECESSÁRIA */
+
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,15 +37,13 @@
               <th>ID</th>
               <th>Nome da Empresa</th>
               <th>Data do Início</th>
-              <th>Data do Fim</th>
-              <th>Contrato</th>
             </tr>
           </thead>
           <tbody>
             <?php
             require '../../app/database/connection.php';
             $obj = conecta_db();
-            $query = "SELECT c.contrato_id, l.empresa_nome, c.data_inicio, c.data_fim, c.pdf_contrato FROM tb_contrato c JOIN tb_locatarios l ON c.empresa_id = l.empresa_id";
+            $query = "SELECT c.contrato_id, l.empresa_nome, c.data_inicio, c.nome_loc FROM tb_contrato c JOIN tb_locatarios l ON c.empresa_id = l.empresa_id";
 
             $resultado = $obj->query($query);
 
@@ -44,10 +53,9 @@
                           <a class='btn btn-danger' href='index.php?page=removerContrato&id='" . $linha->contrato_id . "'>Excluir</a>
                           <a class='btn btn-success' href='index.php?page=editarContrato&id='" . $linha->contrato_id . "'>Editar</a>
                       </td>";
+              $html .= "<td>" . $linha->contrato_id . "</td>";
               $html .= "<td>" . $linha->empresa_nome . "</td>";
               $html .= "<td>" . $linha->data_inicio . "</td>";
-              $html .= "<td>" . $linha->data_fim . "</td>";
-              $html .= "<td>" . $linha->pdf_contrato . "</td>";
               $html .= "</tr>";
               echo $html;
             }
