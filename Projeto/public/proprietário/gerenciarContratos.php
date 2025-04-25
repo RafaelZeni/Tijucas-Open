@@ -50,8 +50,8 @@
             while ($linha = $resultado->fetch_object()) {
               $html = "<tr>";
               $html .= "<td>
-                          <a class='btn btn-danger' href='index.php?page=removerContrato&id='" . $linha->contrato_id . "'>Excluir</a>
-                          <a class='btn btn-success' href='index.php?page=editarContrato&id='" . $linha->contrato_id . "'>Editar</a>
+                          <a class='btn btn-danger' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "'>Excluir</a>
+                          <a class='btn btn-success' href='index.php?page=editarContrato&id=" . $linha->contrato_id . "'>Editar</a>
                       </td>";
               $html .= "<td>" . $linha->contrato_id . "</td>";
               $html .= "<td>" . $linha->empresa_nome . "</td>";

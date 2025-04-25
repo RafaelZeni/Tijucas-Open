@@ -1,24 +1,6 @@
 <?php
 /* ANÁLISE NECESSÁRIA */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     require '../../app/database/connection.php';
 
     if (isset($_GET['id'])){
@@ -31,7 +13,7 @@
         $stmt = $obj->prepare($query);
 
         if ($stmt === false) {
-            echo "Erro ao preparar consulta: " . $obj->error;
+            echo "Erro ao preparar consulta: ";
             exit;
         }
 
@@ -40,7 +22,6 @@
 
         if ($stmt->execute()) {
             echo "<script>
-                        alert('Contrato removido com sucesso!');
                         window.location.href = 'index.php?page=gerenciarContratos';
                    </script>";
         } else {

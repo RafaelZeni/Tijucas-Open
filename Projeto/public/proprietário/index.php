@@ -23,7 +23,7 @@ if(isset($_GET['page'])) {
   } else if ($_GET['page'] == 'gerarContratos') {
     include 'gerarContratos.php';
     
-  } else if ($_GET['page'] == 'removercontrato') {
+  } else if ($_GET['page'] == 'removerContrato') {
     include 'removerContrato.php';
 
   } else if ($_GET['page'] == 'editarcontrato') {

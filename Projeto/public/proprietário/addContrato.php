@@ -2,26 +2,6 @@
 /* ANÁLISE NECESSÁRIA */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Verificar se todos os campos do formulário foram enviados
