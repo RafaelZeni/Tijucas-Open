@@ -101,13 +101,13 @@ while ($row = $result->fetch_assoc()) {
 
         <label>Tipo da Loja:</label>
         <select name="loja_tipo" required>
-            <option value="restaurante">Restaurante</option>
-            <option value="roupas">Roupas</option>
-            <option value="informatica">Informática</option>
-            <option value="esportes">Esportes</option>
+            <option value="Alimentação">Restaurante</option>
+            <option value="Roupas">Roupas</option>
+            <option value="Esportes">Esportes</option>
+            <option value="Livros">Livros</option>
         </select><br>
 
-        <label>Logo da Loja (500px x 500px):</label>
+        <label>Logo da Loja:</label>
         <input type="file" name="loja_logo" required><br>
 
         <input type="submit" value="Cadastrar Loja">
