@@ -47,7 +47,7 @@
 
               $html = "<tr>";
               $html .= "<td>
-                          <a class='btn btn-danger' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "'>Excluir</a>
+                          <a class='btn btn-danger' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "' onclick=\"return confirm('Tem certeza que deseja excluir este contrato?')\">Excluir</a>
                           <a class='btn btn-success' href='index.php?page=editarContrato&id=" . $linha->contrato_id . "'>Editar</a>
                       </td>";
               $html .= "<td>" . $linha->contrato_id . "</td>";
