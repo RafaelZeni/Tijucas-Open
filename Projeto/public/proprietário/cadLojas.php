@@ -9,16 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $destPath = $uploadDir . $uniqueName;
     $fullPath = __DIR__ . '/' . $destPath;
 
-    list($width, $height) = getimagesize($_FILES['loja_logo']['tmp_name']);
-    if ($width !== 500 || $height !== 500) {
-        echo "<script>alert('A imagem deve ter 500px por 500px!'); window.location.href = 'index.php?page=cadLojas';</script>";
-        exit;
-    }
-
     if (move_uploaded_file($_FILES['loja_logo']['tmp_name'], $fullPath)) {
         $logoPath = 'conteudo_livre/assets/imgs/' . $uniqueName;
     } else {
-        echo "<script>alert('Erro ao mover arquivo de imagem'); window.location.href = 'cadLojas.php';</script>";
+        echo "<script>alert('Erro ao mover arquivo de imagem'); window.location.href = 'index.php?page=cadLojas';</script>";
         exit;
     }
 
