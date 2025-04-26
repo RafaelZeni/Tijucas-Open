@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Inserir na tabela tb_contrato
-    $insert = $obj->prepare("INSERT INTO tb_contrato (empresa_id, data_inicio, nome_loc) VALUES (?, ?, ?)");
+    $insert = $obj->prepare("CALL pr_CriarContrato(?, ?, ?)");
     $insert->bind_param("iss", $empresa_id, $dataFormatadaBanco, $nome);
     if ($insert->execute()) {
         

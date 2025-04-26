@@ -19,19 +19,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $andar = $_POST['loja_andar'];
     $tipo = $_POST['loja_tipo'];
     $espaco_id = $_POST['espaco_id'];
-
-    $sql = "INSERT INTO tb_lojas (espaco_id, loja_nome, loja_telefone, loja_logo, loja_andar, loja_tipo)
-            VALUES (?, ?, ?, ?, ?, ?)";
+    
+    // Agora chamamos direto a procedure
+    $sql = "CALL pr_CriarLoja(?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("isssss", $espaco_id, $nome, $telefone, $logoPath, $andar, $tipo);
-
+    
     if ($stmt->execute()) {
-        $conn->query("UPDATE tb_espacos SET espaco_status = 'Alugado' WHERE espaco_id = $espaco_id");
         echo "<script>alert('Loja cadastrada com sucesso!'); window.location.href = 'index.php';</script>";
     } else {
         echo "Erro ao cadastrar: " . $stmt->error;
     }
-
+    
     $stmt->close();
 }
 
