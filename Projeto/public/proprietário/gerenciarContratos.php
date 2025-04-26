@@ -41,9 +41,9 @@
             while ($linha = $resultado->fetch_object()) {
               $html = "<tr>";
               $html .= "<td>
-                          <a class='btn btn-danger' href='index.php?page=removerContrato&id='" . $linha->contrato_id . "'>Excluir</a>
-                          <a class='btn btn-success' href='index.php?page=editarContrato&id='" . $linha->contrato_id . "'>Editar</a>
-                      </td>";
+                                        <a class='btn btn-danger' onclick='return confirm(\"Tem certeza que deseja excluir esse contrato?\")' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "'>Excluir</a>
+                                        <a class='btn btn-success' onclick='return confirm(\"Editar locatários?\")' href='index.php?page=editarContrato&id=" . $linha->contrato_id . "'>Editar</a>
+                                    </td>";
               $html .= "<td>" . $linha->empresa_nome . "</td>";
               $html .= "<td>" . $linha->data_inicio . "</td>";
               $html .= "<td>" . $linha->data_fim . "</td>";

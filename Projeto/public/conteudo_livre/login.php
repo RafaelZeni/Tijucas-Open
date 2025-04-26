@@ -44,16 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<!-- HTML aqui embaixo SEM ELSE -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <title>Tijucas Open</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="conteudo_livre/assets/css/login.css">
+    <link rel="stylesheet" href="conteudo_livre/assets/css/style_conteudo_livre.css">
 </head>
-<body>
+<body class="login">
 
 <section class="banner">
     <img src="conteudo_livre/assets/imgs/maisde40espaços.jpeg" alt="Estacionamento Tijucas Open">

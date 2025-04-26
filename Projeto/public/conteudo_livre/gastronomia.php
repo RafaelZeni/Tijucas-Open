@@ -4,9 +4,9 @@
     <title>Tijucas Open</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="conteudo_livre/assets/css/gastronomia.css">
+    <link rel="stylesheet" href="conteudo_livre/assets/css/style_conteudo_livre.css">
 </head>
-<body>
+<body class="gastronomia">
     
     <section class="banner">
         <img src="conteudo_livre/assets/imgs/bannerInterior.jpg" alt="Estacionamento Tijucas Open">
