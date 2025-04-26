@@ -1,0 +1,463 @@
+/*css da gastronomia----------------------------------------------------------*/
+.gastronomia{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: white;
+  }
+  
+.gastronomia .banner img {
+  margin-top: 100px;
+  width: 100%;
+  height: auto;
+  display: block;
+  border: none;
+}
+
+.gastronomia .explorar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 80px;
+  padding-bottom: 40px;
+  background-color: white;
+  position: relative;
+}
+
+.gastronomia .lojas {
+  text-align: center;
+  margin: 50px 0 white;
+  background-color: white;
+}
+
+.gastronomia h2 {
+  font-size: 34px;
+}
+
+.gastronomia .grid-lojas {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.gastronomia .loja {
+  width: 100px;
+  height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+  background-color: #d3d3d3;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  margin-inline: 60px;
+}
+
+/*css do contato-----------------------------------------------------------------------------*/
+.contato body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: white;
+}
+
+.contato .banner img {
+  margin-top: 100px;
+  width: 100%;
+  height: auto;
+  display: block;
+  border: none;
+}
+
+.contato .explorar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 80px;
+  padding-bottom: 40px;
+  background-color: white;
+  position: relative;
+}
+
+.contato .explorar-texto {
+  background-color: #3b5c2f;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 20px;
+  font-size: 22px;
+  position: absolute;
+  left: 40%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.contato .explorar img {
+  width: 50%;
+  border-radius: 50px 0 0 50px;
+  display: block;
+  border: none;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.contato .form-container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-inline: 20%;
+  margin-block: 40px;
+}
+.contato form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contato label {
+  text-align: left;
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.contato input,
+.contato textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.contato textarea {
+  resize: none;
+}
+
+.contato .enviar {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #3b5c2f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}
+
+/*css do login----------------------------------------------------------------------------*/
+
+.login body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: white;
+}
+
+.login header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  transition: background-color 0.3s, opacity 0.3s;
+  z-index: 1000;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.login header.scrolled {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+}
+
+.login .logo img {
+  height: 60px;
+  border-radius: 20px;
+  margin-left: 20px;
+}
+
+.login nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.login nav ul li a {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.login .btn-entrar {
+  background-color: #ffffff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 18px;
+  position: relative;
+  right: 0;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.login .banner {
+  position: relative;
+  margin-top: 100px;
+}
+
+.login.banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: none;
+  opacity: 0.7;
+}
+
+.login .banner .quadrado {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border: solid black 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.login .explorar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 80px;
+  padding-bottom: 40px;
+  background-color: white;
+  position: relative;
+}
+
+.login .explorar-texto {
+  background-color: #3b5c2f;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 20px;
+  font-size: 22px;
+  position: absolute;
+  left: 40%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.login .explorar img {
+  width: 50%;
+  border-radius: 50px 0 0 50px;
+  display: block;
+  border: none;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.login .destaque {
+  border-bottom: solid #3b5c2f 3px;
+}
+.login footer {
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  background-color: #f4f4f4;
+}
+
+.login footer .info {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.login footer .info div {
+  max-width: 250px;
+}
+
+.login .form-container {
+  background: white;
+  padding: 30px;
+  text-align: center;
+  width: 100%;
+}
+.login form {
+  display: flex;
+  flex-direction: column;
+}
+.login label {
+  text-align: left;
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.login input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.login .enviar {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #3b5c2f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  text-decoration: none;
+}
+.login h3 {
+  font-size: 30px;
+  margin: 0px;
+}
+
+
+/*css lojas-------------------------------------------------------------------*/
+
+.lojas body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: white;
+}
+.lojas .grid-lojas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Ajustando a coluna */
+  gap: 2rem;
+  padding: 2rem;
+  justify-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  grid-template-columns: repeat(5, 1fr);
+}
+.lojass {
+  text-align: center;
+  margin: 50px 0 white;
+  background-color: white;
+}
+.lojas .loja {
+  width: 100%;
+  height: 180px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-align: center;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lojas .loja img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain; 
+  margin-bottom: 1rem;
+}
+
+.lojas .loja p {
+  font-weight: bold;
+  margin-top: 0.5rem;
+  color: #333;
+}
+
+.lojas .banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/*css mapa------------------------------------------------------------------------------*/
+.mapas body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  overflow-y: auto;
+}
+
+.mapas .mapa {
+  position: relative;
+  padding-top: 120px; /* espaço para o header fixo */
+  padding-bottom: 100px; /* espaço para o footer */
+  min-height: 100vh;
+}
+
+.mapas .link-andar {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.mapas .link-andar button {  
+  padding: 10px 20px; /* Espaçamento interno */
+  background-color: #3b5c2f; /* Cor de fundo */
+  color: white; /* Cor do texto */
+  border: none; /* Remove a borda padrão */
+  border-radius: 5px; /* Deixa as bordas arredondadas */
+  cursor: pointer; /* Muda o cursor ao passar por cima */
+  margin: 5px; /* Espaçamento entre os botões */
+  font-size: 1em; /* Tamanho da fonte (ajuste conforme necessário) */
+  font-family: Arial, sans-serif; /* Fonte (você pode alterar) */
+  transition: background-color 0.3s ease; /* Adiciona uma transição suave para o hover */
+}
+
+.mapas .link-andar button:hover {
+  background-color: #5c8a4e; /* Cor de fundo mais clara ao passar o mouse */
+}
+
+.mapas .link-andar button:focus {
+  outline: none; /* Remove a borda de foco padrão */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Adiciona uma sombra sutil ao receber foco */
+}
+
+.mapas #botaoregistro {
+  padding: 10px 20px;
+  background-color: #3b5c2f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.mapas .iactiveImg {
+  margin: 0 auto;
+  max-width: 100%;
+  text-align: center;
+}
+
+.mapas .mapa-container {
+  height: 600px;
+  width: 95%;
+  max-width: 1000px;
+  margin: 0 auto;
+  border: 2px solid #3b5c2f;
+  border-radius: 10px;
+}
+.mapas #map {
+  height: 600px;
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid #3b5c2f;
+}

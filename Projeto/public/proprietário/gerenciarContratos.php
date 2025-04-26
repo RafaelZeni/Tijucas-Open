@@ -25,6 +25,7 @@
               <th>#</th>
               <th>ID</th>
               <th>Nome da Empresa</th>
+              <th>Espaço Locado</th>
               <th>Data do Início</th>
               <th>Data do Término</th>
             </tr>
@@ -33,7 +34,7 @@
             <?php
             require '../../app/database/connection.php';
             $obj = conecta_db();
-            $query = "SELECT c.contrato_id, l.empresa_nome, c.data_inicio, c.nome_loc FROM tb_contrato c JOIN tb_locatarios l ON c.empresa_id = l.empresa_id";
+            $query = "SELECT c.contrato_id, c.espaco_id, l.empresa_nome, c.data_inicio, c.nome_loc FROM tb_contrato c JOIN tb_locatarios l ON c.empresa_id = l.empresa_id";
 
             $resultado = $obj->query($query);
 
@@ -47,11 +48,12 @@
 
               $html = "<tr>";
               $html .= "<td>
-                          <a class='btn btn-danger' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "' onclick=\"return confirm('Tem certeza que deseja excluir este contrato?')\">Excluir</a>
-                          <a class='btn btn-success' href='index.php?page=editarContrato&id=" . $linha->contrato_id . "'>Editar</a>
-                      </td>";
+                  <a class='btn btn-danger' onclick='return confirm(\"Tem certeza que deseja excluir esse contrato?\")' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "'>Excluir</a>
+                  <a class='btn btn-success' href='index.php?page=editarContrato&id=" . $linha->contrato_id . "'>Editar</a>
+              </td>";
               $html .= "<td>" . $linha->contrato_id . "</td>";
               $html .= "<td>" . $linha->empresa_nome . "</td>";
+              $html .= "<td>" . $linha->espaco_id . "</td>";
               $html .= "<td>" . $data_inicio_formatada . "</td>";
               $html .= "<td>" . $data_fim . "</td>";
               $html .= "</tr>";

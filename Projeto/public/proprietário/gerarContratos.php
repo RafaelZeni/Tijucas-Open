@@ -4,7 +4,13 @@ require '../../app/database/connection.php';
 use setasign\Fpdi\Fpdi;
 
 $obj = conecta_db();
-$querySelect = "SELECT empresa_cnpj, empresa_nome FROM tb_locatarios";
+
+// Buscar empresas (CNPJs) que não têm contrato ainda
+$querySelect = "
+    SELECT l.empresa_cnpj, l.empresa_nome 
+    FROM tb_locatarios l
+    LEFT JOIN tb_contrato c ON l.empresa_id = c.empresa_id
+    WHERE c.empresa_id IS NULL";
 $resultadoCnpjs = $obj->query($querySelect);
 
 $empresas = [];
@@ -15,16 +21,28 @@ while ($linha = $resultadoCnpjs->fetch_object()) {
     ];
 }
 
+// Buscar espaços disponíveis
+$queryEspacos = "SELECT espaco_id, espaco_area FROM tb_espacos WHERE espaco_status = 'Disponível'";
+$resultadoEspacos = $obj->query($queryEspacos);
+
+$espacos = [];
+while ($linha = $resultadoEspacos->fetch_object()) {
+    $espacos[] = [
+        'id' => $linha->espaco_id,
+        'area' => $linha->espaco_area
+    ];
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
     $cnpj = isset($_POST['cnpj']) ? $_POST['cnpj'] : '';
     $loja = isset($_POST['loja']) ? $_POST['loja'] : '';
-    $espaço = isset($_POST['espaço']) ? $_POST['espaço'] : '';
+    $espaco = isset($_POST['espaco']) ? $_POST['espaco'] : ''; // corrigido sem acento
     $modelo = isset($_POST['modelo']) ? $_POST['modelo'] : '';
     $data = isset($_POST['data']) ? DateTime::createFromFormat('Y-m-d', $_POST['data']) : null;
-    $dataFormatadaBanco = $data ? $data->format('Y-m-d H:i:s') : ''; // Formato para DATETIME
+    $dataFormatadaBanco = $data ? $data->format('Y-m-d H:i:s') : '';
 
-    if (empty($nome) || empty($cnpj) || empty($modelo) || !$data) {
+    if (empty($nome) || empty($cnpj) || empty($modelo) || !$data || empty($espaco)) {
         echo "<script>alert('Por favor, preencha todos os campos obrigatórios!');</script>";
         exit;
     }
@@ -43,14 +61,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Inserir na tabela tb_contrato
-    $insert = $obj->prepare("CALL pr_CriarContrato(?, ?, ?)");
-    $insert->bind_param("iss", $empresa_id, $dataFormatadaBanco, $nome);
+    $insert = $obj->prepare("CALL pr_CriarContrato(?, ?, ?, ?)");
+    $insert->bind_param("issi", $empresa_id, $dataFormatadaBanco, $nome, $espaco);
+
     if ($insert->execute()) {
-        
-        // Inserção bem-sucedida (opcional: exibir mensagem)
-        // echo "<script>alert('Dados do contrato salvos com sucesso!');</script>";
+        // Atualizar espaço para 'Alugado'
+        $updateEspaco = $obj->prepare("UPDATE tb_espacos SET espaco_status = 'Alugado' WHERE espaco_id = ?");
+        $updateEspaco->bind_param("i", $espaco);
+        $updateEspaco->execute();
+        $updateEspaco->close();
     } else {
-        // Erro na inserção
         echo "<script>alert('Erro ao salvar dados do contrato: " . $insert->error . "');</script>";
     }
     $insert->close();
@@ -81,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdf->Write(10, utf8_decode($cnpj));
 
             $pdf->SetXY(61, 229);
-            $pdf->Write(10, utf8_decode($espaço));
+            $pdf->Write(10, utf8_decode("Espaço $espaco"));
 
             $pdf->SetXY(50, 235);
             $pdf->Write(10, utf8_decode($loja));
@@ -96,7 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $pdf->Output('D', "Contrato_" . utf8_decode($nome) . ".pdf");
     exit;
-    
 }
 ?>
 
@@ -108,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script>
         const empresas = <?php echo json_encode($empresas); ?>;
-
+        
         function atualizarLoja() {
             const cnpjSelecionado = document.getElementById('cnpj').value;
             const campoLoja = document.getElementById('loja');
@@ -142,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Nome:</label>
+            <label class="form-label">Nome do Responsável:</label>
             <input type="text" name="nome" class="form-control" required>
         </div>
 
@@ -153,11 +172,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="mb-3">
             <label class="form-label">Selecione o espaço alugado:</label>
-            <select name="espaço" class="form-select" required>
+            <select name="espaco" class="form-select" required>
+                <option value="">Selecione um espaço</option>
                 <?php
-                    for ($i = 1; $i <= 24; $i++) {
-                        echo "<option value='Espaço $i'>Espaço $i</option>";
-                    }
+                foreach ($espacos as $e) {
+                    echo "<option value='{$e['id']}'>Espaço {$e['id']} - {$e['area']} m²</option>";
+                }
                 ?>
             </select>
         </div>

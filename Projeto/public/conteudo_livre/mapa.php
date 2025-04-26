@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="conteudo_livre/assets/css/mapa.css">
+    <link rel="stylesheet" href="conteudo_livre/assets/css/style_conteudo_livre.css">
 </head>
-<body>
+<body class="mapas">
 <section class="mapa">
   <div class="link-andar">
     <button type="button">L1</button>

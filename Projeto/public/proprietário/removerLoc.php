@@ -29,7 +29,6 @@
         }
 
         $stmt->close();
-        
         $obj->close();
     } else {
         echo "<script>

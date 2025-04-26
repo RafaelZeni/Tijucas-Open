@@ -4,9 +4,9 @@
     <title>Tijucas Open</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="conteudo_livre/assets/css/contato.css">
+    <link rel="stylesheet" href="conteudo_livre/assets/css/style_conteudo_livre.css">
 </head>
-<body>
+<body class="contato">
     <section class="banner">
         <img src="conteudo_livre/assets/imgs/bannerFaixada.jpg" alt="Estacionamento Tijucas Open">
     </section>
