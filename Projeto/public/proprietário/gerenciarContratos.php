@@ -48,16 +48,10 @@
 
               $html = "<tr>";
               $html .= "<td>
-<<<<<<< HEAD
-                                        <a class='btn btn-danger' onclick='return confirm(\"Tem certeza que deseja excluir esse contrato?\")' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "'>Excluir</a>
-                                        <a class='btn btn-success' onclick='return confirm(\"Editar locatários?\")' href='index.php?page=editarContrato&id=" . $linha->contrato_id . "'>Editar</a>
-                                    </td>";
-=======
-                          <a class='btn btn-danger' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "' onclick=\"return confirm('Tem certeza que deseja excluir este contrato?')\">Excluir</a>
-                          <a class='btn btn-success' href='index.php?page=editarContrato&id=" . $linha->contrato_id . "'>Editar</a>
-                      </td>";
+                  <a class='btn btn-danger' onclick='return confirm(\"Tem certeza que deseja excluir esse contrato?\")' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "'>Excluir</a>
+                  <a class='btn btn-success' onclick='return confirm(\"Editar locatários?\")' href='index.php?page=editarContrato&id=" . $linha->contrato_id . "'>Editar</a>
+              </td>";
               $html .= "<td>" . $linha->contrato_id . "</td>";
->>>>>>> c22030358ab7652b920e08953c62a2bf4e02a738
               $html .= "<td>" . $linha->empresa_nome . "</td>";
               $html .= "<td>" . $linha->espaco_id . "</td>";
               $html .= "<td>" . $data_inicio_formatada . "</td>";
