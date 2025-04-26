@@ -5,8 +5,12 @@ use setasign\Fpdi\Fpdi;
 
 $obj = conecta_db();
 
-// Buscar empresas (CNPJs)
-$querySelect = "SELECT empresa_cnpj, empresa_nome FROM tb_locatarios";
+// Buscar empresas (CNPJs) que não têm contrato ainda
+$querySelect = "
+    SELECT l.empresa_cnpj, l.empresa_nome 
+    FROM tb_locatarios l
+    LEFT JOIN tb_contrato c ON l.empresa_id = c.empresa_id
+    WHERE c.empresa_id IS NULL";
 $resultadoCnpjs = $obj->query($querySelect);
 
 $empresas = [];
