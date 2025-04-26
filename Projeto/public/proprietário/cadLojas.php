@@ -1,18 +1,18 @@
 <?php
 require '../../app/database/connection.php';
-$conn = conecta_db(); // agora $conn estará disponível para tudo
+$conn = conecta_db();
 
+// Se for envio do formulário
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // continua igual...
     $uploadDir = '../conteudo_livre/assets/imgs/';
     $uniqueName = uniqid() . '_' . basename($_FILES['loja_logo']['name']);
     $destPath = $uploadDir . $uniqueName;
     $fullPath = __DIR__ . '/' . $destPath;
 
     if (move_uploaded_file($_FILES['loja_logo']['tmp_name'], $fullPath)) {
-      $logoPath = 'conteudo_livre/assets/imgs/' . $uniqueName;
+        $logoPath = 'conteudo_livre/assets/imgs/' . $uniqueName;
     } else {
-        echo "Erro ao mover o arquivo!";
+        echo "<script>alert('Erro ao mover arquivo de imagem'); window.location.href = 'index.php?page=cadLojas';</script>";
         exit;
     }
 
@@ -22,72 +22,95 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tipo = $_POST['loja_tipo'];
     $espaco_id = $_POST['espaco_id'];
 
-    $sql = "INSERT INTO tb_lojas (espaco_id, loja_nome, loja_telefone, loja_logo, loja_andar, loja_tipo)
-            VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "CALL pr_CriarLoja(?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("isssss", $espaco_id, $nome, $telefone, $logoPath, $andar, $tipo);
 
     if ($stmt->execute()) {
-        $conn->query("UPDATE tb_espacos SET espaco_status = 'Alugado' WHERE espaco_id = $espaco_id");
-        echo "Loja cadastrada com sucesso!";
+        echo "<script>alert('Loja cadastrada com sucesso!'); window.location.href = 'index.php';</script>";
     } else {
         echo "Erro ao cadastrar: " . $stmt->error;
     }
-
     $stmt->close();
 }
+
+// Puxa contratos ativos (empresas + espaços)
+// Puxa contratos ativos (empresas + espaços) que não têm loja associada
+$query = "
+    SELECT 
+        c.contrato_id, 
+        l.empresa_nome, 
+        c.espaco_id, 
+        e.espaco_piso
+    FROM tb_contrato c
+    INNER JOIN tb_locatarios l ON c.empresa_id = l.empresa_id
+    INNER JOIN tb_espacos e ON c.espaco_id = e.espaco_id
+    LEFT JOIN tb_lojas lo ON c.espaco_id = lo.espaco_id
+    WHERE lo.espaco_id IS NULL"; // Apenas empresas que não têm loja
+$result = $conn->query($query);
+
+$contratos = [];
+while ($row = $result->fetch_assoc()) {
+    $contratos[] = $row;
+}
 ?>
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="./assets/css/cadlojas.css">
+    <meta charset="UTF-8">
+    <title>Cadastro de Loja</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/cadlojas.css">
+    <script>
+    function preencherEspacoEPiso() {
+        const selectEmpresa = document.getElementById('empresa_select');
+        const selectedOption = selectEmpresa.options[selectEmpresa.selectedIndex];
+        const espacoId = selectedOption.getAttribute('data-espaco');
+        const piso = selectedOption.getAttribute('data-piso');
+
+        document.querySelector('[name="espaco_id"]').value = espacoId;
+        document.querySelector('[name="loja_andar"]').value = piso;
+    }
+    </script>
 </head>
 <body>
-  <form action="cadLojas.php" method="POST" enctype="multipart/form-data">
-    <label>Nome da Loja:</label>
-    <input type="text" name="loja_nome" required><br>
+    <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
+    <form action="cadLojas.php" method="POST" enctype="multipart/form-data">
+        
+        <label>Empresa (Locatário):</label>
+        <select id="empresa_select" name="loja_nome" onchange="preencherEspacoEPiso()" required>
+            <option value="">Selecione a empresa</option>
+            <?php foreach ($contratos as $contrato): ?>
+                <option 
+                    value="<?= htmlspecialchars($contrato['empresa_nome']) ?>" 
+                    data-espaco="<?= $contrato['espaco_id'] ?>" 
+                    data-piso="<?= $contrato['espaco_piso'] ?>">
+                    <?= htmlspecialchars($contrato['empresa_nome']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select><br>
 
-    <label>Telefone:</label>
-    <input type="text" name="loja_telefone"><br>
+        <label>Telefone da Loja:</label>
+        <input type="text" name="loja_telefone"><br>
 
-    <label>Andar:</label>
-    <select name="loja_andar">
-        <option value="L1">L1</option>
-        <option value="L2">L2</option>
-    </select><br>
+        <label>Andar:</label>
+        <input type="text" name="loja_andar" readonly required><br>
 
-    <?php
+        <label>Espaço:</label>
+        <input type="text" name="espaco_id" readonly required><br>
 
-      $espacos = $conn->query("SELECT espaco_id FROM tb_espacos WHERE espaco_status = 'Disponível'");
-    ?>
+        <label>Tipo da Loja:</label>
+        <select name="loja_tipo" required>
+            <option value="restaurante">Restaurante</option>
+            <option value="roupas">Roupas</option>
+            <option value="informatica">Informática</option>
+            <option value="esportes">Esportes</option>
+        </select><br>
 
-    <select name="espaco_id" required>
-    <option value="">Selecione um espaço</option>
-    <?php while ($row = $espacos->fetch_assoc()): ?>
-      <option value="<?= $row['espaco_id'] ?>"><?= $row['espaco_id'] ?></option>
-    <?php endwhile; ?>
-    </select>
+        <label>Logo da Loja (500px x 500px):</label>
+        <input type="file" name="loja_logo" required><br>
 
-
-    <label>Tipo:</label>
-    <select name="loja_tipo">
-        <option value="restaurante">Restaurante</option>
-        <option value="roupas">Roupas</option>
-        <option value="informatica">Informática</option>
-        <option value="esportes">Esportes</option>
-    </select><br>
-
-    <label>Imagem (logo):</label>
-    <input type="file" name="loja_logo"><br>
-
-    <input type="submit" value="Cadastrar Loja">
-  </form>
-
-  
+        <input type="submit" value="Cadastrar Loja">
+    </form>
 </body>
 </html>

@@ -45,7 +45,7 @@
                             while ($linha = $resultado->fetch_object()) {
                                 $html = "<tr>";
                                 $html .= "<td>
-                                          <a class='btn btn-danger' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "'>Excluir</a>
+                                          <a class='btn btn-danger' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "' onclick=\"return confirm('Tem certeza que deseja excluir este locatário?')\">Excluir</a>
                                           <a class='btn btn-success' href='index.php?page=editarlocatario&id=" . $linha->empresa_id . "'>Editar</a>
                                           </td>";
                                 $html .= "<td>" . $linha->empresa_id . "</td>";
