@@ -9,6 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $destPath = $uploadDir . $uniqueName;
     $fullPath = __DIR__ . '/' . $destPath;
 
+    list($width, $height) = getimagesize($_FILES['loja_logo']['tmp_name']);
+    if ($width !== 500 || $height !== 500) {
+        echo "<script>alert('A imagem deve ter 500px por 500px!'); window.location.href = 'index.php?page=cadLojas';</script>";
+        exit;
+    }
+
     if (move_uploaded_file($_FILES['loja_logo']['tmp_name'], $fullPath)) {
         $logoPath = 'conteudo_livre/assets/imgs/' . $uniqueName;
     } else {
@@ -35,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Puxa contratos ativos (empresas + espaços)
+// Puxa contratos ativos (empresas + espaços) que não têm loja associada
 $query = "
     SELECT 
         c.contrato_id, 
@@ -44,7 +51,8 @@ $query = "
     FROM tb_contrato c
     INNER JOIN tb_locatarios l ON c.empresa_id = l.empresa_id
     INNER JOIN tb_espacos e ON c.espaco_id = e.espaco_id
-";
+    LEFT JOIN tb_lojas lo ON c.espaco_id = lo.espaco_id
+    WHERE lo.espaco_id IS NULL"; // Apenas empresas que não têm loja
 $result = $conn->query($query);
 
 $contratos = [];
@@ -105,7 +113,7 @@ while ($row = $result->fetch_assoc()) {
             <option value="esportes">Esportes</option>
         </select><br>
 
-        <label>Logo da Loja:</label>
+        <label>Logo da Loja (500px x 500px):</label>
         <input type="file" name="loja_logo" required><br>
 
         <input type="submit" value="Cadastrar Loja">
