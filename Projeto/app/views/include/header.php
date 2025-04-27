@@ -20,9 +20,12 @@
       <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/lojas.php') ? 'destaque' : '' ?>">
         <a href="index.php?page=lojas">Lojas</a>
       </li>
-      <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/gastronomia.php') ? 'destaque' : '' ?>">
+
+      <!--
+      <li class="<?//= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/gastronomia.php') ? 'destaque' : '' ?>">
         <a href="index.php?page=gastronomia">Gastronomia</a>
       </li>
+      -->
       <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/contato.php') ? 'destaque' : '' ?>">
         <a href="index.php?page=contato">Fale Conosco</a>
       </li>
