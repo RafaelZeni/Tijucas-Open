@@ -37,7 +37,7 @@ if ($filtro != '') {
         <h2>Nossas Lojas:</h2>
         <label>Filtros</label>
         <form id="filtro" method="POST">
-            <select name="filtro_loja" onchange="this.form.submit()">
+            <select class="filtro" name="filtro_loja" onchange="this.form.submit()">
                 <option value="">Todas as lojas</option>
                 <option value="Roupas" <?= ($filtro == 'Roupas') ? 'selected' : '' ?>>Roupas</option>
                 <option value="Esportes" <?= ($filtro == 'Esportes') ? 'selected' : '' ?>>Esportes</option>

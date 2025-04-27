@@ -395,6 +395,28 @@
   height: auto;
   display: block;
 }
+.lojas form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  border-radius: 15px;
+}
+.lojas .filtro {
+  width: 600px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  color: #333;
+  font-size: 16px;
+
+  background-image: url('caminho-da-sua-setinha.svg'); /* se quiser mudar a seta */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
 
 /*css mapa------------------------------------------------------------------------------*/
 .mapas body {
