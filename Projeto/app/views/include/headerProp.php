@@ -19,6 +19,9 @@
             <a href='index.php'><button class="user-button">Cristiano</button></a>
             <span>👤</span>
         </div>
+        <div style="text-align: right; padding: 10px;">
+            <a href="../logout.php" class="btn btn-danger">Sair</a>
+        </div>
     </header>
 </body>
 

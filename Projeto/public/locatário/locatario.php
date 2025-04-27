@@ -14,6 +14,7 @@ if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'locatario') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Página do Locatário</title>
   <link rel="stylesheet" href="assets/css/locatario.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -23,6 +24,9 @@ if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'locatario') {
         <div class="user-section">
             <button class="user-button">Locatário</button>  
             <a href="#"><img src="assets/imgs/usu.png" alt="UsuarioTijucasOpen" class="user-icon"></a>
+        </div>
+        <div style="text-align: right; padding: 10px;">
+            <a href="../logout.php" class="btn btn-danger">Sair</a>
         </div>
     </header>
 
