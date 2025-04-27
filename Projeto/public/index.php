@@ -20,6 +20,9 @@ if(isset($_GET['page'])) {
   } else if ($_GET['page'] == 'entrar') {
     include '../public/conteudo_livre/login.php'; //Página de Login
 
+  } else if ($_GET['page'] == 'recsenha') {
+    include '../public/conteudo_livre/recuperarSenha.php'; //Página de Login
+
   } else {
     header('location: index.php');
 
