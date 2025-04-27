@@ -105,6 +105,7 @@ while ($row = $result->fetch_assoc()) {
             <option value="Roupas">Roupas</option>
             <option value="Esportes">Esportes</option>
             <option value="Livros">Livros</option>
+            <option value="Jóias">Jóias</option>
         </select><br>
 
         <label>Logo da Loja:</label>
