@@ -8,31 +8,34 @@ if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'proprietario') 
 ?>
 
 
-</body>
-</html>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <title>Perfil do Proprietário</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/proprietario.css" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/proprietario.css">
+
 </head>
 <body>
-  <div class="container">
-    <div class="left-side"></div>
 
-    <div class="right-side">
-      <div class="avatar">👤</div>
+<div class="container-btns">
+  <table>
+    <tbody>
+      <tr>
+        <td><a href="index.php?page=gerenciarLocatarios" class="btn-prop">Gerenciar Locatários</a></td>
+        <td><a href="index.php?page=gerenciarContratos" class="btn-prop">Gerenciar Contratos</a></td>
+      </tr>
+      <tr>
+        <td><a href="index.php?page=gerenciarEspacos" class="btn-prop">Gerenciar Espaços</a></td>
+        <td><a href="index.php?page=acessarRelatorios" class="btn-prop">Acessar Relatórios</a></td>
+      </tr>
+      <tr>
+        <td colspan="2"><a href="index.php?page=cadLojas" class="btn-prop">Cadastrar Lojas</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-      <div class="nome-usuario">Cristiano Ramos de Lima</div>
-
-      <a href="index.php?page=gerenciarLocatarios" class="btn-prop btn btn-primary mb-3">Gerenciar Locatarios</a>
-      <a href="index.php?page=gerenciarContratos" class="btn-prop btn btn-success mb-3">Gerenciar Contratos</a>
-      <a href="index.php?page=gerenciarEspacos" class="btn-prop btn btn-dark mb-3">Gerenciar Espaços</a>
-      <a href="index.php?page=acessarRelatorios" class="btn-prop btn btn-danger mb-3">Acessar Relatórios</a>
-      <a href="index.php?page=cadLojas" class="btn-prop btn btn-secondary mb-3">Cadastrar Loja</a>
-    </div>
-  </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
