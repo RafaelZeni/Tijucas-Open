@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="quadrado">
         <section class="form-container">
             <h3>Entrar</h3>
-            <form method="post">
+            <form method="post" class="forms">
                 <label for="emailLog">Email</label>
                 <input type="email" id="emailLog" name="emailLog" required placeholder="Digite seu e-mail">
 
@@ -68,6 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="password" id="passLog" name="passLog" required placeholder="Digite sua senha">
 
                 <button type="submit" class="enviar">Enviar</button>
+
+                <a class="recsenha" href="index.php?page=recsenha">Esqueceu sua senha?</a>
             </form>
         </section>
     </div> 
