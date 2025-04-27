@@ -16,7 +16,6 @@
         </div>
         <div class="row">
             <div class="col">
-                <a href="index.php?page=cadastrarEspacos" class="btn btn-primary mb-3">Cadastrar Espaço</a>
                 <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
                 <table class="table">
                     <thead>

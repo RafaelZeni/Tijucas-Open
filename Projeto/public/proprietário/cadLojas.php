@@ -111,7 +111,7 @@ while ($row = $result->fetch_assoc()) {
         <label>Logo da Loja:</label>
         <input type="file" name="loja_logo" required><br>
 
-        <input type="submit" value="Cadastrar Loja">
+        <input type="submit" class="btn accept mb-3" value="Cadastrar Loja">
     </form>
 </body>
 </html>
