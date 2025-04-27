@@ -39,8 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<section class="banner">
-    <img src="../conteudo_livre/assets/imgs/maisde40espaços.jpeg" alt="Estacionamento Tijucas Open">
+<section class="">
     <div class="quadrado">
         <section class="form-container">
             <h3>Cadastrar Locatário</h3>

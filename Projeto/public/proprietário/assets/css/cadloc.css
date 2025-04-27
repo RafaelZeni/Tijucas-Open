@@ -6,34 +6,6 @@
 }
 
 /* Corpo da página */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-/* Banner */
-.banner {
-  width: 100%;
-  max-width: 1200px;
-  background-color: #ffffff;
-  padding: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  text-align: center;
-}
-
-/* Imagem do Banner */
-.banner img {
-  width: 100%;
-  height: auto;
-  max-width: 600px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
 
 /* Caixa quadrada que contém o formulário */
 .quadrado {
