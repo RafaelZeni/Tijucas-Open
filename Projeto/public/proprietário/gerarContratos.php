@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
     $cnpj = isset($_POST['cnpj']) ? $_POST['cnpj'] : '';
     $loja = isset($_POST['loja']) ? $_POST['loja'] : '';
-    $espaco = isset($_POST['espaco']) ? $_POST['espaco'] : ''; // corrigido sem acento
+    $espaco = isset($_POST['espaco']) ? $_POST['espaco'] : '';
     $modelo = isset($_POST['modelo']) ? $_POST['modelo'] : '';
     $data = isset($_POST['data']) ? DateTime::createFromFormat('Y-m-d', $_POST['data']) : null;
     $dataFormatadaBanco = $data ? $data->format('Y-m-d H:i:s') : '';
