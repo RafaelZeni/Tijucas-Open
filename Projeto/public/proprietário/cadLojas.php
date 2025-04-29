@@ -55,7 +55,7 @@ while ($row = $result->fetch_assoc()) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Loja</title>

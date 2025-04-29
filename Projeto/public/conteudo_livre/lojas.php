@@ -1,25 +1,25 @@
 <?php
 require __DIR__ . '/../../app/database/connection.php';
-$obj = conecta_db(); // agora $conn estará disponível para tudo
+$conn = conecta_db(); // agora $conn estará disponível para tudo
 
 // Recebe o filtro vindo do formulário
 $filtro = isset($_POST['filtro_loja']) ? trim($_POST['filtro_loja']) : '';
 
 // Verifica se há um filtro selecionado, e muda a consulta ao sql
 if ($filtro != '') {
-    $stmt = $obj->prepare("SELECT loja_nome, loja_logo FROM tb_lojas WHERE loja_tipo = ? LIMIT 20");
+    $stmt = $conn->prepare("SELECT loja_nome, loja_logo FROM tb_lojas WHERE loja_tipo = ? LIMIT 20");
     $stmt->bind_param("s", $filtro);
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
     // Se não tiver filtro, mostra todas as lojas
     $sql = "SELECT loja_nome, loja_logo FROM tb_lojas LIMIT 20";
-    $result = $obj->query($sql);
+    $result = $conn->query($sql);
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 
 <head>
     <title>Tijucas Open</title>

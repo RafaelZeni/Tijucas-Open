@@ -38,7 +38,7 @@ $result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Meu Contrato</title>

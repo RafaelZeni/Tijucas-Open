@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 require '../../app/database/connection.php';
 use setasign\Fpdi\Fpdi;
 
-$obj = conecta_db();
+$conn = conecta_db();
 
 // Buscar empresas (CNPJs) que não têm contrato ainda
 $querySelect = "
@@ -11,7 +11,7 @@ $querySelect = "
     FROM tb_locatarios l
     LEFT JOIN tb_contrato c ON l.empresa_id = c.empresa_id
     WHERE c.empresa_id IS NULL";
-$resultadoCnpjs = $obj->query($querySelect);
+$resultadoCnpjs = $conn->query($querySelect);
 
 $empresas = [];
 while ($linha = $resultadoCnpjs->fetch_object()) {
@@ -23,7 +23,7 @@ while ($linha = $resultadoCnpjs->fetch_object()) {
 
 // Buscar espaços disponíveis
 $queryEspacos = "SELECT espaco_id, espaco_area FROM tb_espacos WHERE espaco_status = 'Disponível'";
-$resultadoEspacos = $obj->query($queryEspacos);
+$resultadoEspacos = $conn->query($queryEspacos);
 
 $espacos = [];
 while ($linha = $resultadoEspacos->fetch_object()) {
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Buscar o ID da empresa pelo CNPJ
-    $stmt = $obj->prepare("SELECT empresa_id FROM tb_locatarios WHERE empresa_cnpj = ?");
+    $stmt = $conn->prepare("SELECT empresa_id FROM tb_locatarios WHERE empresa_cnpj = ?");
     $stmt->bind_param("s", $cnpj);
     $stmt->execute();
     $stmt->bind_result($empresa_id);
@@ -61,12 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Inserir na tabela tb_contrato
-    $insert = $obj->prepare("CALL pr_CriarContrato(?, ?, ?, ?)");
+    $insert = $conn->prepare("CALL pr_CriarContrato(?, ?, ?, ?)");
     $insert->bind_param("issi", $empresa_id, $dataFormatadaBanco, $nome, $espaco);
 
     if ($insert->execute()) {
         // Atualizar espaço para 'Alugado'
-        $updateEspaco = $obj->prepare("UPDATE tb_espacos SET espaco_status = 'Alugado' WHERE espaco_id = ?");
+        $updateEspaco = $conn->prepare("UPDATE tb_espacos SET espaco_status = 'Alugado' WHERE espaco_id = ?");
         $updateEspaco->bind_param("i", $espaco);
         $updateEspaco->execute();
         $updateEspaco->close();
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Gerar Contrato</title>

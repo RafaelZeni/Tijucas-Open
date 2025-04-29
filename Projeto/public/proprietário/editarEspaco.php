@@ -7,11 +7,11 @@ if (isset($_POST['espaco_piso']) && isset($_POST['espaco_area']) && isset($_POST
     $espaco_area = $_POST['espaco_area'];
     $espaco_status = $_POST['espaco_status'];
 
-    $obj = conecta_db();
+    $conn = conecta_db();
 
     $query = "CALL pr_editarEspaco(?, ?)";
 
-    $stmt = $obj->prepare($query);
+    $stmt = $conn->prepare($query);
     $stmt->bind_param("is", $espaco_id, $espaco_area);
     $resultado = $stmt->execute();
 
@@ -23,24 +23,24 @@ if (isset($_POST['espaco_piso']) && isset($_POST['espaco_area']) && isset($_POST
         header('location: gerenciarEspacos.php');
     }
     $stmt->close();
-    $obj->close();
+    $conn->close();
 
 }
 
 $espaco_id = $_GET['id'];
-$obj = conecta_db();
+$conn = conecta_db();
 $query = "SELECT * FROM tb_espacos WHERE espaco_id = ?";
-$stmt = $obj->prepare($query);
+$stmt = $conn->prepare($query);
 $stmt->bind_param("i", $espaco_id);
 $stmt->execute();
 $resultado = $stmt->get_result();
 $espaco = $resultado->fetch_object();
 $stmt->close();
-$obj->close();
+$conn->close();
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <title>Tijucas Open</title>
     <meta charset="utf-8">
@@ -23,8 +23,13 @@
 
         <div class="footer-col">
             <h4>Endereço 📍</h4>
-            <p>Rua XV de Novembro, 1306<br>
-            Tijucas do Sul, PR</p>
+            <?php 
+            $endereco = "R. Quinze de Novembro, 1306, Tijucas do Sul - PR, 83190-000";
+            $endereco_url = urlencode($endereco);
+            $link = "https://www.google.com/maps/dir/?api=1&destination=$endereco_url";
+            ?>
+            <a href="<?= $link ?>" target="_blank">Como chegar?</a>
+            
         </div>
 
         <div class="footer-col">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
@@ -33,10 +33,10 @@
           <tbody>
             <?php
             require '../../app/database/connection.php';
-            $obj = conecta_db();
+            $conn = conecta_db();
             $query = "SELECT c.contrato_id, c.espaco_id, l.empresa_nome, c.data_inicio, c.nome_loc FROM tb_contrato c JOIN tb_locatarios l ON c.empresa_id = l.empresa_id";
 
-            $resultado = $obj->query($query);
+            $resultado = $conn->query($query);
 
             while ($linha = $resultado->fetch_object()) {
               //Rafael: faz com que apareça a data de fim, como definida no contrato, 12 meses após a data inicial

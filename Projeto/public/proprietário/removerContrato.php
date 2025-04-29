@@ -6,11 +6,11 @@
     if (isset($_GET['id'])){
         $contrato_id = $_GET['id'];
 
-        $obj = conecta_db();
+        $conn = conecta_db();
 
         $query = "CALL pr_RemoverContrato(?)";
 
-        $stmt = $obj->prepare($query);
+        $stmt = $conn->prepare($query);
 
         if ($stmt === false) {
             echo "Erro ao preparar consulta: ";
@@ -31,7 +31,7 @@
         }
 
         $stmt->close();
-        $obj->close();
+        $conn->close();
 
     } else {
         echo "<script>

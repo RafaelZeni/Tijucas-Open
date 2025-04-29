@@ -1,7 +1,7 @@
 <?php
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -35,12 +35,12 @@
                     <tbody>
                         <?php
                             require '../../app/database/connection.php';
-                            $obj = conecta_db();
+                            $conn = conecta_db();
                             $query = "SELECT l.empresa_id, l.empresa_nome, l.empresa_cnpj, l.empresa_email, l.empresa_telefone, lg.email_usu 
                                     FROM tb_locatarios l
                                     JOIN tb_logins lg ON l.logins_id = lg.logins_id";
 
-                            $resultado = $obj->query($query);
+                            $resultado = $conn->query($query);
 
                             while ($linha = $resultado->fetch_object()) {
                                 $html = "<tr>";

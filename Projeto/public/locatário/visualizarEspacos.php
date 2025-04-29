@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,12 +30,12 @@
                         <?php
                             require '../../app/database/connection.php';
 
-                            $obj = conecta_db();
+                            $conn = conecta_db();
                             $query = "SELECT e.espaco_id, e.espaco_piso, e.espaco_area, e.espaco_status 
                             FROM tb_espacos e 
                             LEFT JOIN tb_lojas l ON e.espaco_id = l.espaco_id";
         
-                            $resultado = $obj->query($query);
+                            $resultado = $conn->query($query);
 
                             while($linha = $resultado->fetch_object()){
                                 $html = "<tr>";

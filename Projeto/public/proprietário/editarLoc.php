@@ -7,11 +7,11 @@
         $empresa_telefone = str_replace(['(', ')', ' ', '-'], '', $_POST['empresa_telefone']);
         $empresa_email = $_POST['empresa_email'];
 
-        $obj = conecta_db();
+        $conn = conecta_db();
 
         $query = "CALL pr_EditarLocatario(?, ?, ?, ?)";
 
-        $stmt = $obj->prepare($query);
+        $stmt = $conn->prepare($query);
         $stmt->bind_param("isss", $empresa_id, $empresa_nome, $empresa_telefone, $empresa_email);
         $resultado = $stmt->execute();
 
@@ -24,25 +24,25 @@
         }
 
         $stmt->close();
-        $obj->close();
+        $conn->close();
     }
 ?>
 
 <?php
           $empresa_id = $_GET['id'];
-          $obj = conecta_db();
+          $conn = conecta_db();
           $query = "SELECT * FROM tb_locatarios WHERE empresa_id = ?";
-          $stmt = $obj->prepare($query);
+          $stmt = $conn->prepare($query);
           $stmt->bind_param("i", $empresa_id);
           $stmt->execute();
           $result = $stmt->get_result();
           $locatario = $result->fetch_object();
           $stmt->close();
-          $obj->close();
+          $conn->close();
         ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <title>Editar Locatário</title>
   <meta charset="utf-8">
