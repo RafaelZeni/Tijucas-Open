@@ -41,17 +41,38 @@
           $conn->close();
         ?>
 
+
+
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <title>Editar Locatário</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
-  <div class="container-fluid">
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Perfil do Proprietário</title>
+    <link rel="stylesheet" href="proprietario.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo">
+        <img src="../conteudo_livre/assets/imgs/LogoTijucasBranca.png" alt="Tijucas Open" />
+      </div>
+
+      <nav>
+        <a href="index.php">Início</a>
+        <a href="index.php?page=gerenciarLocatarios">Gerenciar Locatários</a>
+        <a href="index.php?page=gerenciarContratos">Gerenciar Contratos</a>
+        <a href="index.php?page=gerenciarLojas">Gerenciar Lojas</a>
+        <a href="index.php?page=gerenciarEspacos">Gerenciar Espaços</a>
+      </nav>
+
+      <div class="logout">
+        <a href="../logout.php"><span>↩</span> Log Out</a>
+      </div>
+    </div>
+
+    <div class="content">
+    <div class="container-fluid">
     <div class="row">
       <div class="col">
         <h2>Editando Locatário - <?php echo $locatario->empresa_nome; ?></h2>
@@ -81,9 +102,9 @@
       </div>
     </div>
   </div>
-</body>
-
-<script>
+    </div>
+  </body>
+  <script>
   function mascararTelefone(input) {
     let valor = input.value.replace(/\D/g, '').slice(0, 11); // só números, até 11 dígitos
     let formatado = valor;

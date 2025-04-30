@@ -1,15 +1,32 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gerenciar Contratos</title>
+    <link rel="stylesheet" href="proprietario.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo">
+        <img src="../conteudo_livre/assets/imgs/LogoTijucasBranca.png" alt="Tijucas Open" />
+      </div>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerenciar Contratos</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+      <nav>
+        <a href="index.php">Início</a>
+        <a href="index.php?page=gerenciarLocatarios">Gerenciar Locatários</a>
+        <a href="index.php?page=gerenciarContratos">Gerenciar Contratos</a>
+        <a href="index.php?page=gerenciarLojas">Gerenciar Lojas</a>
+        <a href="index.php?page=gerenciarEspacos">Gerenciar Espaços</a>
+      </nav>
 
-<body>
-  <div class="container-fluid">
+      <div class="logout">
+        <a href="../logout.php"><span>↩</span> Log Out</a>
+      </div>
+    </div>
+
+    <div class="content">
+    <div class="container-fluid">
     <div class="row">
       <div class="col">
         <h1>Gerenciar contratos</h1>
@@ -62,8 +79,7 @@
           </tbody>
         </table>
       </div>
+    </div>   
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

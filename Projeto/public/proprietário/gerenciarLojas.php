@@ -1,18 +1,10 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'proprietario') {
-    header("Location: /Tijucas-Open/Projeto/public/index.php?page=entrar");
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>Perfil do Proprietário</title>
+    <title>Gerenciar Lojas</title>
     <link rel="stylesheet" href="proprietario.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
     <div class="sidebar">
@@ -34,7 +26,7 @@ if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'proprietario') 
     </div>
 
     <div class="content">
-      <h1>Bem-Vindo Cristiano</h1>
+      <a href="index.php?page=cadLojas">Cadastrar Loja</a>
     </div>
   </body>
 </html>

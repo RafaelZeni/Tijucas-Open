@@ -119,11 +119,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
     <title>Gerar Contrato</title>
+    <link rel="stylesheet" href="proprietario.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script>
         const empresas = <?php echo json_encode($empresas); ?>;
@@ -140,9 +142,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     </script>
-</head>
-<body class="p-4">
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo">
+        <img src="../conteudo_livre/assets/imgs/LogoTijucasBranca.png" alt="Tijucas Open" />
+      </div>
 
+      <nav>
+        <a href="index.php">Início</a>
+        <a href="index.php?page=gerenciarLocatarios">Gerenciar Locatários</a>
+        <a href="index.php?page=gerenciarContratos">Gerenciar Contratos</a>
+        <a href="index.php?page=gerenciarLojas">Gerenciar Lojas</a>
+        <a href="index.php?page=gerenciarEspacos">Gerenciar Espaços</a>
+      </nav>
+
+      <div class="logout">
+        <a href="../logout.php"><span>↩</span> Log Out</a>
+      </div>
+    </div>
+
+    <div class="content">
     <a href="index.php?page=gerenciarContratos" class="btn btn-dark mb-3">Voltar</a>
     <h2>Preencha os dados do locatário para criar o contrato:</h2>
 
@@ -196,6 +216,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <button type="submit" class="btn btn-primary">Gerar e Baixar Contrato</button>
     </form>
-
-</body>
+    </div>
+  </body>
 </html>

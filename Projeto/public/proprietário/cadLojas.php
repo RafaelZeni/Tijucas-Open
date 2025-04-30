@@ -54,12 +54,13 @@ while ($row = $result->fetch_assoc()) {
     $contratos[] = $row;
 }
 ?>
+
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastro de Loja</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Perfil do Proprietário</title>
+    <link rel="stylesheet" href="proprietario.css">
     <link rel="stylesheet" href="./assets/css/cadlojas.css">
     <script>
     function preencherEspacoEPiso() {
@@ -72,9 +73,27 @@ while ($row = $result->fetch_assoc()) {
         document.querySelector('[name="loja_andar"]').value = piso;
     }
     </script>
-</head>
-<body>
-    <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo">
+        <img src="../conteudo_livre/assets/imgs/LogoTijucasBranca.png" alt="Tijucas Open" />
+      </div>
+
+      <nav>
+        <a href="index.php?page=gerenciarLocatarios">Gerenciar Locatários</a>
+        <a href="index.php?page=gerenciarContratos">Gerenciar Contratos</a>
+        <a href="index.php?page=gerenciarLojas">Gerenciar Lojas</a>
+        <a href="index.php?page=gerenciarEspacos">Gerenciar Espaços</a>
+      </nav>
+
+      <div class="logout">
+        <a href="../logout.php"><span>↩</span> Log Out</a>
+      </div>
+    </div>
+
+    <div class="content">
+    <a href="index.php?page=gerenciarLojas" class="btn btn-dark mb-3">Voltar</a>
     <form action="cadLojas.php" method="POST" enctype="multipart/form-data">
         
         <label>Empresa (Locatário):</label>
@@ -113,5 +132,6 @@ while ($row = $result->fetch_assoc()) {
 
         <input type="submit" class="btn accept mb-3" value="Cadastrar Loja">
     </form>
-</body>
+    </div>
+  </body>
 </html>
