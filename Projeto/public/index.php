@@ -34,5 +34,4 @@ if(isset($_GET['page'])) {
 
 include '../app/views/include/footer.php';
 
-
 ?>

@@ -44,15 +44,15 @@
 
                             while ($linha = $resultado->fetch_object()) {
                                 $html = "<tr>";
-                                $html .= "<td>
-                                          <a class='btn btn-danger' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "' onclick=\"return confirm('Tem certeza que deseja excluir este locatário?')\">Excluir</a>
-                                          <a class='btn btn-success' href='index.php?page=editarlocatario&id=" . $linha->empresa_id . "'>Editar</a>
-                                          </td>";
                                 $html .= "<td>" . $linha->empresa_id . "</td>";
                                 $html .= "<td>" . $linha->empresa_nome . "</td>";
                                 $html .= "<td>" . $linha->empresa_cnpj . "</td>";
                                 $html .= "<td>" . $linha->empresa_email . "</td>";
                                 $html .= "<td>" . $linha->empresa_telefone . "</td>";
+                                $html .= "<td>
+                                          <a class='btn btn-danger' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "' onclick=\"return confirm('Tem certeza que deseja excluir este locatário?')\">Excluir</a>
+                                          <a class='btn btn-success' href='index.php?page=editarlocatario&id=" . $linha->empresa_id . "'>Editar</a>
+                                          </td>";
                                 $html .= "</tr>";
                                 echo $html;
                             }

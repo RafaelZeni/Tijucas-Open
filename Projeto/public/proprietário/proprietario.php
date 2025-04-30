@@ -7,35 +7,33 @@ if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'proprietario') 
 }
 ?>
 
-
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Perfil do Proprietário</title>
-  <link rel="stylesheet" href="./assets/css/proprietario.css">
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Perfil do Proprietário</title>
+    <link rel="stylesheet" href="proprietario.css">
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo">
+        <img src="../conteudo_livre/assets/imgs/LogoTijucasBranca.png" alt="Tijucas Open" />
+      </div>
 
-</head>
-<body>
+      <nav>
+        <a href="index.php?page=gerenciarLocatarios">Gerenciar Locatários</a>
+        <a href="index.php?page=gerenciarContratos">Gerenciar Contratos</a>
+        <a href="index.php?page=cadLojas">Gerenciar Lojas</a>
+        <a href="index.php?page=gerenciarEspacos">Gerenciar Espaços</a>
+      </nav>
 
-<div class="container-btns">
-  <table>
-    <tbody>
-      <tr>
-        <td><a href="index.php?page=gerenciarLocatarios" class="btn-prop">Gerenciar Locatários</a></td>
-        <td><a href="index.php?page=gerenciarContratos" class="btn-prop">Gerenciar Contratos</a></td>
-      </tr>
-      <tr>
-        <td><a href="index.php?page=gerenciarEspacos" class="btn-prop">Gerenciar Espaços</a></td>
-        <td><a href="index.php?page=acessarRelatorios" class="btn-prop">Acessar Relatórios</a></td>
-      </tr>
-      <tr>
-        <td colspan="2"><a href="index.php?page=cadLojas" class="btn-prop">Cadastrar Lojas</a></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+      <div class="logout">
+        <a href="../logout.php"><span>↩</span> Log Out</a>
+      </div>
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <div class="content">
+      <h1>Bem-Vindo Cristiano</h1>
+    </div>
+  </body>
 </html>
