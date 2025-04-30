@@ -37,14 +37,33 @@ $stmt->execute();
 $result = $stmt->get_result();
 ?>
 
+
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Meu Contrato</title>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gerenciar Contrato</title>
+    <link rel="stylesheet" href="locatario.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo">
+        <img src="../conteudo_livre/assets/imgs/LogoTijucasBranca.png" alt="Tijucas Open" />
+      </div>
+
+      <nav>
+        <a href="index.php">Início</a>
+        <a href="index.php?page=visualizarEspacos">Visualizar Espaços</a>
+        <a href="index.php?page=gestaoContratos">Gestão de Contrato</a>
+      </nav>
+
+      <div class="logout">
+        <a href="../logout.php"><span>↩</span> Log Out</a>
+      </div>
+    </div>
+
+    <div class="content">
     <div class="container mt-5">
         <h1 class="mb-4">Meu Contrato</h1>
         <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
@@ -79,5 +98,7 @@ $result = $stmt->get_result();
             </tbody>
         </table>
     </div>
-</body>
+    </div>
+  </body>
 </html>
+
