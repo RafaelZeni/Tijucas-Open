@@ -85,3 +85,24 @@ body {
 .content h1 {
   font-size: 40px;
 }
+
+.table thead th {
+  background-color: #145a32; /* verde escuro */
+  color: white;
+}
+
+/* Estilo para linhas striped verdes */
+.table-striped-green tbody tr:nth-of-type(odd) {
+  background-color: #e9f7ef;
+}
+
+.table-striped-green tbody tr:nth-of-type(even) {
+  background-color: #d5f5e3;
+}
+
+/* Ícones dentro dos botões */
+.table .btn img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}

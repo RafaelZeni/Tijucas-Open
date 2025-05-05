@@ -36,7 +36,7 @@
       <div class="col">
         <a href="index.php?page=gerarContratos" class="btn btn-primary mb-3">Criar Contrato</a>
         <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
-        <table class="table table-striped">
+        <table class="table table-striped-green">
           <thead>
             <tr>
               <th>ID</th>
@@ -70,7 +70,7 @@
               $html .= "<td>" . $data_inicio_formatada . "</td>";
               $html .= "<td>" . $data_fim . "</td>";
               $html .= "<td>
-                  <a class='btn btn-danger' onclick='return confirm(\"Tem certeza que deseja excluir esse contrato?\")' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "'><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir' style='width: 16px; height: 16px;'></a>
+                  <a class='btn btn-danger' onclick='return confirm(\"Tem certeza que deseja excluir esse contrato?\")' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "'><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir';'></a>
               </td>";
               $html .= "</tr>";
               echo $html;

@@ -66,10 +66,10 @@
                                 $html .= "<td>" . $linha->empresa_email . "</td>";
                                 $html .= "<td>" . $linha->empresa_telefone . "</td>";
                                 $html .= "<td>
-                                          <a class='btn btn-success' href='index.php?page=editarlocatario&id=" . $linha->empresa_id . "'><img src='../conteudo_livre/assets/imgs/editar.png' alt='Excluir' style='width: 16px; height: 16px;'></a>
+                                          <a class='btn btn-success' href='index.php?page=editarlocatario&id=" . $linha->empresa_id . "'><img src='../conteudo_livre/assets/imgs/editar.png' alt='Excluir';'></a>
                                           </td>";
                                 $html .= "<td>
-                                          <a class='btn btn-danger' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "' onclick=\"return confirm('Tem certeza que deseja excluir este locatário?')\"><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir' style='width: 16px; height: 16px;'></a>
+                                          <a class='btn btn-danger' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "' onclick=\"return confirm('Tem certeza que deseja excluir este locatário?')\"><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir';'></a>
                                           </td>";
                                 $html .= "</tr>";
                                 echo $html;
