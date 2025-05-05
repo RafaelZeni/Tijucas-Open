@@ -39,12 +39,12 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>#</th>
               <th>ID</th>
               <th>Nome da Empresa</th>
               <th>Espaço Locado</th>
               <th>Data do Início</th>
               <th>Data do Término</th>
+              <th>Excluir</th>
             </tr>
           </thead>
           <tbody>
@@ -64,14 +64,14 @@
 
 
               $html = "<tr>";
-              $html .= "<td>
-                  <a class='btn btn-danger' onclick='return confirm(\"Tem certeza que deseja excluir esse contrato?\")' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "'>Excluir</a>
-              </td>";
               $html .= "<td>" . $linha->contrato_id . "</td>";
               $html .= "<td>" . $linha->empresa_nome . "</td>";
               $html .= "<td>" . $linha->espaco_id . "</td>";
               $html .= "<td>" . $data_inicio_formatada . "</td>";
               $html .= "<td>" . $data_fim . "</td>";
+              $html .= "<td>
+                  <a class='btn btn-danger' onclick='return confirm(\"Tem certeza que deseja excluir esse contrato?\")' href='index.php?page=removerContrato&id=" . $linha->contrato_id . "'><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir' style='width: 16px; height: 16px;'></a>
+              </td>";
               $html .= "</tr>";
               echo $html;
             }

@@ -38,12 +38,12 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <td>#</td>
                             <td>ID</td>
                             <td>Piso</td>
                             <td>Área(m<sup>2</sup>)</td>
                             <td>Status</td>
                             <td>Ocupado Por (Rever isso no Banco)</td>
+                            <td>Editar</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,11 +59,12 @@
 
                             while($linha = $resultado->fetch_object()){
                                 $html = "<tr>";
-                                $html .= "<td><a class='btn btn-success' href='index.php?page=editarEspaco&id=".$linha->espaco_id."'>Editar</a></td>";
                                 $html .= "<td>".$linha->espaco_id."</td>";
                                 $html .= "<td>".$linha->espaco_piso."</td>";
                                 $html .= "<td>".$linha->espaco_area."</td>";
                                 $html .= "<td>".$linha->espaco_status."</td>";
+                                $html .= "<td></td>";
+                                $html .= "<td><a class='btn btn-success' href='index.php?page=editarEspaco&id=".$linha->espaco_id."'><img src='../conteudo_livre/assets/imgs/editar.png' alt='Excluir' style='width: 16px; height: 16px;'></a></td>";
                                 $html .= "</tr>";
                                 echo $html;
                             }

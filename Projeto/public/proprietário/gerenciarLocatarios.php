@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>Gerenciar Locatário</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="proprietario.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
     <div class="sidebar">
@@ -36,15 +36,16 @@
             <div class="col">
                 <a href="index.php?page=cadLocatarios" class="btn btn-primary mb-3">Cadastrar Locatário</a>
                 <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
-                <table class="table">
+                <table class="table table-striped-green">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>ID</th>
                             <th>Nome da Empresa</th>
                             <th>CNPJ</th>
                             <th>Email</th>
                             <th>Telefone</th>
+                            <th>Editar</th>
+                            <th>Excluir</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,8 +66,10 @@
                                 $html .= "<td>" . $linha->empresa_email . "</td>";
                                 $html .= "<td>" . $linha->empresa_telefone . "</td>";
                                 $html .= "<td>
-                                          <a class='btn btn-danger' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "' onclick=\"return confirm('Tem certeza que deseja excluir este locatário?')\">Excluir</a>
-                                          <a class='btn btn-success' href='index.php?page=editarlocatario&id=" . $linha->empresa_id . "'>Editar</a>
+                                          <a class='btn btn-success' href='index.php?page=editarlocatario&id=" . $linha->empresa_id . "'><img src='../conteudo_livre/assets/imgs/editar.png' alt='Excluir' style='width: 16px; height: 16px;'></a>
+                                          </td>";
+                                $html .= "<td>
+                                          <a class='btn btn-danger' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "' onclick=\"return confirm('Tem certeza que deseja excluir este locatário?')\"><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir' style='width: 16px; height: 16px;'></a>
                                           </td>";
                                 $html .= "</tr>";
                                 echo $html;
