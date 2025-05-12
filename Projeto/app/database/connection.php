@@ -1,9 +1,9 @@
 <?php
 function conecta_db() {
-  $db_name = "db_tijucas";
-  $user = "dbtijucasopen";
-  $pass = "TijUcasOpenBancodeDados";
-  $server = "mysql742.umbler.com:41890";
+  $db_name = "databasetijucasopen"; //db_tijucas
+  $user = "dbtijucasopen"; //dbtijucasopen
+  $pass = "TijUcasOpenBancodeDados"; //TijUcasOpenBancodeDados
+  $server = "databasetijucasopen.ctoya846y027.us-east-2.rds.amazonaws.com:3306"; //mysql742.umbler.com:41890
 
   $conn = new mysqli($server, $user, $pass, $db_name);
 
