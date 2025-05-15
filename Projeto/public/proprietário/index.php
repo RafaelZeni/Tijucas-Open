@@ -40,6 +40,8 @@ if(isset($_GET['page'])) {
   } else if ($_GET['page'] == 'cadLojas') {
     include 'cadLojas.php'; 
 
+  } else if ($_GET['page'] == 'removerLoja') {
+    include 'removerLoja.php';
   } else {
     include '../../app/views/include/headerProp.php';
     header('location: index.php');

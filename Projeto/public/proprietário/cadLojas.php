@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("isssss", $espaco_id, $nome, $telefone, $logoPath, $andar, $tipo);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Loja cadastrada com sucesso!'); window.location.href = 'index.php';</script>";
+        echo "<script>alert('Loja cadastrada com sucesso!'); window.location.href = 'index.php?page=gerenciarLojas';</script>";
     } else {
         echo "Erro ao cadastrar: " . $stmt->error;
     }
@@ -62,6 +62,7 @@ while ($row = $result->fetch_assoc()) {
     <title>Perfil do Proprietário</title>
     <link rel="stylesheet" href="proprietario.css">
     <link rel="stylesheet" href="./assets/css/cadlojas.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script>
     function preencherEspacoEPiso() {
         const selectEmpresa = document.getElementById('empresa_select');
@@ -81,6 +82,7 @@ while ($row = $result->fetch_assoc()) {
       </div>
 
       <nav>
+        <a href="index.php">Início</a>
         <a href="index.php?page=gerenciarLocatarios">Gerenciar Locatários</a>
         <a href="index.php?page=gerenciarContratos">Gerenciar Contratos</a>
         <a href="index.php?page=gerenciarLojas">Gerenciar Lojas</a>
