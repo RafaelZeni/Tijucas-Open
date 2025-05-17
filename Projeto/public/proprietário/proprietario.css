@@ -1,3 +1,8 @@
+/* Força a barra de rolagem vertical sempre visível na página inteira, evitando pulo no layout */
+html {
+  overflow-y: scroll;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -77,9 +82,9 @@ body {
   margin-left: 220px;
   padding: 20px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  flex-direction: column; /* empilhar elementos verticalmente */
+  align-items: flex-start; /* alinha conteúdo à esquerda */
+  text-align: left;
 }
 
 .content h1 {
@@ -105,4 +110,11 @@ body {
   width: 16px;
   height: 16px;
   object-fit: contain;
+}
+
+/* NOVO: Wrapper da tabela para limitar altura e scroll interno */
+.table-wrapper {
+  max-height: 70vh; /* limita altura da tabela para 70% da viewport */
+  overflow-y: auto; /* ativa scroll vertical só aqui */
+  border: 1px solid #ddd; /* opcional: borda para visualização */
 }

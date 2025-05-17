@@ -56,8 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 
     if (!$empresa_id) {
-        echo "<script>alert('CNPJ não encontrado na tabela de locatários!'); window.location.href = 'index.php?page=gerarContratos';</script>";
-        exit;
+        $sweetAlert = ['icon' => 'error',
+                'title' => 'Erro!',
+                'text' => "CNPJ não encontrado na tabela de locatários!",
+                'redirect' => 'index.php?page=gerarContratos'];
     }
 
     // Inserir na tabela tb_contrato
@@ -71,7 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $updateEspaco->execute();
         $updateEspaco->close();
     } else {
-        echo "<script>alert('Erro ao salvar dados do contrato: " . $insert->error . "');</script>";
+        $error = addslashes(htmlspecialchars($insert->error));
+        $sweetAlert = ['icon' => 'error',
+                'title' => 'Erro!',
+                'text' => "Erro ao salvar dados do contrato: {$error}"];
     }
     $insert->close();
 

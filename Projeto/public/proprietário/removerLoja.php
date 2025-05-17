@@ -18,22 +18,38 @@
         $stmt->bind_param("i", $empresa_id);
 
         if ($stmt->execute()) {
-            echo "<script>
-                    alert('Loja removida com sucesso!');
-                    window.location.href = 'index.php?page=gerenciarLojas';
-                  </script>";
+            $sweetAlert = ['icon' => 'success',
+                'title' => 'Sucesso!',
+                'text' => 'Loja removida com sucesso!',
+                'redirect' => 'index.php?page=gerenciarLojas'];
         } else {
-            echo "<script>
-                    alert('Erro ao remover o loja: " . $stmt->error . "');
-                  </script>";
+            $error = addslashes(htmlspecialchars($stmt->error));
+            $sweetAlert = ['icon' => 'error',
+                'title' => 'Erro!',
+                'text' => "Erro ao remover a loja: {$error}",
+                'redirect' => 'index.php?page=gerenciarLojas'];
         }
 
         $stmt->close();
         $conn->close();
     } else {
-        echo "<script>
-                alert('ID da loja não fornecido.');
-                window.location.href = 'index.php?page=gerenciarLojas';
-              </script>";
+        $sweetAlert = ['icon' => 'error',
+                'title' => 'Erro!',
+                'text' => "ID da loja não fornecido",
+                'redirect' => 'index.php?page=gerenciarLojas'];
     }
 ?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Processando...</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <script>
+        const sweetAlertData = <?= json_encode($sweetAlert) ?>;
+    </script>
+    <script src="../conteudo_livre/assets/js/alerts.js"></script>
+</body>
+</html>

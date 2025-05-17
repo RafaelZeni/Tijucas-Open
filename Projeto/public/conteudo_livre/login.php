@@ -33,10 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             exit;
         } else {
-            echo "<script>alert('Senha incorreta.');</script>";
+            $sweetAlert = ['icon' => 'error',
+            'title' => 'Erro!',
+            'text' => 'Usuário ou senha incorretos!'];
         }
     } else {
-        echo "<script>alert('Usuário não encontrado.');</script>";
+        $sweetAlert = ['icon' => 'error',
+        'title' => 'Erro!',
+        'text' => "Usuário ou senha incorretos!"];
     }
 
     $stmt->close();
@@ -74,5 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </section>
     </div> 
 </section>
+<?php if (isset($sweetAlert)): ?>
+  <script>
+    const sweetAlertData = <?= json_encode($sweetAlert) ?>;
+  </script>
+<?php endif; ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="conteudo_livre/assets/js/alerts.js"></script>
 </body>
 </html>

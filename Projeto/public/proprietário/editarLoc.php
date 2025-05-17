@@ -16,11 +16,16 @@
         $resultado = $stmt->execute();
 
         if ($resultado) {
-            header("Location: gerenciarLocatarios.php");
-            exit();
+            $sweetAlert = ['icon' => 'success',
+                'title' => 'Sucesso!',
+                'text' => 'Locatário editado com sucesso!',
+                'redirect' => 'index.php?page=gerenciarLocatarios'];
         } else {
-            echo "<span class='alert alert-danger'>Não foi possível editar o locatário!</span>";
-            header("Location: gerenciarLocatarios.php");
+            $error = addslashes(htmlspecialchars($stmt->error));
+            $sweetAlert = ['icon' => 'error',
+                'title' => 'Erro!',
+                'text' => "Erro ao editar o locatário: {$error}",
+                'redirect' => 'index.php?page=gerenciarLocatarios'];
         }
 
         $stmt->close();
@@ -103,13 +108,20 @@
     </div>
   </div>
     </div>
+    <?php if(isset($sweetAlert)): ?>
+  <script>
+    const sweetAlertData = <?= json_encode($sweetAlert) ?>;
+  </script>
+<?php endif; ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../conteudo_livre/assets/js/alerts.js"></script>
   </body>
   <script>
   function mascararTelefone(input) {
     let valor = input.value.replace(/\D/g, '').slice(0, 11); // só números, até 11 dígitos
     let formatado = valor;
 
-    if (valor.length >= 1) {
+    if (valor.length >= 2) {
       formatado = '(' + valor.substring(0, 2);
     }
     if (valor.length >= 3) {

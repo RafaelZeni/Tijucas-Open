@@ -21,22 +21,40 @@
         $stmt->bind_param("i", $contrato_id);
 
         if ($stmt->execute()) {
-            echo "<script>
-                        window.location.href = 'index.php?page=gerenciarContratos';
-                   </script>";
+            $sweetAlert = ['icon' => 'success',
+                'title' => 'Sucesso!',
+                'text' => 'Contrato removido com sucesso!',
+                'redirect' => 'index.php?page=gerenciarContratos'];
         } else {
-            echo "<script>
-                        alert('Erro ao remover Contrato!". $stmt->error ."');
-                   </script>";
+            $error = addslashes(htmlspecialchars($stmt->error));
+            $sweetAlert = ['icon' => 'error',
+                'title' => 'Erro!',
+                'text' => "Erro ao remover contrato: {$error}",
+                'redirect' => 'index.php?page=gerenciarContratos'];
         }
 
         $stmt->close();
         $conn->close();
 
     } else {
-        echo "<script>
-                    alert('ID do contrato não fornecido!');
-                    window.location.href = 'index.php?page=gerenciarContratos';
-               </script>";
+        $sweetAlert = ['icon' => 'error',
+                'title' => 'Erro!',
+                'text' => "ID do Contrato não foi identificado!",
+                'redirect' => 'index.php?page=gerenciarContratos'];
     }
 ?>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Processando...</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <script>
+        const sweetAlertData = <?= json_encode($sweetAlert) ?>;
+    </script>
+    <script src="../conteudo_livre/assets/js/alerts.js"></script>
+</body>
+</html>

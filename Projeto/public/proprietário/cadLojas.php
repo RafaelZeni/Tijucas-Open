@@ -27,9 +27,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("isssss", $espaco_id, $nome, $telefone, $logoPath, $andar, $tipo);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Loja cadastrada com sucesso!'); window.location.href = 'index.php?page=gerenciarLojas';</script>";
+        $sweetAlert = ['icon' => 'success',
+                'title' => 'Sucesso!',
+                'text' => 'Loja cadastrada com sucesso!',
+                'redirect' => 'index.php?page=gerenciarLojas'];
     } else {
-        echo "Erro ao cadastrar: " . $stmt->error;
+       $error = addslashes(htmlspecialchars($stmt->error));
+       $sweetAlert = ['icon' => 'error',
+                'title' => 'Erro!',
+                'text' => "Erro ao cadastrar loja: {$error}"];
     }
     $stmt->close();
 }
@@ -135,5 +141,12 @@ while ($row = $result->fetch_assoc()) {
         <input type="submit" class="btn accept mb-3" value="Cadastrar Loja">
     </form>
     </div>
+  <?php if(isset($sweetAlert)): ?>
+    <script>
+    const sweetAlertData = <?= json_encode($sweetAlert) ?>;
+    </script>
+  <?php endif; ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../conteudo_livre/assets/js/alerts.js"></script>
   </body>
 </html>
