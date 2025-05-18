@@ -118,7 +118,7 @@ while ($row = $result->fetch_assoc()) {
         </select><br>
 
         <label>Telefone da Loja:</label>
-        <input type="text" name="loja_telefone"><br>
+        <input type="text" name="loja_telefone" required placeholder="Digite o Telefone" maxlength="15" oninput="mascararTelefone(this)"><br>
 
         <label>Andar:</label>
         <input type="text" name="loja_andar" readonly required><br>
@@ -141,6 +141,20 @@ while ($row = $result->fetch_assoc()) {
         <input type="submit" class="btn accept mb-3" value="Cadastrar Loja">
     </form>
     </div>
+
+
+  <script>
+    function mascararTelefone(input) {
+      let valor = input.value.replace(/\D/g, "").slice(0, 11);
+      let formatado = valor;
+      if (valor.length >= 1) formatado = "(" + valor.substring(0, 2);
+      if (valor.length >= 3) formatado += ") " + valor.substring(2, valor.length >= 7 ? 7 : valor.length);
+      if (valor.length >= 7) formatado += "-" + valor.substring(7);
+      input.value = formatado;
+    }
+  </script>
+
+
   <?php if(isset($sweetAlert)): ?>
     <script>
     const sweetAlertData = <?= json_encode($sweetAlert) ?>;
