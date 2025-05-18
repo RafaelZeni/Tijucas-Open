@@ -69,7 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="email" id="emailLog" name="emailLog" required placeholder="Digite seu e-mail">
 
                 <label for="passLog">Senha</label>
-                <input type="password" id="passLog" name="passLog" required placeholder="Digite sua senha">
+                <div class="senha-container">
+                    <input type="password" id="passLog" name="passLog" required placeholder="Digite sua senha">
+                    <button type="button" id="toggleSenha" class="toggle-senha" aria-label="Mostrar senha">👁</button>
+                </div>
 
                 <button type="submit" class="enviar">Entrar</button>
 
@@ -78,12 +81,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </section>
     </div> 
 </section>
+
 <?php if (isset($sweetAlert)): ?>
   <script>
     const sweetAlertData = <?= json_encode($sweetAlert) ?>;
   </script>
 <?php endif; ?>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="conteudo_livre/assets/js/alerts.js"></script>
+
+<!-- Script para alternar visibilidade da senha -->
+<script>
+    document.getElementById('toggleSenha').addEventListener('click', function () {
+        const senhaInput = document.getElementById('passLog');
+        const tipoAtual = senhaInput.getAttribute('type');
+
+        if (tipoAtual === 'password') {
+            senhaInput.setAttribute('type', 'text');
+            this.textContent = '👁'; // Ícone para ocultar
+        } else {
+            senhaInput.setAttribute('type', 'password');
+            this.textContent = '👁'; // Ícone para mostrar
+        }
+    });
+</script>
 </body>
 </html>
