@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $sweetAlert = ['icon' => 'error',
         'title' => 'Erro!',
-        'text' => "Usuário ou senha incorretos!"];
+        'text' => "E-mail de usuário não encontrado no sistema."];
     }
 
     $stmt->close();

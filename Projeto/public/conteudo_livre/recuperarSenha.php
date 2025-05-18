@@ -4,54 +4,71 @@ require '../app/database/connection.php'; // função conecta_db()
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['emailREC'];
     $novaSenha = $_POST['passREC'];
-    $confirmaSenha = $_POST['passConfirm'];  // A senha confirmada
+    $confirmaSenha = $_POST['passConfirm'];
 
-    // Verifica se as senhas coincidem
     if ($novaSenha !== $confirmaSenha) {
-        echo "<script>alert('As senhas não coincidem. Por favor, tente novamente.'); window.location.href = 'index.php?page=recsenha';</script>";
-        exit;
-    }
+        $sweetAlert = [
+            'icon' => 'error',
+            'title' => 'Erro!',
+            'text' => 'As senhas não coincidem. Por favor, tente novamente.'
+        ];
+    } else {
+        $conn = conecta_db();
 
-    // Conecta ao banco de dados
-    $conn = conecta_db();
+        $stmt = $conn->prepare("SELECT tipo_usu FROM tb_logins WHERE email_usu = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
 
-    // Verifica o tipo de usuário (se é 'proprietario')
-    $stmt = $conn->prepare("SELECT tipo_usu FROM tb_logins WHERE email_usu = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
+        if ($resultado && $resultado->num_rows > 0) {
+            $row = $resultado->fetch_assoc();
 
-    if ($resultado && $resultado->num_rows > 0) {
-        $row = $resultado->fetch_assoc();
-
-        // Verifica se o tipo de usuário é 'proprietario'
-        if ($row['tipo_usu'] === 'proprietario') {
-            echo "<script>alert('Usuários do tipo Proprietário não podem alterar a senha.'); window.location.href = 'index.php?page=entrar';</script>";
-            exit;
-        }
-
-        // Se o tipo de usuário não for 'proprietario', faz o hash da nova senha
-        $novaSenhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
-
-        // Prepara a consulta para atualizar a senha
-        $stmt = $conn->prepare("UPDATE tb_logins SET senha_usu = ? WHERE email_usu = ?");
-        $stmt->bind_param("ss", $novaSenhaHash, $email);
-
-        if ($stmt->execute()) {
-            if ($stmt->affected_rows > 0) {
-                echo "<script>alert('Senha atualizada com sucesso!'); window.location.href = 'index.php?page=entrar';</script>";
+            if ($row['tipo_usu'] === 'proprietario') {
+                $sweetAlert = [
+                    'icon' => 'warning',
+                    'title' => 'Troca de Senha Restrita',
+                    'text' => 'Usuário do tipo Proprietário não pode alterar a senha.'
+                ];
             } else {
-                echo "<script>alert('E-mail não encontrado.'); window.location.href = 'index.php?page=recsenha';</script>";
+                $novaSenhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
+
+                $stmt = $conn->prepare("UPDATE tb_logins SET senha_usu = ? WHERE email_usu = ?");
+                $stmt->bind_param("ss", $novaSenhaHash, $email);
+
+                if ($stmt->execute()) {
+                    if ($stmt->affected_rows > 0) {
+                        $sweetAlert = [
+                            'icon' => 'success',
+                            'title' => 'Concluído!',
+                            'text' => 'Nova senha definida com sucesso!',
+                            'redirect' => 'index.php?page=entrar'
+                        ];
+                    } else {
+                        $sweetAlert = [
+                            'icon' => 'error',
+                            'title' => 'Erro!',
+                            'text' => 'E-mail de usuário não encontrado no sistema.'
+                        ];
+                    }
+                } else {
+                    $sweetAlert = [
+                        'icon' => 'error',
+                        'title' => 'Erro!',
+                        'text' => 'Erro ao atualizar senha: ' . $conn->error
+                    ];
+                }
             }
         } else {
-            echo "<script>alert('Erro ao atualizar senha: " . $conn->error . "');</script>";
+            $sweetAlert = [
+                'icon' => 'error',
+                'title' => 'Erro!',
+                'text' => 'E-mail de usuário não encontrado no sistema.'
+            ];
         }
-    } else {
-        echo "<script>alert('E-mail não encontrado.'); window.location.href = 'index.php?page=recsenha';</script>";
-    }
 
-    $stmt->close();
-    $conn->close();
+        $stmt->close();
+        $conn->close();
+    }
 }
 ?>
 
@@ -89,5 +106,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </section>
     </div> 
 </section>
+<?php if (isset($sweetAlert)): ?>
+  <script>
+    const sweetAlertData = <?= json_encode($sweetAlert) ?>;
+  </script>
+<?php endif; ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="conteudo_livre/assets/js/alerts.js"></script>
 </body>
 </html>
