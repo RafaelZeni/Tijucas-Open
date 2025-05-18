@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="passCAD">Senha</label>
             <input type="password" id="passCAD" name="passCAD" required placeholder="Digite a senha" />
 
-            <button type="submit" class="enviar">Enviar</button>
+            <button type="submit" class="enviar">Cadastrar</button>
           </form>
         </section>
       </div>

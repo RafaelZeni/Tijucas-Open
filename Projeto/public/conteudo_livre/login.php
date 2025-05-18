@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="passLog">Senha</label>
                 <input type="password" id="passLog" name="passLog" required placeholder="Digite sua senha">
 
-                <button type="submit" class="enviar">Enviar</button>
+                <button type="submit" class="enviar">Entrar</button>
 
                 <a class="recsenha" href="index.php?page=recsenha">Esqueceu sua senha?</a>
             </form>
