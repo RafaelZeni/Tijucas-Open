@@ -26,7 +26,7 @@ function validar_cnpj($cnpj) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cnpj = str_replace(['.', '/', '-'], '', $_POST['cnpjCAD']);
-    
+
     if (!validar_cnpj($cnpj)) {
         $sweetAlert = [
             'icon' => 'error',
@@ -34,37 +34,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'text' => 'Por favor, insira um CNPJ válido.'
         ];
     } else {
-        $nome     = $_POST['nomeCAD'];
-        $telefone = str_replace(['(', ')', ' ', '-'], '', $_POST['telefoneCAD']);
-        $email    = $_POST['emailCAD'];
-        $senha    = $_POST['passCAD'];
-        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
         $conn = conecta_db();
-        $stmt = $conn->prepare("CALL pr_AdicionarLocatario(?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $cnpj, $nome, $telefone, $email, $senhaHash);
 
-        if ($stmt->execute()) {
-            $sweetAlert = [
-                'icon' => 'success',
-                'title' => 'Pronto!',
-                'text' => 'Locatário cadastrado com sucesso!',
-                'redirect' => 'index.php?page=gerenciarLocatarios'
-            ];
-        } else {
-            $erro = addslashes(htmlspecialchars($conn->error));
+        $stmtCheck = $conn->prepare("SELECT COUNT(*) FROM tb_locatarios WHERE empresa_cnpj = ?");
+        $stmtCheck->bind_param("s", $cnpj);
+        $stmtCheck->execute();
+        $stmtCheck->bind_result($cnpjExiste);
+        $stmtCheck->fetch();
+        $stmtCheck->close();
+
+        if ($cnpjExiste > 0) {
             $sweetAlert = [
                 'icon' => 'error',
-                'title' => 'Erro!',
-                'text' => "Erro ao cadastrar locatário: {$erro}"
+                'title' => 'CNPJ já cadastrado!',
+                'text' => 'Esse CNPJ já está em uso por outro locatário.'
             ];
+        } else {
+            // Prossegue com o cadastro
+            $nome     = $_POST['nomeCAD'];
+            $telefone = str_replace(['(', ')', ' ', '-'], '', $_POST['telefoneCAD']);
+            $email    = $_POST['emailCAD'];
+            $senha    = $_POST['passCAD'];
+            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
+            $stmt = $conn->prepare("CALL pr_AdicionarLocatario(?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssss", $cnpj, $nome, $telefone, $email, $senhaHash);
+
+            if ($stmt->execute()) {
+                $sweetAlert = [
+                    'icon' => 'success',
+                    'title' => 'Pronto!',
+                    'text' => 'Locatário cadastrado com sucesso!',
+                    'redirect' => 'index.php?page=gerenciarLocatarios'
+                ];
+            } else {
+                $erro = addslashes(htmlspecialchars($conn->error));
+                $sweetAlert = [
+                    'icon' => 'error',
+                    'title' => 'Erro!',
+                    'text' => "Erro ao cadastrar locatário: {$erro}"
+                ];
+            }
+
+            $stmt->close();
         }
 
-        $stmt->close();
         $conn->close();
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -121,7 +140,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="email" id="emailCAD" name="emailCAD" required placeholder="Digite o E-mail" />
 
             <label for="passCAD">Senha</label>
-            <input type="password" id="passCAD" name="passCAD" required placeholder="Digite a senha" />
+            <div id="erroPass" style="color: red; display: none; font-size: 0.9em; margin-bottom: 5px;">
+              A senha deve ter no mínimo 8 caracteres, incluindo 1 letra maiúscula, 1 número e 1 caractere especial.
+            </div>
+            <input type="password" id="passCAD" name="passCAD" required placeholder="Digite a senha" oninput="validarSenha(this)" />
 
             <button type="submit" class="enviar">Cadastrar</button>
           </form>
@@ -181,16 +203,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     function validarFormulario() {
+      //CNPJ
       const cnpjInput = document.getElementById("cnpjCAD");
       const erroCNPJ = document.getElementById("erroCNPJ");
+      //Senha
+      const passInput = document.getElementById("passCAD");
+      const erroPass = document.getElementById("erroPass");
+
       if (!validarCNPJ(cnpjInput.value)) {
         erroCNPJ.style.display = "block";
         cnpjInput.classList.add("is-invalid");
         cnpjInput.focus();
         return false;
       }
+
+      if (!validarSenha(passInput.value)) {
+        erroPass.style.display = "block";
+        passInput.classList.add("is-invalid");
+        passInput.focus();
+        return false;
+      }
+
+
       erroCNPJ.style.display = "none";
+      erroPass.style.display = "none";
       cnpjInput.classList.remove("is-invalid");
+      passInput.classList.remove("is-invalid");
       return true;
     }
 
@@ -200,6 +238,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       erroCNPJ.style.display = "none";
       cnpjInput.classList.remove("is-invalid");
     }
+
+    function validarSenha(senha) {
+      const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+      return regex.test(senha);
+    }
+
   </script>
 
 <?php if(isset($sweetAlert)): ?>
