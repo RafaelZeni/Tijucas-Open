@@ -89,15 +89,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="quadrado">
         <section class="form-container">
             <h3>Recuperar Senha</h3>
-            <form method="post" class="forms">
+            <form method="post" class="forms" onsubmit="return validarFormulario();">
                 <label for="emailREC">Email</label>
                 <input type="email" id="emailREC" name="emailREC" required placeholder="Digite seu e-mail">
 
                 <label for="passREC">Nova Senha</label>
+                <div id="erroPass" style="color: red; display: none; font-size: 0.9em; margin-bottom: 5px;">
+                    A senha deve ter no mínimo 8 caracteres, incluindo 1 letra maiúscula, 1 número e 1 caractere especial.
+                </div>
                 <input type="password" id="passREC" name="passREC" required placeholder="Digite a nova senha">
 
                 <label for="passConfirm">Confirmar Nova Senha</label>
-                <input type="password" id="passConfirm" name="passConfirm" required placeholder="Confirme sua nova senha">
+                <input type="password" id="passConfirm" name="passConfirm" required placeholder="Confirme sua nova senha" oninput="validarSenha(this)">
 
                 <button type="submit" class="enviar">Atualizar Senha</button>
 
@@ -113,5 +116,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php endif; ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="conteudo_livre/assets/js/alerts.js"></script>
+
+<script>
+    function validarFormulario() {
+      //Senha
+      const passInput = document.getElementById("passREC");
+      const erroPass = document.getElementById("erroPass");
+
+      if (!validarSenha(passInput.value)) {
+        erroPass.style.display = "block";
+        passInput.classList.add("is-invalid");
+        passInput.focus();
+        return false;
+      }
+      erroPass.style.display = "none";
+      passInput.classList.remove("is-invalid");
+      return true;
+    }
+
+
+    function validarSenha(senha) {
+        const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        return regex.test(senha);
+    }
+</script>
 </body>
 </html>
