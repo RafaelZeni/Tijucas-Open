@@ -7,13 +7,13 @@ $filtro = isset($_POST['filtro_loja']) ? trim($_POST['filtro_loja']) : '';
 
 // Verifica se há um filtro selecionado, e muda a consulta ao sql
 if ($filtro != '') {
-    $stmt = $conn->prepare("SELECT loja_nome, loja_logo FROM tb_lojas WHERE loja_tipo = ? LIMIT 20");
+    $stmt = $conn->prepare("SELECT * FROM tb_lojas WHERE loja_tipo = ? LIMIT 20");
     $stmt->bind_param("s", $filtro);
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
     // Se não tiver filtro, mostra todas as lojas
-    $sql = "SELECT loja_nome, loja_logo FROM tb_lojas LIMIT 20";
+    $sql = "SELECT * FROM tb_lojas LIMIT 20";
     $result = $conn->query($sql);
 }
 ?>
@@ -52,8 +52,11 @@ if ($filtro != '') {
             <?php
             if ($result && $result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo '<div class="loja">';
+                    echo '<div class="col-12 col-sm-6 col-md-4 col-lg-3 loja">';
 
+                    echo '<div class="card-wrap">';
+
+                    echo '<div class="card-face card-front">';
                     // Verifica se a logo está presente e exibe
                     if (!empty($row["loja_logo"])) {
                         echo '<img src="' . htmlspecialchars($row["loja_logo"]) . '" alt="Logo da loja">';
@@ -61,10 +64,23 @@ if ($filtro != '') {
                         // Caso não haja logo, exibe uma imagem de fallback
                         echo '<img src="conteudo_livre/assets/imgs/logo-placeholder.png" alt="Logo de placeholder">';
                     }
-
+                    
+                    echo '<div class="card-body">';
                     // Exibe o nome da loja
-                    echo '<p>' . htmlspecialchars($row["loja_nome"]) . '</p>';
-                    echo '</div>';
+                    echo '<h5 class="card-title">' . htmlspecialchars($row["loja_nome"]) . '</h5>';
+                    echo '</div>'; // card-body
+                    echo '</div>'; // card front
+
+                    echo '<div class="card-face card-back">';
+                    echo '<div class="card-body">';
+                    echo '<h5 class="card-title">' . htmlspecialchars($row["loja_nome"]) . '</h5>';
+                    echo '<p class="card-text">' . htmlspecialchars($row["loja_andar"]) . '</p>';
+                    echo '<p class="card-text">' . htmlspecialchars($row["loja_telefone"]) . '</p>';
+                    echo '</div>'; // card-body
+                    echo '</div>'; // card-back
+
+                    echo '</div>'; // card-wrapper
+                    echo '</div>'; // loja
                 }
             } else {
                 echo "<p>Nenhuma loja encontrada.</p>";

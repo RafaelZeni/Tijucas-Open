@@ -47,6 +47,7 @@
                         <th>Telefone</th>
                         <th>Andar</th>
                         <th>Tipo</th>
+                        <th>Editar</th>
                         <th>Excluir</th>
                       </tr>
                     </thead>
@@ -66,6 +67,9 @@
                         $html .= "<td>" . $linha->loja_telefone . "</td>";
                         $html .= "<td>" . $linha->loja_andar . "</td>";
                         $html .= "<td>" . $linha->loja_tipo . "</td>";
+                        $html .= "<td>
+                        <a class='btn btn-success' href='index.php?page=editarLoja&id=" . $linha->loja_id . "'><img src='../conteudo_livre/assets/imgs/editar.png' alt='Editar'></a>
+                        </td>";
                         $html .= "<td>
                             <a class='btn btn-danger btn-excluir' href='index.php?page=removerLoja&id=" . $linha->loja_id . "'><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir''></a>
                         </td>";
