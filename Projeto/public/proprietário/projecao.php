@@ -72,9 +72,9 @@ $conn->close();
     <div class="container">
     <h2 class="mb-4">Projeção de Faturamento Mensal</h2>
 
-    <a href="proprietario.php" class="btn btn-dark mb-3">Voltar para os Gráficos</a>
+    <a href="proprietario.php" class="btn btn-dark mb-3">Voltar</a>
 
-    <table class="table table-bordered">
+    <table class="table table-striped-green text-center">
       <thead class="table-success">
         <tr>
           <th>Mês</th>

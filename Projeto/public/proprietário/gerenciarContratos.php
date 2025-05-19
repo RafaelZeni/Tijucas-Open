@@ -39,7 +39,7 @@
           <a href="index.php?page=gerarContratos" class="btn btn-primary mb-3">Criar Contrato</a>
           <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
           <div class="table-wrapper">
-            <table class="table table-striped-green">
+            <table class="table table-striped-green text-center">
               <thead>
                 <tr>
                   <th>ID</th>

@@ -128,7 +128,7 @@ $conn->close();
   <h1>Bem-Vindo Cristiano</h1>
 
   <!-- Gráfico Rosquinha -->
-  <div class="row">
+  <div class="row mt-2">
     <h3 class="mb-3">Status dos Espaços</h3>
     <div class="col-md-6">
       <div style="width: 350px; height: 350px;">
@@ -138,19 +138,21 @@ $conn->close();
   </div>
 
   <!-- Resumo Faturamento -->
-  <div class="row mt-5">
+  <div class="row mt-5" >
     <h3 class="mb-3">Projeção de Faturamento Mensal (R$)</h3>
     <div class="col-md-12">
+
+        <!-- Botão para ver detalhes -->
+    <div class="row mt-2">
+      <div class="col-md-12 d-flex justify-content-star">
+          <a href="index.php?page=projecao" class="btn btn-success">Ver Detalhes da Projeção</a>
+      </div>
+    </div>
 
       <!-- Gráfico de linha -->
       <canvas id="faturamentoChart" style="max-width: 900px; max-height: 400px;"></canvas>
     </div>
-    <!-- Botão para ver detalhes -->
-    <div class="row mt-5">
-      <div class="col-md-12 d-flex justify-content-end">
-          <a href="index.php?page=projecao" class="btn btn-success">Ver Detalhes da Projeção</a>
-      </div>
-    </div>
+
   </div>
 </div>
 
