@@ -1,4 +1,7 @@
-<!---->
+<!--Página que permite ao proprietário visualilzar quais 
+espaços ocupados, por quem eles estão ocupados, a área do 
+espaço em metros quadrados, o ID do espaço e o andar em que 
+ele se encontra -->
 
 <!DOCTYPE html>
 <html lang="pt-BR">

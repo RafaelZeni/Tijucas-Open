@@ -1,4 +1,4 @@
-<!--Index que leva o usuário par a página de acordo com seu clique-->
+<!--Index que leva o usuário para a página de acordo com seu clique-->
 
 <?php
 

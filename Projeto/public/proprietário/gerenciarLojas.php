@@ -1,3 +1,8 @@
+<!--Página que permite ao proprietário visualizar as lojas já cadastradas, 
+exibindo seu ID, o espaço locado pela loja, o nome da loja, o telefone da 
+loja, andar da loja e classificação da loja. A página permite tambem editar 
+e excluir as lojas já cadastradas -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
