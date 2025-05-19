@@ -1,3 +1,6 @@
+<!--Página de Contato dedicada ao usuário, como
+um meio de comunicação com o proprietário-->
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -14,6 +17,7 @@
         <h2>Fale Conosco:</h2>
         <form action="" method="POST">
         <label for="nomeCAD">Nome</label>
+        <!--Função para garantir que apenas letras sejam inseridas-->
         <input type="text" id="nomeCAD" name="nomeCAD" required placeholder="Digite o Nome da empresa" oninput="apenasLetras(this)">
 
             <label for="sobrenome">Sobrenome</label>

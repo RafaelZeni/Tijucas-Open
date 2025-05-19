@@ -356,6 +356,32 @@
   cursor: pointer !important;
   font-size: 1.2em !important;
 }
+.recuperarSenha .senha-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.recuperarSenha .senha-container input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.recuperarSenha .toggle-senha {
+  position: absolute;
+  right: 10px;
+  top: 10px; /* alinhamento com o input */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+.recuperarSenha .forms label {
+  display: block;
+  text-align: left !important;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
 
 /*css lojas-------------------------------------------------------------------*/
 

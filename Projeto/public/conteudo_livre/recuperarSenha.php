@@ -1,3 +1,7 @@
+<!-- Página que permite o usuário mudar sua senha caso necessário. 
+ Para alterar a senha, é necessário inserir seu e-mail de locatário 
+ corretamente, e inserir uma nova senha, e sua confirmação-->
+
 <?php
 require '../app/database/connection.php'; // função conecta_db()
 
@@ -97,10 +101,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div id="erroPass" style="color: red; display: none; font-size: 0.9em; margin-bottom: 5px;">
                     A senha deve ter no mínimo 8 caracteres, incluindo 1 letra maiúscula, 1 número e 1 caractere especial.
                 </div>
-                <input type="password" id="passREC" name="passREC" required placeholder="Digite a nova senha">
+                    <div class="senha-container">
+                        <input type="password" id="passREC" name="passREC" required placeholder="Digite a nova senha">
+                        <button type="button" id="toggleSenhaREC" class="toggle-senha" aria-label="Mostrar senha">👁</button>
+                    </div>
 
-                <label for="passConfirm">Confirmar Nova Senha</label>
-                <input type="password" id="passConfirm" name="passConfirm" required placeholder="Confirme sua nova senha" oninput="validarSenha(this)">
+                    <label for="passConfirm">Confirmar Nova Senha</label>
+                    <div class="senha-container">
+                        <input type="password" id="passConfirm" name="passConfirm" required placeholder="Confirme sua nova senha" oninput="validarSenha(this)">
+                        <button type="button" id="toggleSenhaConfirm" class="toggle-senha" aria-label="Mostrar senha">👁</button>
+                    </div>
+
 
                 <button type="submit" class="enviar">Atualizar Senha</button>
 
@@ -140,5 +151,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         return regex.test(senha);
     }
 </script>
+
+<script>
+    function configurarToggleSenha(botaoId, inputId) {
+        document.getElementById(botaoId).addEventListener('click', function () {
+            const input = document.getElementById(inputId);
+            const tipoAtual = input.getAttribute('type');
+
+            if (tipoAtual === 'password') {
+                input.setAttribute('type', 'text');
+                this.textContent = '👁';
+            } else {
+                input.setAttribute('type', 'password');
+                this.textContent = '👁';
+            }
+        });
+    }
+
+    configurarToggleSenha('toggleSenhaREC', 'passREC');
+    configurarToggleSenha('toggleSenhaConfirm', 'passConfirm');
+</script>
+
+</body>
+</html>
+
 </body>
 </html>

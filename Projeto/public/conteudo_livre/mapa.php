@@ -1,3 +1,6 @@
+<!-- Página que exibe o Mapa Interativo, com a intenção de ajudar 
+o usuário a se localizar corretamente dentro do espaço do Tijucas Open-->
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,7 +18,7 @@
   </div>
   <div id="map" class="mapa-container"></div>
 </section>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> 
 <script src="conteudo_livre/assets/js/mapa.js"></script>
 </body>
 </html>
