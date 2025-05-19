@@ -1,3 +1,8 @@
+<!--Página que permite ao proprietário visualizar os locatários 
+cadastrados no sistema do Tijucas, exibe o nome da empresa, o 
+CNPJ, o e-mail e o telefone. A página permite que o proprietário 
+possa editar e excluir um proprietário já cadastrado-->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>

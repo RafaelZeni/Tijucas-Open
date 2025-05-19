@@ -1,3 +1,5 @@
+<!--Esta página permite ao proprietário-->
+
 <?php
 session_start();
 
