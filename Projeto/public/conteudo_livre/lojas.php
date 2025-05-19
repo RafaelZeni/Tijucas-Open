@@ -1,3 +1,7 @@
+<!--Página de lojas, local que aparece todas as lojas após seu
+cadastro final (Cadastro Locatário, Cadastro Contrato, Cadastro loja).
+ Exibe uma imagem da Loja em questão e exibe suas informações-->
+
 <?php
 require __DIR__ . '/../../app/database/connection.php';
 $conn = conecta_db(); // agora $conn estará disponível para tudo
