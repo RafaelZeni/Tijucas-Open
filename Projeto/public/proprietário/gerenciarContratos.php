@@ -1,3 +1,9 @@
+<!--Página responsável por gerenciar os contratos dos locatários.
+Ele exibe uma tabela com os contratos existentes e permite ao locatário 
+visualizar as informações de cada contrato, assim como permite ao proprietário
+editar ou excluir os contratos já existentes-->
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -59,7 +65,7 @@
                 $resultado = $conn->query($query);
 
                 while ($linha = $resultado->fetch_object()) {
-                  //Rafael: faz com que apareça a data de fim, como definida no contrato, 12 meses após a data inicial
+                  //faz com que apareça a data de fim, como definida no contrato, 12 meses após a data inicial
                   $data_inicio_obj = new DateTime($linha->data_inicio);
                   $data_inicio_formatada = $data_inicio_obj->format('d-m-Y');
 

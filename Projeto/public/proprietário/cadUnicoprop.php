@@ -1,3 +1,5 @@
+<!--Página de uso único que permite o cadastro do proprietário-->
+
 <?php
 include '../../app/views/include/header.php';
 require '../../app/database/connection.php'; // função conecta_db()

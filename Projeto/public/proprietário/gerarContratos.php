@@ -1,3 +1,8 @@
+<!-- Página de gestão de contratos, permite criar um contrato se 
+já houver um locatário cadastrado através de seu CNPJ. É necessário 
+inserir o nome do responsável, selecionar um dos CNPJ já cadastrados, 
+selecionar o espaço de locação, colocar a data de início.-->
+
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
 require '../../app/database/connection.php';
@@ -33,7 +38,7 @@ while ($linha = $resultadoEspacos->fetch_object()) {
     ];
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o formulário foi enviado
     $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
     $cnpj = isset($_POST['cnpj']) ? $_POST['cnpj'] : '';
     $loja = isset($_POST['loja']) ? $_POST['loja'] : '';
@@ -135,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script>
         const empresas = <?php echo json_encode($empresas); ?>;
         
-        function atualizarLoja() {
+        function atualizarLoja() { // Função para atualizar o campo "loja" com base no CNPJ selecionado
             const cnpjSelecionado = document.getElementById('cnpj').value;
             const campoLoja = document.getElementById('loja');
 

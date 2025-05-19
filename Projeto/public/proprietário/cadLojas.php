@@ -1,3 +1,6 @@
+<!--Página que permite o Proprietário cadastrar uma loja, desde que já 
+tenha um proprietário com um contrato ativo-->
+
 <?php
 require '../../app/database/connection.php';
 $conn = conecta_db();

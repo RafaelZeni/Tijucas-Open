@@ -384,12 +384,55 @@
 }
 
 /*css lojas-------------------------------------------------------------------*/
+/* Define a perspectiva para o efeito de flip */
+.card-wrap {
+  perspective: 1000px; /* A perspectiva dá a sensação de profundidade */
+  width: 100%;
+  height: 100%;
+}
+
+.card-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Esconde a parte de trás quando virada */
+  transition: transform 0.6s; /* Transição suave para o efeito de flip */
+}
+
+/* Efeito de flip: quando o card é hover, gira em torno do eixo Y */
+.card-wrap:hover .card-front {
+  transform: rotateY(180deg);
+}
+
+.card-wrap:hover .card-back {
+  transform: rotateY(0deg);
+}
+
+/* Frente do card */
+.card-front {
+  background-color: #fff;
+  /* Adicione o estilo desejado para a frente do card */
+}
+
+.card-front img{
+  padding-top: 20px;
+}
+
+/* Verso do card */
+.card-back {
+  background-color: #f8f9fa;
+  transform: rotateY(180deg); /* Inicia com a parte de trás virada */
+  padding: 10px;
+}
 
 .lojas body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: white;
 }
+
 .lojas .grid-lojas {
   display: grid;
   grid-template-columns: repeat(
@@ -403,12 +446,16 @@
   margin: 0 auto;
   grid-template-columns: repeat(5, 1fr);
 }
+
 .lojass {
   text-align: center;
   margin: 50px 0 white;
   background-color: white;
 }
+
 .lojas .loja {
+  cursor: pointer;
+  transition: transform 0.3s ease;
   width: 100%;
   height: 180px;
   background-color: #f4f4f4;
@@ -448,6 +495,7 @@
   margin-top: 20px;
   border-radius: 15px;
 }
+
 .lojas .filtro {
   width: 600px;
   padding: 8px;
@@ -457,7 +505,7 @@
   color: #333;
   font-size: 16px;
 
-  background-image: url('caminho-da-sua-setinha.svg'); /* se quiser mudar a seta */
+  background-image: url('caminhoSeta.svg'); /* se quiser mudar a seta */
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 16px;
