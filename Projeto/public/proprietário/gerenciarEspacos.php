@@ -43,7 +43,7 @@
                               <th>Piso</th>
                               <th>Área(m<sup>2</sup>)</th>
                               <th>Status</th>
-                              <!--Ocupado Por (Rever isso no Banco)!-->
+                              <th>Empresa</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -51,9 +51,10 @@
                               require '../../app/database/connection.php';
 
                               $conn = conecta_db();
-                              $query = "SELECT e.espaco_id, e.espaco_piso, e.espaco_area, e.espaco_status 
+                              $query = "SELECT e.espaco_id, e.espaco_piso, e.espaco_area, e.espaco_status, l.empresa_nome
                               FROM tb_espacos e 
-                              LEFT JOIN tb_lojas l ON e.espaco_id = l.espaco_id";
+                              LEFT JOIN tb_contrato c ON e.espaco_id = c.espaco_id
+                              LEFT JOIN tb_locatarios l ON c.empresa_id = l.empresa_id";
           
                               $resultado = $conn->query($query);
 
@@ -63,6 +64,7 @@
                                   $html .= "<td>".$linha->espaco_piso."</td>";
                                   $html .= "<td>".$linha->espaco_area."</td>";
                                   $html .= "<td>".$linha->espaco_status."</td>";
+                                  $html .= "<td>" . ($linha->empresa_nome ?? '') . "</td>";
                                   $html .= "</tr>";
                                   echo $html;
                               }

@@ -34,6 +34,9 @@ if(isset($_GET['page'])) {
   } else if ($_GET['page'] == 'gerenciarLojas') {
     include 'gerenciarLojas.php'; 
 
+  } else if ($_GET['page'] == 'projecao') {
+    include 'projecao.php'; 
+
   } else if ($_GET['page'] == 'cadLojas') {
     include 'cadLojas.php'; 
 
