@@ -1,3 +1,5 @@
+<!--Permite o locatário acessar as informações de seu contrato-->
+
 <?php
 require '../../app/database/connection.php';
 session_start();
