@@ -43,8 +43,7 @@
                               <th>Piso</th>
                               <th>Área(m<sup>2</sup>)</th>
                               <th>Status</th>
-                              <th>Ocupado Por (Rever isso no Banco)</th>
-                              <th>Editar</th>
+                              <!--Ocupado Por (Rever isso no Banco)!-->
                           </tr>
                       </thead>
                       <tbody>
@@ -64,8 +63,6 @@
                                   $html .= "<td>".$linha->espaco_piso."</td>";
                                   $html .= "<td>".$linha->espaco_area."</td>";
                                   $html .= "<td>".$linha->espaco_status."</td>";
-                                  $html .= "<td></td>";
-                                  $html .= "<td><a class='btn btn-success' href='index.php?page=editarEspaco&id=".$linha->espaco_id."'><img src='../conteudo_livre/assets/imgs/editar.png' alt='Excluir';'></a></td>";
                                   $html .= "</tr>";
                                   echo $html;
                               }

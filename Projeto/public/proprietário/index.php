@@ -31,9 +31,6 @@ if(isset($_GET['page'])) {
   } else if ($_GET['page'] == 'gerenciarEspacos') {
     include 'gerenciarEspacos.php';
     
-  } else if ($_GET['page'] == 'editarEspaco') {
-    include 'editarEspaco.php';
-    
   } else if ($_GET['page'] == 'gerenciarLojas') {
     include 'gerenciarLojas.php'; 
 
