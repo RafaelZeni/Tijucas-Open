@@ -1,3 +1,5 @@
+<!--Página que permite a edição de certas informaçõs sobre o locatário, como o nome da empresa, o telefone e o e-mail-->
+
 <?php
     require '../../app/database/connection.php';
 

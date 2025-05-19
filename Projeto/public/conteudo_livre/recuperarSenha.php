@@ -1,3 +1,7 @@
+<!-- Página que permite o usuário mudar sua senha caso necessário. 
+ Para alterar a senha, é necessário inserir seu e-mail de locatário 
+ corretamente, e inserir uma nova senha, e sua confirmação-->
+
 <?php
 require '../app/database/connection.php'; // função conecta_db()
 

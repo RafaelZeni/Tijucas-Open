@@ -1,3 +1,6 @@
+<!--Página que permite o locatário vizualize as lojas ainda
+livres no Tijucas Open, caso queira comprar outra loja-->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>

@@ -1,7 +1,12 @@
+<!-- Página para que o proprietário cadastre um locatário. 
+ Para que ele possa cadastra-lo com sucesso, o locatário precisa 
+ possuir um CNPJ válido, precisa inserir o telefone, o e-mail e a 
+ senha para cadastrar o locatário-->
+
 <?php
 require '../../app/database/connection.php';
 
-function validar_cnpj($cnpj) {
+function validar_cnpj($cnpj) { //função para validar o CNPJ
     $cnpj = preg_replace('/[^0-9]/', '', $cnpj);
     if (strlen($cnpj) != 14 || preg_match('/(\d)\1{13}/', $cnpj)) return false;
 
@@ -24,7 +29,7 @@ function validar_cnpj($cnpj) {
     return $digito2 == $digitos[1];
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi enviado
     $cnpj = str_replace(['.', '/', '-'], '', $_POST['cnpjCAD']);
 
     if (!validar_cnpj($cnpj)) {
@@ -33,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'title' => 'CNPJ inválido!',
             'text' => 'Por favor, insira um CNPJ válido.'
         ];
-    } else {
+    } else { // Se o CNPJ for válido, prossegue com o cadastro
         $conn = conecta_db();
 
         $stmtCheck = $conn->prepare("SELECT COUNT(*) FROM tb_locatarios WHERE empresa_cnpj = ?");
@@ -43,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmtCheck->fetch();
         $stmtCheck->close();
 
-        if ($cnpjExiste > 0) {
+        if ($cnpjExiste > 0) { // Verifica se o CNPJ já está cadastrado
             $sweetAlert = [
                 'icon' => 'error',
                 'title' => 'CNPJ já cadastrado!',
@@ -175,33 +180,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     function apenasLetras(campo) {
       campo.value = campo.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, "");
     }
-
-    function validarCNPJ(cnpj) {
-      cnpj = cnpj.replace(/[^\d]+/g, "");
-      if (cnpj.length !== 14 || /^(\d)\1+$/.test(cnpj)) return false;
-      let tamanho = cnpj.length - 2;
-      let numeros = cnpj.substring(0, tamanho);
-      let digitos = cnpj.substring(tamanho);
-      let soma = 0;
-      let pos = tamanho - 7;
-      for (let i = tamanho; i >= 1; i--) {
-        soma += numeros.charAt(tamanho - i) * pos--;
-        if (pos < 2) pos = 9;
-      }
-      let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
-      if (resultado != digitos.charAt(0)) return false;
-      tamanho += 1;
-      numeros = cnpj.substring(0, tamanho);
-      soma = 0;
-      pos = tamanho - 7;
-      for (let i = tamanho; i >= 1; i--) {
-        soma += numeros.charAt(tamanho - i) * pos--;
-        if (pos < 2) pos = 9;
-      }
-      resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
-      return resultado == digitos.charAt(1);
-    }
-
     function validarFormulario() {
       //CNPJ
       const cnpjInput = document.getElementById("cnpjCAD");

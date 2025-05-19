@@ -1,3 +1,8 @@
+<!--Página de Login, onde você insere seus dados para que seja dirigido 
+para a respectiva página. Verifica se já o usuário já possui cadastro, 
+caso não possua, informa que usuário ou senha estão errados. Tem a opção
+de se dirigir para a página de recuperar senha-->
+
 <?php
 session_start();
 require '../app/database/connection.php'; // função conecta_db()
@@ -13,14 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->execute();
     $resultado = $stmt->get_result();
 
-    if ($resultado && $resultado->num_rows > 0) {
+    if ($resultado && $resultado->num_rows > 0) { // verifica se o usuário existe, e pega seus dados
         $row = $resultado->fetch_assoc();
 
-        if (password_verify($senha, $row['senha_usu'])) {
+        if (password_verify($senha, $row['senha_usu'])) { // verifica se a senha está correta
             $_SESSION['logins_id'] = $row['logins_id'];
             $_SESSION['tipo_usu'] = $row['tipo_usu'];
 
-            switch ($row['tipo_usu']) {
+            switch ($row['tipo_usu']) { // redireciona para a página correta
                 case 'proprietario':
                     header("Location: ./proprietário/index.php"); 
                     break;
@@ -32,13 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     break;
             }
             exit;
-        } else {
+        } else { // se a senha estiver errada, exibe mensagem de erro
             $sweetAlert = ['icon' => 'error',
             'title' => 'Erro!',
             'text' => 'Usuário ou senha incorretos!'];
         }
     } else {
-        $sweetAlert = ['icon' => 'error',
+        $sweetAlert = ['icon' => 'error', // se o usuário não existir, exibe mensagem de erro
         'title' => 'Erro!',
         'text' => "E-mail de usuário não encontrado no sistema."];
     }
@@ -92,6 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <script src="conteudo_livre/assets/js/alerts.js"></script>
 
 <script>
+    // Função para mostrar a senha ao clicar no ícone
     document.getElementById('toggleSenha').addEventListener('click', function () {
         const senhaInput = document.getElementById('passLog');
         const tipoAtual = senhaInput.getAttribute('type');
