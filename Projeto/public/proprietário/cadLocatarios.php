@@ -145,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <input type="password" id="passCAD" name="passCAD" required placeholder="Digite a senha" oninput="validarSenha(this)" />
 
-            <button type="submit" class="enviar">Enviar</button>
+            <button type="submit" class="enviar">Cadastrar</button>
           </form>
         </section>
       </div>

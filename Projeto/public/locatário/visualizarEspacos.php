@@ -33,40 +33,40 @@
         <div class="row">
             <div class="col">
                 <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <td></td>
-                            <td>ID</td>
-                            <td>Piso</td>
-                            <td>Área(m<sup>2</sup>)</td>
-                            <td>Status</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            require '../../app/database/connection.php';
+                <div class="table-wrapper">
+                  <table class="table table-striped-green">
+                      <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>Piso</th>
+                              <th>Área(m<sup>2</sup>)</th>
+                              <th>Status</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php
+                              require '../../app/database/connection.php';
 
-                            $conn = conecta_db();
-                            $query = "SELECT e.espaco_id, e.espaco_piso, e.espaco_area, e.espaco_status 
-                            FROM tb_espacos e 
-                            LEFT JOIN tb_lojas l ON e.espaco_id = l.espaco_id";
-        
-                            $resultado = $conn->query($query);
+                              $conn = conecta_db();
+                              $query = "SELECT e.espaco_id, e.espaco_piso, e.espaco_area, e.espaco_status 
+                              FROM tb_espacos e 
+                              LEFT JOIN tb_lojas l ON e.espaco_id = l.espaco_id";
+          
+                              $resultado = $conn->query($query);
 
-                            while($linha = $resultado->fetch_object()){
-                                $html = "<tr>";
-                                $html .= "<td></td>";
-                                $html .= "<td>".$linha->espaco_id."</td>";
-                                $html .= "<td>".$linha->espaco_piso."</td>";
-                                $html .= "<td>".$linha->espaco_area."</td>";
-                                $html .= "<td>".$linha->espaco_status."</td>";
-                                $html .= "</tr>";
-                                echo $html;
-                            }
-                        ?>
-                    </tbody>
-                </table>
+                              while($linha = $resultado->fetch_object()){
+                                  $html = "<tr>";
+                                  $html .= "<td>".$linha->espaco_id."</td>";
+                                  $html .= "<td>".$linha->espaco_piso."</td>";
+                                  $html .= "<td>".$linha->espaco_area."</td>";
+                                  $html .= "<td>".$linha->espaco_status."</td>";
+                                  $html .= "</tr>";
+                                  echo $html;
+                              }
+                          ?>
+                      </tbody>
+                  </table>
+                </div>
             </div>
         </div>
     </div>

@@ -6,8 +6,8 @@ $conn = conecta_db();
 
 // Verifica se o usuário é locatário e está logado
 if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'locatario') {
-    header('Location: login.php');
-    exit;
+  header('Location: login.php');
+  exit;
 }
 
 // Pega o logins_id
@@ -21,10 +21,10 @@ $stmtEmpresa->execute();
 $resultEmpresa = $stmtEmpresa->get_result();
 
 if ($rowEmpresa = $resultEmpresa->fetch_assoc()) {
-    $empresa_id = $rowEmpresa['empresa_id'];
+  $empresa_id = $rowEmpresa['empresa_id'];
 } else {
-    echo "<script>alert('Erro ao localizar empresa.'); window.location.href='index.php';</script>";
-    exit;
+  echo "<script>alert('Erro ao localizar empresa.'); window.location.href='index.php';</script>";
+  exit;
 }
 
 // Agora busca o contrato
@@ -40,65 +40,79 @@ $result = $stmt->get_result();
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Gerenciar Contrato</title>
-    <link rel="stylesheet" href="locatario.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <div class="sidebar">
-      <div class="logo">
-        <img src="../conteudo_livre/assets/imgs/LogoTijucasBranca.png" alt="Tijucas Open" />
-      </div>
 
-      <nav>
-        <a href="index.php">Início</a>
-        <a href="index.php?page=visualizarEspacos">Visualizar Espaços</a>
-        <a href="index.php?page=gestaoContratos">Gestão de Contrato</a>
-      </nav>
+<head>
+  <meta charset="UTF-8" />
+  <title>Gerenciar Contrato</title>
+  <link rel="stylesheet" href="locatario.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
-      <div class="logout">
-        <a href="../logout.php"><span>↩</span> Log Out</a>
-      </div>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <img src="../conteudo_livre/assets/imgs/LogoTijucasBranca.png" alt="Tijucas Open" />
     </div>
 
-    <div class="content">
-    <div class="container mt-5">
-        <h1 class="mb-4">Meu Contrato</h1>
-        <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
-        <table class="table table-striped">
-            <thead>
+    <nav>
+      <a href="index.php">Início</a>
+      <a href="index.php?page=visualizarEspacos">Visualizar Espaços</a>
+      <a href="index.php?page=gestaoContratos">Gestão de Contrato</a>
+    </nav>
+
+    <div class="logout">
+      <a href="../logout.php"><span>↩</span> Log Out</a>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <h1>Meu Contrato</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
+          <div class="table-wrapper">
+            <table class="table table-striped-green">
+              <thead>
                 <tr>
-                    <th>ID do Contrato</th>
-                    <th>ID do Espaço</th>
-                    <th>Data de Início</th>
-                    <th>Data de Fim</th>
-                    <th>Responsável</th>
-                    <th>Valor do Contrato</th>
+                  <th>ID do Contrato</th>
+                  <th>ID do Espaço</th>
+                  <th>Data de Início</th>
+                  <th>Data de Fim</th>
+                  <th>Responsável</th>
+                  <th>Valor do Contrato</th>
                 </tr>
-            </thead>
-            <tbody>
-                <?php while ($contrato = $result->fetch_assoc()): 
-                    $data_inicio = new DateTime($contrato['data_inicio']);
-                    $data_inicio_formatada = $data_inicio->format('d-m-Y');
-                    $data_fim = $data_inicio->add(new DateInterval('P12M'))->format('d-m-Y');
+              </thead>
+              <tbody>
+                <?php while ($contrato = $result->fetch_assoc()):
+                  $data_inicio_obj = new DateTime($contrato['data_inicio']);
+                  $data_inicio_formatada = $data_inicio_obj->format('d-m-Y');
+
+                  $data_fim_obj = clone $data_inicio_obj;
+                  $data_fim = $data_fim_obj->add(new DateInterval('P12M'))->format('d-m-Y');
 
                   ?>
-                  
-                    <tr>
-                        <td><?= htmlspecialchars($contrato['contrato_id']) ?></td>
-                        <td><?= htmlspecialchars($contrato['espaco_id']) ?></td>
-                        <td><?= htmlspecialchars($data_inicio_formatada) ?></td>
-                        <td><?= htmlspecialchars($data_fim) ?></td>
-                        <td><?= htmlspecialchars($contrato['nome_loc']) ?></td>
-                        <td>R$ 3000</td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-    </div>
-    </div>
-  </body>
-</html>
 
+                  <tr>
+                    <td><?= htmlspecialchars($contrato['contrato_id']) ?></td>
+                    <td><?= htmlspecialchars($contrato['espaco_id']) ?></td>
+                    <td><?= htmlspecialchars($data_inicio_formatada) ?></td>
+                    <td><?= htmlspecialchars($data_fim) ?></td>
+                    <td><?= htmlspecialchars($contrato['nome_loc']) ?></td>
+                    <td>R$ 3000</td>
+                  </tr>
+                <?php endwhile; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -330,11 +330,31 @@
 
 .login .recsenha {
   color: #7a7a7a;
+  margin-top: 16px;
 }
 
 .login h3 {
   font-size: 30px;
   margin: 0px;
+}
+.login .senha-container { 
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.login .senha-container input {
+  width: 100% !important;
+  padding-right: 40px !important; 
+}
+
+.login .toggle-senha {
+  position: absolute !important;
+  right: 10px !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-size: 1.2em !important;
 }
 
 /*css lojas-------------------------------------------------------------------*/
