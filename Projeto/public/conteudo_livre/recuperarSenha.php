@@ -94,10 +94,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="email" id="emailREC" name="emailREC" required placeholder="Digite seu e-mail">
 
                 <label for="passREC">Nova Senha</label>
-                <input type="password" id="passREC" name="passREC" required placeholder="Digite a nova senha">
+                    <div class="senha-container">
+                        <input type="password" id="passREC" name="passREC" required placeholder="Digite a nova senha">
+                        <button type="button" id="toggleSenhaREC" class="toggle-senha" aria-label="Mostrar senha">👁</button>
+                    </div>
 
-                <label for="passConfirm">Confirmar Nova Senha</label>
-                <input type="password" id="passConfirm" name="passConfirm" required placeholder="Confirme sua nova senha">
+                    <label for="passConfirm">Confirmar Nova Senha</label>
+                    <div class="senha-container">
+                        <input type="password" id="passConfirm" name="passConfirm" required placeholder="Confirme sua nova senha">
+                        <button type="button" id="toggleSenhaConfirm" class="toggle-senha" aria-label="Mostrar senha">👁</button>
+                    </div>
+
 
                 <button type="submit" class="enviar">Atualizar Senha</button>
 
@@ -113,5 +120,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php endif; ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="conteudo_livre/assets/js/alerts.js"></script>
+
+<script>
+    function configurarToggleSenha(botaoId, inputId) {
+        document.getElementById(botaoId).addEventListener('click', function () {
+            const input = document.getElementById(inputId);
+            const tipoAtual = input.getAttribute('type');
+
+            if (tipoAtual === 'password') {
+                input.setAttribute('type', 'text');
+                this.textContent = '👁';
+            } else {
+                input.setAttribute('type', 'password');
+                this.textContent = '👁';
+            }
+        });
+    }
+
+    configurarToggleSenha('toggleSenhaREC', 'passREC');
+    configurarToggleSenha('toggleSenhaConfirm', 'passConfirm');
+</script>
+
+</body>
+</html>
+
 </body>
 </html>

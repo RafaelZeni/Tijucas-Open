@@ -91,7 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="conteudo_livre/assets/js/alerts.js"></script>
 
-<!-- Script para alternar visibilidade da senha -->
 <script>
     document.getElementById('toggleSenha').addEventListener('click', function () {
         const senhaInput = document.getElementById('passLog');
@@ -99,10 +98,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (tipoAtual === 'password') {
             senhaInput.setAttribute('type', 'text');
-            this.textContent = '👁'; // Ícone para ocultar
+            this.textContent = '👁'; 
         } else {
             senhaInput.setAttribute('type', 'password');
-            this.textContent = '👁'; // Ícone para mostrar
+            this.textContent = '👁'; 
         }
     });
 </script>
