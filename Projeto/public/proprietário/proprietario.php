@@ -1,3 +1,7 @@
+<!--Este arquivo permite ao proprietário acessar todas as funções 
+de seu perfil, assim como permite queu ele visualize algumas informações 
+do Tijucas através de gráficos expliactivos-->
+
 <?php
 session_start();
 

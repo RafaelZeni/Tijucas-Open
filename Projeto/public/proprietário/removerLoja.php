@@ -1,3 +1,5 @@
+<!--arquivo com a função única de remover uma loja já cadastrada-->
+
 <?php
     require '../../app/database/connection.php';
 

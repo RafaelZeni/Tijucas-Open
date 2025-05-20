@@ -1,4 +1,5 @@
-<!--Esta página permite ao proprietário-->
+<!--Esta página permite ao proprietário vizualizar os contratos em dia, 
+mostrando quanto dineiro o proprietário fará por mês de acordo com os contratos-->
 
 <?php
 session_start();

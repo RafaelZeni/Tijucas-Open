@@ -1,3 +1,5 @@
+<!--arquivo com a função única de remover um contrato já criado-->
+
 <?php
 /* ANÁLISE NECESSÁRIA */
 

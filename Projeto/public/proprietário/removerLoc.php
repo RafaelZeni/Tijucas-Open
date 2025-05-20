@@ -1,3 +1,5 @@
+<!--arquivo com a função única de remover um locatário já cadastrado-->
+
 <?php
 require '../../app/database/connection.php';
 
