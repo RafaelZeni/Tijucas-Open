@@ -532,6 +532,7 @@
   text-align: center;
 }
 
+/* Sua regra geral para os botões */
 .mapas .link-andar button {
   padding: 10px 20px; /* Espaçamento interno */
   background-color: #3b5c2f; /* Cor de fundo */
@@ -552,6 +553,11 @@
 .mapas .link-andar button:focus {
   outline: none; /* Remove a borda de foco padrão */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Adiciona uma sombra sutil ao receber foco */
+}
+
+/* Regra para o botão ativo - AGORA VEM DEPOIS! */
+.mapas .link-andar button.active {
+  background-color: #57b934; /* Uma cor para o botão selecionado */
 }
 
 .mapas #botaoregistro {
