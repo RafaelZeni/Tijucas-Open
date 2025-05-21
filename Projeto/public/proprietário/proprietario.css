@@ -114,7 +114,15 @@ body {
 
 /* NOVO: Wrapper da tabela para limitar altura e scroll interno */
 .table-wrapper {
-  max-height: 70vh; /* limita altura da tabela para 70% da viewport */
-  overflow-y: auto; /* ativa scroll vertical só aqui */
-  border: 1px solid #ddd; /* opcional: borda para visualização */
+  max-height: 70vh;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  position: relative;
+}
+
+/* Fixar o cabeçalho da tabela */
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }

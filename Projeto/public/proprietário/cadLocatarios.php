@@ -29,14 +29,28 @@ function validar_cnpj($cnpj) { //função para validar o CNPJ
     return $digito2 == $digitos[1];
 }
 
+function validar_senha($senha) {
+    // Pelo menos 8 caracteres, 1 maiúscula, 1 número e 1 caractere especial
+    return preg_match('/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $senha);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi enviado
     $cnpj = str_replace(['.', '/', '-'], '', $_POST['cnpjCAD']);
+    $senha    = $_POST['passCAD'];
 
     if (!validar_cnpj($cnpj)) {
         $sweetAlert = [
             'icon' => 'error',
             'title' => 'CNPJ inválido!',
             'text' => 'Por favor, insira um CNPJ válido.'
+        ];
+    } 
+    
+    if (!validar_senha($senha)) {
+        $sweetAlert = [
+            'icon' => 'error',
+            'title' => 'Senha fraca!',
+            'text' => 'A senha deve ter no mínimo 8 caracteres, incluindo 1 letra maiúscula, 1 número e 1 caractere especial.'
         ];
     } else { // Se o CNPJ for válido, prossegue com o cadastro
         $conn = conecta_db();
@@ -59,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi en
             $nome     = $_POST['nomeCAD'];
             $telefone = str_replace(['(', ')', ' ', '-'], '', $_POST['telefoneCAD']);
             $email    = $_POST['emailCAD'];
-            $senha    = $_POST['passCAD'];
+            
             $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
             $stmt = $conn->prepare("CALL pr_AdicionarLocatario(?, ?, ?, ?, ?)");
@@ -128,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi en
         <section class="form-container">
           <h3>Cadastrar Locatário</h3>
           <a href="index.php?page=gerenciarLocatarios" class="btn btn-dark mb-3">Voltar</a>
-          <form method="post" onsubmit="return validarFormulario();">
+          <form method="post">
             <label for="nomeCAD">Nome</label>
             <input type="text" id="nomeCAD" name="nomeCAD" required placeholder="Digite o Nome da empresa" oninput="apenasLetras(this)" />
 
@@ -148,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi en
             <div id="erroPass" style="color: red; display: none; font-size: 0.9em; margin-bottom: 5px;">
               A senha deve ter no mínimo 8 caracteres, incluindo 1 letra maiúscula, 1 número e 1 caractere especial.
             </div>
-            <input type="password" id="passCAD" name="passCAD" required placeholder="Digite a senha" oninput="validarSenha(this)" />
+            <input type="password" id="passCAD" name="passCAD" required placeholder="Digite a senha" />
 
             <button type="submit" class="enviar">Cadastrar</button>
           </form>
@@ -180,46 +194,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi en
     function apenasLetras(campo) {
       campo.value = campo.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, "");
     }
-    function validarFormulario() {
-      //CNPJ
-      const cnpjInput = document.getElementById("cnpjCAD");
-      const erroCNPJ = document.getElementById("erroCNPJ");
-      //Senha
-      const passInput = document.getElementById("passCAD");
-      const erroPass = document.getElementById("erroPass");
-
-      if (!validarCNPJ(cnpjInput.value)) {
-        erroCNPJ.style.display = "block";
-        cnpjInput.classList.add("is-invalid");
-        cnpjInput.focus();
-        return false;
-      }
-
-      if (!validarSenha(passInput.value)) {
-        erroPass.style.display = "block";
-        passInput.classList.add("is-invalid");
-        passInput.focus();
-        return false;
-      }
-
-
-      erroCNPJ.style.display = "none";
-      erroPass.style.display = "none";
-      cnpjInput.classList.remove("is-invalid");
-      passInput.classList.remove("is-invalid");
-      return true;
-    }
 
     function esconderErroCNPJ() {
       const erroCNPJ = document.getElementById("erroCNPJ");
       const cnpjInput = document.getElementById("cnpjCAD");
       erroCNPJ.style.display = "none";
       cnpjInput.classList.remove("is-invalid");
-    }
-
-    function validarSenha(senha) {
-      const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-      return regex.test(senha);
     }
 
   </script>
