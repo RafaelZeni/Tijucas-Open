@@ -23,9 +23,10 @@ const map = L.map("map", {
   doubleClickZoom: false,
 });
 
-// Define camada inicial como L2
-let currentLayer = L.imageOverlay(imageUrlL2, bounds).addTo(map);
+// Define camada inicial como L1 e já deixa o botão L1 ativo
+let currentLayer = L.imageOverlay(imageUrlL1, bounds).addTo(map);
 map.fitBounds(bounds);
+l1Button.classList.add("active"); // Adiciona a classe 'active' ao botão L1 por padrão
 
 // LayerGroups para cada andar
 const markersL1Layer = L.layerGroup();
@@ -44,8 +45,8 @@ const coordsPorEspaco = {
   8: [100, 350],
   9: [100, 520],
   10: [100, 690],
-  11: [100,860],
-  12: [100,1020],
+  11: [100, 860],
+  12: [100, 1020],
 
   // L2: espaco_id 11–22
   13: [910, 180],
@@ -57,9 +58,9 @@ const coordsPorEspaco = {
   19: [100, 180],
   20: [100, 350],
   21: [100, 520],
-  22:  [100, 690],
-  23:  [100,860],
-  24:  [100,1020],
+  22: [100, 690],
+  23: [100, 860],
+  24: [100, 1020],
 };
 
 // Carrega dados das lojas do PHP
@@ -80,8 +81,8 @@ fetch("conteudo_livre/get_lojas.php")
       }
     });
 
-    // Adiciona L2 por padrão ao carregar
-    markersL2Layer.addTo(map);
+    // Adiciona L1 por padrão ao carregar (já que definimos como padrão)
+    markersL1Layer.addTo(map);
   });
 
 // Alternar para L1
@@ -91,6 +92,10 @@ l1Button.addEventListener("click", function () {
   currentLayer = L.imageOverlay(imageUrlL1, bounds).addTo(map);
   markersL1Layer.addTo(map);
   map.fitBounds(bounds);
+
+  // Gerenciar classes 'active'
+  l1Button.classList.add("active");
+  l2Button.classList.remove("active");
 });
 
 // Alternar para L2
@@ -100,4 +105,8 @@ l2Button.addEventListener("click", function () {
   currentLayer = L.imageOverlay(imageUrlL2, bounds).addTo(map);
   markersL2Layer.addTo(map);
   map.fitBounds(bounds);
+
+  // Gerenciar classes 'active'
+  l2Button.classList.add("active");
+  l1Button.classList.remove("active");
 });
