@@ -42,8 +42,8 @@ if(isset($_GET['page'])) {
   } else if ($_GET['page'] == 'cadLojas') {
     include 'cadLojas.php'; 
 
-  } else if ($GET['page'] == 'editarLojas'){
-    include 'editarLojas.php';
+  } else if ($_GET['page'] == 'editarLojas'){
+    include 'editarLoja.php';
     
   } else if ($_GET['page'] == 'removerLoja') {
     include 'removerLoja.php';

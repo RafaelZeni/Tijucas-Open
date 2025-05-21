@@ -1,9 +1,10 @@
-<?php 
-    $loja_id = $GET['id'];
+<?php
+  require '../../app/database/connection.php';
+    $loja_id = $_GET['id'];
     $conn = conecta_db();
-    $query = "SELECT * FROM TABLE tb_lojas WHERE loja_id = ?";
+    $query = "SELECT * FROM tb_lojas WHERE loja_id = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $lojas_id);
+    $stmt->bind_param("i", $loja_id);
     $stmt->execute();
     $result = $stmt->get_result();
     $locatario = $result->fetch_object();
