@@ -2,11 +2,11 @@ const mapContainer = document.getElementById("map");
 const l1Button = document.querySelector(".link-andar button:nth-child(1)");
 const l2Button = document.querySelector(".link-andar button:nth-child(2)");
 
-const imageUrlL1 = "conteudo_livre/assets/imgs/PISO_L1.jpg";
-const imageUrlL2 = "conteudo_livre/assets/imgs/PISO_L2.jpg";
+const imageUrlL1 = "conteudo_livre/assets/imgs/PISO1.jpg";
+const imageUrlL2 = "conteudo_livre/assets/imgs/PISO2.jpg";
 
 const imageWidth = 1920;
-const imageHeight = 859;
+const imageHeight = 1080;
 const bounds = [
   [0, 0],
   [imageHeight, imageWidth],
@@ -15,9 +15,12 @@ const bounds = [
 // Inicialização do mapa
 const map = L.map("map", {
   crs: L.CRS.Simple,
-  minZoom: -1,
-  maxZoom: 2,
-  zoomControl: true,
+  minZoom: -3,
+  maxZoom: 0,
+  zoomControl: false,
+  dragging: false,
+  scrollWheelZoom: false,
+  doubleClickZoom: false,
 });
 
 // Define camada inicial como L2
@@ -31,32 +34,32 @@ const markersL2Layer = L.layerGroup();
 // Coordenadas fixas por espaco_id
 const coordsPorEspaco = {
   // L1: espaco_id 1–10
-  1: [720, 110],
-  2: [100, 110],
-  3: [720, 330],
-  4: [100, 330],
-  5: [720, 640],
-  6: [100, 640],
-  7: [100, 1070],
-  8: [720, 1070],
-  9: [100, 1410],
-  10: [720, 1410],
-  11: [],
-  12: [],
+  1: [910, 180],
+  2: [910, 350],
+  3: [910, 520],
+  4: [910, 690],
+  5: [910, 860],
+  6: [910, 1020],
+  7: [100, 180],
+  8: [100, 350],
+  9: [100, 520],
+  10: [100, 690],
+  11: [100,860],
+  12: [100,1020],
 
   // L2: espaco_id 11–22
-  13: [157, 385],
-  14: [157, 582],
-  15: [157, 785],
-  16: [157, 979],
-  17: [157, 1169],
-  18: [157, 1370],
-  19: [690, 1169],
-  20: [690, 979],
-  21: [690, 785],
-  22: [690, 582],
-  23: [690, 385],
-  24: [] 
+  13: [910, 180],
+  14: [910, 350],
+  15: [910, 520],
+  16: [910, 690],
+  17: [910, 860],
+  18: [910, 1020],
+  19: [100, 180],
+  20: [100, 350],
+  21: [100, 520],
+  22:  [100, 690],
+  23:  [100,860],
+  24:  [100,1020],
 };
 
 // Carrega dados das lojas do PHP

@@ -1,5 +1,32 @@
 <!--Página de Contato dedicada ao usuário, como
 um meio de comunicação com o proprietário-->
+<?php
+$mensagemStatus = "";
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nome = htmlspecialchars(trim($_POST["nomeCAD"]));
+    $sobrenome = htmlspecialchars(trim($_POST["sobrenome"]));
+    $email = filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL);
+    $mensagem = htmlspecialchars(trim($_POST["mensagem"]));
+
+    if ($email) {
+        $destinatario = "SEU_EMAIL@dominio.com"; // <-- Substitua pelo seu e-mail
+        $assunto = "Nova mensagem do formulário de contato";
+        $corpo = "Nome: $nome $sobrenome\n";
+        $corpo .= "Email: $email\n\n";
+        $corpo .= "Mensagem:\n$mensagem";
+
+        $headers = "From: $email\r\nReply-To: $email\r\n";
+
+        if (mail($destinatario, $assunto, $corpo, $headers)) {
+            $mensagemStatus = "<p style='color: green;'>Mensagem enviada com sucesso!</p>";
+        } else {
+            $mensagemStatus = "<p style='color: red;'>Erro ao enviar a mensagem.</p>";
+        }
+    } else {
+        $mensagemStatus = "<p style='color: red;'>E-mail inválido.</p>";
+    }   
+}
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
