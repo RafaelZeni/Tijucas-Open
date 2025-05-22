@@ -398,7 +398,7 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden; /* Esconde a parte de trás quando virada */
-  transition: transform 0.6s; /* Transição suave para o efeito de flip */
+  transition: transform 1.0s; /* Transição suave para o efeito de flip */
 }
 
 /* Efeito de flip: quando o card é hover, gira em torno do eixo Y */
@@ -449,7 +449,7 @@
 
 .lojass {
   text-align: center;
-  margin: 50px 0 white;
+  margin: 50px 0 ;
   background-color: white;
 }
 
@@ -488,6 +488,7 @@
   height: auto;
   display: block;
 }
+
 .lojas form{
   display: flex;
   justify-content: center;

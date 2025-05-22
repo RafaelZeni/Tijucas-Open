@@ -60,6 +60,10 @@ body {
   background-color: #2e4b26;
 }
 
+.sidebar nav a.ativo{
+  color:#d8ff4b ;
+}
+
 .logout {
   width: 100%;
   height: 8%;

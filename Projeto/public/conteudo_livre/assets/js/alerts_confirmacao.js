@@ -3,9 +3,11 @@ document.addEventListener('DOMContentLoaded', function () {
     button.addEventListener('click', function (event) {
       event.preventDefault();
 
+      const sweetAlertText = this.getAttribute('data-text') || "Deseja excluir este item?";
+
       Swal.fire({
         title: 'Tem certeza?',
-        text: "Deseja realmente excluir este locatário?",
+        text: sweetAlertText,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',

@@ -58,8 +58,8 @@ $result = $stmt->get_result();
 
     <nav>
       <a href="index.php">Início</a>
-      <a href="index.php?page=visualizarEspacos">Visualizar Espaços</a>
-      <a href="index.php?page=gestaoContratos">Gestão de Contrato</a>
+      <a href="index.php?page=visualizarEspacos" class="<?= ($_GET['page'] == 'visualizarEspacos') ? 'ativo' : ''; ?>">Visualizar Espaços</a>
+      <a href="index.php?page=gestaoContratos" class="<?= ($_GET['page'] == 'gestaoContratos') ? 'ativo' : ''; ?>">Gestão de Contrato</a>
     </nav>
 
     <div class="logout">

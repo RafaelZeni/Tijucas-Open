@@ -21,12 +21,12 @@ editar ou excluir os contratos já existentes-->
     </div>
 
     <nav>
-      <a href="index.php">Início</a>
-      <a href="index.php?page=gerenciarLocatarios">Gerenciar Locatários</a>
-      <a href="index.php?page=gerenciarContratos">Gerenciar Contratos</a>
-      <a href="index.php?page=gerenciarLojas">Gerenciar Lojas</a>
-      <a href="index.php?page=gerenciarEspacos">Gerenciar Espaços</a>
-    </nav>
+        <a href="index.php">Início</a>
+        <a href="index.php?page=gerenciarLocatarios" class="<?= ($_GET['page'] == 'gerenciarLocatarios') ? 'ativo' : ''; ?>">Gerenciar Locatários</a>
+        <a href="index.php?page=gerenciarContratos" class="<?= ($_GET['page'] == 'gerenciarContratos') ? 'ativo' : ''; ?>">Gerenciar Contratos</a>
+        <a href="index.php?page=gerenciarLojas" class="<?= ($_GET['page'] == 'gerenciarLojas') ? 'ativo' : ''; ?>">Gerenciar Lojas</a>
+        <a href="index.php?page=gerenciarEspacos" class="<?= ($_GET['page'] == 'gerenciarEspacos') ? 'ativo' : ''; ?>">Gerenciar Espaços</a>
+      </nav>
 
     <div class="logout">
       <a href="../logout.php"><span>↩</span> Log Out</a>
@@ -79,7 +79,7 @@ editar ou excluir os contratos já existentes-->
                   echo "<td>{$data_inicio_formatada}</td>";
                   echo "<td>{$data_fim}</td>";
                   echo "<td>
-                              <a class='btn btn-danger btn-excluir' href='index.php?page=removerContrato&id={$linha->contrato_id}'>
+                              <a class='btn btn-danger btn-excluir' href='index.php?page=removerContrato&id={$linha->contrato_id}' data-text='Deseja excluir o contrato da empresa {$linha->empresa_nome}?'>
                                 <img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir'>
                               </a>
                             </td>";

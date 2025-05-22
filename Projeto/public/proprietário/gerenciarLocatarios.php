@@ -19,10 +19,10 @@ possa editar e excluir um proprietário já cadastrado-->
 
       <nav>
         <a href="index.php">Início</a>
-        <a href="index.php?page=gerenciarLocatarios">Gerenciar Locatários</a>
-        <a href="index.php?page=gerenciarContratos">Gerenciar Contratos</a>
-        <a href="index.php?page=gerenciarLojas">Gerenciar Lojas</a>
-        <a href="index.php?page=gerenciarEspacos">Gerenciar Espaços</a>
+        <a href="index.php?page=gerenciarLocatarios" class="<?= ($_GET['page'] == 'gerenciarLocatarios') ? 'ativo' : ''; ?>">Gerenciar Locatários</a>
+        <a href="index.php?page=gerenciarContratos" class="<?= ($_GET['page'] == 'gerenciarContratos') ? 'ativo' : ''; ?>">Gerenciar Contratos</a>
+        <a href="index.php?page=gerenciarLojas" class="<?= ($_GET['page'] == 'gerenciarLojas') ? 'ativo' : ''; ?>">Gerenciar Lojas</a>
+        <a href="index.php?page=gerenciarEspacos" class="<?= ($_GET['page'] == 'gerenciarEspacos') ? 'ativo' : ''; ?>">Gerenciar Espaços</a>
       </nav>
 
       <div class="logout">
@@ -76,7 +76,7 @@ possa editar e excluir um proprietário já cadastrado-->
                                             <a class='btn btn-success' href='index.php?page=editarlocatario&id=" . $linha->empresa_id . "'><img src='../conteudo_livre/assets/imgs/editar.png' alt='Editar';'></a>
                                             </td>";
                                   $html .= "<td>
-                                            <a class='btn btn-danger btn-excluir' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "'><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir';'></a>
+                                            <a class='btn btn-danger btn-excluir' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "' data-text='Deseja excluir o locatário " . $linha->empresa_nome . "?'><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir';'></a>
                                             </td>";
                                   $html .= "</tr>";
                                   echo $html;
