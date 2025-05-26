@@ -2,15 +2,9 @@
 
 <?php
 require '../../app/database/connection.php';
-session_start();
 
 $conn = conecta_db();
 
-// Verifica se o usuário é locatário e está logado
-if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'locatario') {
-  header('Location: login.php');
-  exit;
-}
 
 // Pega o logins_id
 $logins_id = $_SESSION['logins_id'];
@@ -30,7 +24,7 @@ if ($rowEmpresa = $resultEmpresa->fetch_assoc()) {
 }
 
 // Agora busca o contrato
-$sql = "SELECT contrato_id, espaco_id, data_inicio, nome_loc
+$sql = "SELECT contrato_id, espaco_id, data_inicio, nome_loc, valor_mensal
         FROM tb_contrato
         WHERE empresa_id = ?";
 $stmt = $conn->prepare($sql);
@@ -78,7 +72,7 @@ $result = $stmt->get_result();
         <div class="col">
           <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
           <div class="table-wrapper">
-            <table class="table table-striped-green">
+            <table class="table table-striped-green text-center">
               <thead>
                 <tr>
                   <th>ID do Contrato</th>
@@ -96,6 +90,7 @@ $result = $stmt->get_result();
 
                   $data_fim_obj = clone $data_inicio_obj;
                   $data_fim = $data_fim_obj->add(new DateInterval('P12M'))->format('d-m-Y');
+                  $valor_formatado = number_format($contrato['valor_mensal'], 2, ',', '.');
 
                   ?>
 
@@ -105,7 +100,7 @@ $result = $stmt->get_result();
                     <td><?= htmlspecialchars($data_inicio_formatada) ?></td>
                     <td><?= htmlspecialchars($data_fim) ?></td>
                     <td><?= htmlspecialchars($contrato['nome_loc']) ?></td>
-                    <td>R$ 3000</td>
+                    <td>R$<?= htmlspecialchars($valor_formatado) ?></td>
                   </tr>
                 <?php endwhile; ?>
               </tbody>

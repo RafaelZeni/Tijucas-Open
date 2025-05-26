@@ -3,12 +3,6 @@ de seu perfil, assim como permite queu ele visualize algumas informações
 do Tijucas através de gráficos expliactivos-->
 
 <?php
-session_start();
-
-if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'proprietario') {
-  header("Location: /Tijucas-Open/Projeto/public/index.php?page=entrar");
-  exit();
-}
 
 require '../../app/database/connection.php';
 $conn = conecta_db();
@@ -45,10 +39,11 @@ SELECT
           AND YEAR(DATE_ADD(c.data_inicio, INTERVAL 1 YEAR)) = YEAR(mes.m) 
         THEN c.contrato_id 
     END) AS contratos_vencem,
-    COUNT(DISTINCT CASE 
+    SUM(CASE 
         WHEN c.data_inicio <= mes.m AND DATE_ADD(c.data_inicio, INTERVAL 1 YEAR) > mes.m 
-        THEN c.contrato_id 
-    END) * 3000 AS faturamento
+        THEN c.valor_mensal 
+        ELSE 0 
+    END) AS faturamento
 FROM (
     SELECT DATE_ADD(MAKEDATE(YEAR(CURDATE()), 1), INTERVAL n MONTH) AS m
     FROM (
@@ -63,6 +58,7 @@ LEFT JOIN tb_contrato c
 GROUP BY mes.m
 ORDER BY mes.m;
 ";
+
 
 $result_faturamento = $conn->query($sql_faturamento);
 

@@ -53,6 +53,7 @@ editar ou excluir os contratos já existentes-->
                   <th>Espaço Locado</th>
                   <th>Data do Início</th>
                   <th>Data do Término</th>
+                  <th>Valor Mensal</th>
                   <th>Excluir</th>
                 </tr>
               </thead>
@@ -60,7 +61,7 @@ editar ou excluir os contratos já existentes-->
                 <?php
                 require '../../app/database/connection.php';
                 $conn = conecta_db();
-                $query = "SELECT c.contrato_id, c.espaco_id, l.empresa_nome, c.data_inicio, c.nome_loc FROM tb_contrato c JOIN tb_locatarios l ON c.empresa_id = l.empresa_id";
+                $query = "SELECT c.contrato_id, c.espaco_id, l.empresa_nome, c.data_inicio, c.nome_loc, c.valor_mensal FROM tb_contrato c JOIN tb_locatarios l ON c.empresa_id = l.empresa_id";
 
                 $resultado = $conn->query($query);
 
@@ -78,6 +79,7 @@ editar ou excluir os contratos já existentes-->
                   echo "<td>{$linha->espaco_id}</td>";
                   echo "<td>{$data_inicio_formatada}</td>";
                   echo "<td>{$data_fim}</td>";
+                  echo "<td>{$linha->valor_mensal}</td>";
                   echo "<td>
                               <a class='btn btn-danger btn-excluir' href='index.php?page=removerContrato&id={$linha->contrato_id}' data-text='Deseja excluir o contrato da empresa {$linha->empresa_nome}?'>
                                 <img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir'>

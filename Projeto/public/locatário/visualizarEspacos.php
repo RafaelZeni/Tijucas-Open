@@ -37,7 +37,7 @@ livres no Tijucas Open, caso queira comprar outra loja-->
             <div class="col">
                 <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
                 <div class="table-wrapper">
-                  <table class="table table-striped-green">
+                  <table class="table table-striped-green text-center">
                       <thead>
                           <tr>
                               <th>ID</th>

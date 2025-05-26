@@ -1,6 +1,12 @@
 <!--Index que leva o usuário par a página de acordo com seu clique-->
 
 <?php
+session_start();
+// Verifica se o usuário é locatário e está logado
+if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'locatario') { // Verifica se o usuário é locatário e está logado
+    header("Location: /Tijucas-Open/Projeto/public/index.php?page=entrar");
+    exit();
+}
 
 
 //ORGANIZAR DIRECIONAMENTOS DAS PÁGINAS

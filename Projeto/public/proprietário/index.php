@@ -1,6 +1,12 @@
 <!--Index que leva o usuário para a página de acordo com seu clique-->
 
 <?php
+session_start();
+
+if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'proprietario') {
+  header("Location: /Tijucas-Open/Projeto/public/index.php?page=entrar");
+  exit();
+}
 
 //include '../../app/views/include/headerProp.php';
 //ORGANIZAR DIRECIONAMENTOS DAS PÁGINAS

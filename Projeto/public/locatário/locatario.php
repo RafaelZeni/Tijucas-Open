@@ -3,12 +3,6 @@ ainda disponíveis no espaço do Tijucas Open, e vizualizar as informações
 sobre o cntrato relativo a sua loja-->
 
 <?php
-session_start();
-
-if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'locatario') { // Verifica se o usuário é locatário e está logado
-    header("Location: /Tijucas-Open/Projeto/public/index.php?page=entrar");
-    exit();
-}
 require '../../app/database/connection.php';
 $conn = conecta_db();
 
