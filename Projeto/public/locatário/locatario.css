@@ -4,8 +4,10 @@ html {
 }
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  padding: 20px;
+  margin: 0; /* Adicionado para remover margens padrão que podem interferir */
 }
 
 .sidebar {
@@ -23,13 +25,8 @@ body {
   align-items: center;
   padding-top: 1%;
   justify-content: space-between;
-}
-
-.sidebar .logo {
-  width: 100%;
-  text-align: center;
-  padding: 0 20px;
-  height: 20%;
+  transition: transform 0.3s ease; /* Adicionado para animação suave no mobile */
+  z-index: 1000; /* Garante que o sidebar fique sobre o conteúdo */
 }
 
 .sidebar .logo img {
@@ -38,7 +35,6 @@ body {
 }
 
 .sidebar nav {
-  /*flex-grow: 1;*/
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -60,8 +56,8 @@ body {
   background-color: #2e4b26;
 }
 
-.sidebar nav a.ativo{
-  color:#d8ff4b ;
+.sidebar nav a.ativo {
+  background-color: #2e4b26;
 }
 
 .logout {
@@ -83,16 +79,13 @@ body {
 }
 
 .content {
-  margin-left: 220px;
+  margin-left: 220px; /* Ajuste inicial baseado no min-width do sidebar */
   padding: 20px;
   display: flex;
-  flex-direction: column; /* empilhar elementos verticalmente */
-  align-items: flex-start; /* alinha conteúdo à esquerda */
+  flex-direction: column;
+  align-items: flex-start;
   text-align: left;
-}
-
-.content h1 {
-  font-size: 40px;
+  transition: margin-left 0.3s ease; /* Adicionado para animação suave no mobile */
 }
 
 .table thead th {
@@ -100,7 +93,6 @@ body {
   color: white;
 }
 
-/* Estilo para linhas striped verdes */
 .table-striped-green tbody tr:nth-of-type(odd) {
   background-color: #e9f7ef;
 }
@@ -109,16 +101,125 @@ body {
   background-color: #d5f5e3;
 }
 
-/* Ícones dentro dos botões */
 .table .btn img {
   width: 16px;
   height: 16px;
   object-fit: contain;
 }
 
-/* NOVO: Wrapper da tabela para limitar altura e scroll interno */
 .table-wrapper {
-  max-height: 70vh; /* limita altura da tabela para 70% da viewport */
-  overflow-y: auto; /* ativa scroll vertical só aqui */
-  border: 1px solid #ddd; /* opcional: borda para visualização */
+  max-height: 70vh;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  width: 100%; /* Garante que o wrapper ocupe a largura disponível */
+}
+
+/* Botão Hamburger (inicialmente escondido em telas maiores) */
+.hamburger-menu {
+  display: none; /* Escondido por padrão */
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1001; /* Acima do sidebar */
+  background: #385c30;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Estilos para Celulares (ex: telas com largura máxima de 768px) */
+@media (max-width: 768px) {
+  body {
+    padding: 27px; /* Reduz o padding do corpo em telas menores */
+  }
+
+  .sidebar {
+    width: 250px; /* Largura fixa para o menu quando aberto */
+    transform: translateX(-100%); /* Esconde o sidebar fora da tela à esquerda */
+    /* Se quiser que o sidebar fique por cima do conteúdo,
+       em vez de empurrá-lo, remova a transição de margin-left do .content
+       e ajuste o z-index se necessário. */
+  }
+
+  .sidebar.open {
+    transform: translateX(0); /* Mostra o sidebar */
+  }
+
+  .content {
+    margin-left: 0; /* Conteúdo ocupa toda a largura */
+    padding: 15px;
+  }
+
+  .sidebar nav a {
+    padding: 15px 20px; /* Ajusta o padding dos links da navegação */
+    text-align: left;
+  }
+
+  .logout {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: left;
+    padding-left: 20px;
+  }
+
+  .sidebar .logo img {
+    max-width: 120px;
+    margin-bottom: 20px; /* Adiciona um espaço abaixo da logo */
+  }
+
+  .hamburger-menu {
+    display: block; /* Mostra o botão hamburger em telas menores */
+  }
+
+  /* Ajustes na tabela para melhor visualização em telas pequenas */
+  .table-wrapper {
+    max-height: none; /* Remove a altura máxima para permitir rolagem da página inteira se necessário */
+    /* Ou você pode querer manter um max-height menor, e.g., 50vh */
+  }
+
+  /* Opcional: tornar a tabela rolável horizontalmente se for muito larga */
+  .table {
+    display: block;
+    overflow-x: auto; /* Permite rolar a tabela horizontalmente */
+    white-space: nowrap; /* Impede que o conteúdo da tabela quebre linha */
+  }
+
+  .table thead, .table tbody, .table th, .table td, .table tr {
+    display: block;
+  }
+
+  .table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    /* Esconde os cabeçalhos tradicionais, pois vamos replicá-los nos dados */
+  }
+
+  .table tr {
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+  }
+
+  .table td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%; /* Espaço para o label do cabeçalho */
+    white-space: normal; /* Permite que o texto quebre linha dentro da célula */
+    text-align: right; /* Alinha o valor à direita, label à esquerda */
+  }
+
+  .table td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    content: attr(data-label); /* Pega o nome da coluna do atributo data-label */
+    font-weight: bold;
+    text-align: left;
+  }
 }
