@@ -170,13 +170,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
             padding: 10px;
             border-radius: 5px;
             font-size: 1.1em;
-            background-color: #2e4d41; /* Cor do botão primário */
-            border-color: #2e4d41;
+            background-color: #385c30; /* Cor do botão primário */
+            border-color: #385c30;
         }
 
         .btn-primary:hover {
-            background-color: #4e7d69;
-            border-color: #4e7d69;
+            background-color: #2e4b26;
+            border-color: #2e4b26;
         }
 
         .btn-dark {

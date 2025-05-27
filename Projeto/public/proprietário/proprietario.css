@@ -60,9 +60,8 @@ body {
   background-color: #2e4b26;
 }
 
-.sidebar nav a.ativo{
-  color:#d8ff4b ;
-  background-color: #145a32;
+.sidebar nav a.ativo {
+  background-color: #2e4b26;
   border-radius: 8px;
 }
 

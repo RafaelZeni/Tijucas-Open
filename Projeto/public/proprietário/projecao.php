@@ -2,12 +2,6 @@
 mostrando quanto dineiro o proprietário fará por mês de acordo com os contratos-->
 
 <?php
-session_start();
-
-if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'proprietario') {
-    header("Location: /Tijucas-Open/Projeto/public/index.php?page=entrar");
-    exit();
-}
 require '../../app/database/connection.php';
 
 $conn = conecta_db();

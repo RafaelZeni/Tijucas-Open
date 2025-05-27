@@ -1,7 +1,3 @@
-<!--Este arquivo permite ao proprietário acessar todas as funções 
-de seu perfil, assim como permite queu ele visualize algumas informações 
-do Tijucas através de gráficos expliactivos-->
-
 <?php
 
 require '../../app/database/connection.php';
@@ -15,10 +11,10 @@ $labels = [];
 $data = [];
 
 if ($result->num_rows > 0) {
-  while ($row = $result->fetch_assoc()) {
-    $labels[] = $row['espaco_status'];
-    $data[] = (int) $row['total'];
-  }
+    while ($row = $result->fetch_assoc()) {
+        $labels[] = $row['espaco_status'];
+        $data[] = (int) $row['total'];
+    }
 }
 
 // ----------- Faturamento Mensal + Resumo -----------
@@ -69,28 +65,28 @@ $total_ano_atual = 0;
 $total_ano_proximo = 0;
 
 if ($result_faturamento->num_rows > 0) {
-  while ($row = $result_faturamento->fetch_assoc()) {
-    $ano = substr($row['mes_ano'], 0, 4);
-    setlocale(LC_TIME, 'pt_BR.UTF-8');
-    $nome_mes = ucfirst(utf8_encode(strftime('%B', mktime(0, 0, 0, $row['mes_num'], 1))));
+    while ($row = $result_faturamento->fetch_assoc()) {
+        $ano = substr($row['mes_ano'], 0, 4);
+        setlocale(LC_TIME, 'pt_BR.UTF-8');
+        $nome_mes = ucfirst(utf8_encode(strftime('%B', mktime(0, 0, 0, $row['mes_num'], 1))));
 
-    $meses[] = $nome_mes . '/' . $ano;
-    $faturamentos[] = (float) $row['faturamento'];
+        $meses[] = $nome_mes . '/' . $ano;
+        $faturamentos[] = (float) $row['faturamento'];
 
-    $resumo_mensal[] = [
-      'mes' => $nome_mes,
-      'ano' => $ano,
-      'ativos' => $row['contratos_ativos'],
-      'vencem' => $row['contratos_vencem'],
-      'faturamento' => $row['faturamento']
-    ];
+        $resumo_mensal[] = [
+            'mes' => $nome_mes,
+            'ano' => $ano,
+            'ativos' => $row['contratos_ativos'],
+            'vencem' => $row['contratos_vencem'],
+            'faturamento' => $row['faturamento']
+        ];
 
-    if ($ano == $currentYear) {
-      $total_ano_atual += $row['faturamento'];
-    } elseif ($ano == $nextYear) {
-      $total_ano_proximo += $row['faturamento'];
+        if ($ano == $currentYear) {
+            $total_ano_atual += $row['faturamento'];
+        } elseif ($ano == $nextYear) {
+            $total_ano_proximo += $row['faturamento'];
+        }
     }
-  }
 }
 
 $conn->close();
@@ -105,6 +101,78 @@ $conn->close();
   <link rel="stylesheet" href="proprietario.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Estilos gerais para o conteúdo principal */
+    .content {
+        margin-left: 250px; /* Margem esquerda para compensar a sidebar */
+        padding: 20px;
+        flex-grow: 1; /* Ocupa o restante do espaço horizontal */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centraliza o conteúdo horizontalmente */
+        justify-content: flex-start; /* Alinha o conteúdo ao topo */
+        min-height: 100vh;
+        background-color: #f8f9fa; /* Um cinza claro para o fundo */
+    }
+
+    .content h1 {
+        color: #2e4d41; /* Cor do título principal */
+        margin-bottom: 30px;
+        font-weight: 600;
+    }
+
+    /* Estilos para os cards de gráficos */
+    .card-chart {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        padding: 25px;
+        margin-bottom: 5px; /* Espaçamento entre os cards */
+        width: 100%; /* Ocupa a largura total da coluna */
+        max-width: 1000px; /* Largura máxima para os cards */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card-chart h3 {
+        color: #333;
+        margin-bottom: 20px;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    /* Estilos para os canvas dos gráficos */
+    canvas {
+        max-width: 100%; /* Garante que o gráfico seja responsivo */
+        height: auto; /* Mantém a proporção */
+    }
+
+    /* Estilo para o botão de detalhes */
+    .btn-success {
+        background-color: #4e7d69; /* Um verde mais claro para o botão */
+        border-color: #4e7d69;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1em;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-success:hover {
+        background-color: #3b5c2f; /* Um verde mais escuro no hover */
+        border-color: #3b5c2f;
+    }
+
+    /* Ajustes para o layout de colunas do Bootstrap */
+    .row.mt-2, .row.mt-5 {
+        width: 100%; /* Garante que as linhas ocupem toda a largura do content */
+        justify-content: center; /* Centraliza as colunas dentro das linhas */
+    }
+    .col-md-6, .col-md-12 {
+        display: flex;
+        justify-content: center; /* Centraliza o conteúdo dentro da coluna */
+    }
+  </style>
 </head>
 
 <body>
@@ -137,32 +205,26 @@ $conn->close();
   <div class="content">
     <h1>Bem-Vindo Cristiano</h1>
 
-    <!-- Gráfico Rosquinha -->
     <div class="row mt-2">
-      <h3 class="mb-3">Status dos Espaços</h3>
-      <div class="col-md-6">
-        <div style="width: 350px; height: 350px;">
-          <canvas id="espacosChart"></canvas>
+      <div class="col-md-12"> <div class="card-chart">
+          <h3>Status dos Espaços</h3>
+          <div class="d-flex justify-content-center mb-4"> <a href="index.php?page=gerenciarEspacos" class="btn btn-success">Gerenciar Espaços</a>
+          </div>
+          <div style="width: 300px; height: 300px;"> <canvas id="espacosChart"></canvas>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Resumo Faturamento -->
     <div class="row mt-5">
-      <h3 class="mb-3">Projeção de Faturamento Mensal (R$)</h3>
-      <div class="col-md-12">
-
-        <!-- Botão para ver detalhes -->
-        <div class="row mt-2">
-          <div class="col-md-12 d-flex justify-content-star">
-            <a href="index.php?page=projecao" class="btn btn-success">Ver Detalhes da Projeção</a>
+      <div class="col-md-12"> <div class="card-chart">
+          <h3>Projeção de Faturamento Mensal (R$)</h3>
+          
+          <div class="d-flex justify-content-center mb-4"> <a href="index.php?page=projecao" class="btn btn-success">Ver Detalhes da Projeção</a>
           </div>
-        </div>
 
-        <!-- Gráfico de linha -->
-        <canvas id="faturamentoChart" style="max-width: 900px; max-height: 400px;"></canvas>
+          <canvas id="faturamentoChart" style="max-width: 1000px; max-height: 400px;"></canvas> </div>
       </div>
-
     </div>
   </div>
 
@@ -176,17 +238,22 @@ $conn->close();
         datasets: [{
           label: 'Espaços',
           data: <?php echo json_encode($data); ?>,
-          backgroundColor: ['#3b5c2f', '#afcaa4'],
+          backgroundColor: ['#3b5c2f', '#afcaa4'], // Cores harmonizadas com o tema verde
           borderWidth: 1
         }]
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false, // Permite maior controle sobre o tamanho
         plugins: {
           legend: { position: 'bottom' },
           title: {
             display: true,
-            text: 'Espaços Disponíveis vs Alugados'
+            text: 'Espaços Disponíveis vs Alugados',
+            font: {
+                size: 16,
+                weight: 'bold'
+            }
           }
         }
       }
@@ -202,8 +269,8 @@ $conn->close();
           label: 'Faturamento (R$)',
           data: <?php echo json_encode($faturamentos); ?>,
           fill: true,
-          backgroundColor: 'rgba(59, 92, 47, 0.3)',
-          borderColor: '#3b5c2f',
+          backgroundColor: 'rgba(59, 92, 47, 0.3)', // Cor de preenchimento harmonizada
+          borderColor: '#3b5c2f', // Cor da linha harmonizada
           tension: 0.3,
           pointRadius: 5,
           pointHoverRadius: 7,
@@ -211,6 +278,7 @@ $conn->close();
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false, // Permite maior controle sobre o tamanho
         scales: {
           y: {
             beginAtZero: true,
@@ -225,7 +293,11 @@ $conn->close();
           legend: { position: 'top' },
           title: {
             display: true,
-            text: 'Projeção de Faturamento Mensal para <?php echo $currentYear . ' e ' . $nextYear; ?>'
+            text: 'Projeção de Faturamento Mensal para <?php echo $currentYear . ' e ' . $nextYear; ?>',
+            font: {
+                size: 16,
+                weight: 'bold'
+            }
           },
           tooltip: {
             callbacks: {

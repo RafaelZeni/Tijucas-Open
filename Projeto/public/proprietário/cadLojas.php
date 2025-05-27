@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 }
 
-// Puxa contratos ativos (empresas + espaços)
 // Puxa contratos ativos (empresas + espaços) que não têm loja associada
 $query = "
     SELECT 
@@ -52,7 +51,7 @@ $query = "
     INNER JOIN tb_locatarios l ON c.empresa_id = l.empresa_id
     INNER JOIN tb_espacos e ON c.espaco_id = e.espaco_id
     LEFT JOIN tb_lojas lo ON c.espaco_id = lo.espaco_id
-    WHERE lo.espaco_id IS NULL"; // Apenas empresas que não têm loja
+    WHERE lo.espaco_id IS NULL"; 
 $result = $conn->query($query);
 
 $contratos = [];
@@ -88,7 +87,8 @@ while ($row = $result->fetch_assoc()) {
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 100%; /* Ajuste a largura do formulário */
             max-width: 600px; /* Largura máxima do formulário para evitar que fique muito largo */
-            margin-top: -20px; /* Espaço acima do formulário */
+            margin-top: 20px; /* Espaço acima do formulário */
+            position: relative; /* Para posicionar o botão voltar de forma absoluta */
         }
 
         .form-container h2 {
@@ -123,24 +123,41 @@ while ($row = $result->fetch_assoc()) {
             padding: 10px;
             border-radius: 5px;
             font-size: 1.1em;
-            background-color: #2e4d41; /* Cor do botão primário */
-            border-color: #2e4d41;
+            background-color: #385c30; /* Cor do botão primário */
+            border-color: #385c30;
             color: white; /* Cor do texto do botão */
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         .btn-primary:hover {
-            background-color: #4e7d69;
-            border-color: #4e7d69;
+            background-color: #2e4b26;
+            border-color: #2e4b26;
         }
 
-        .btn-dark {
-            margin-bottom: 20px; /* Espaço abaixo do botão "Voltar" */
-            align-self: flex-start; /* Alinha o botão "Voltar" à esquerda do content */
+        /* Estilo para o botão Voltar dentro do form-container */
+        .btn-back-form {
+            position: absolute;
+            top: 20px; /* Ajuste a distância do topo */
+            left: 20px; /* Ajuste a distância da esquerda */
+            background-color: black; /* Uma cor mais neutra para "voltar" */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+            display: flex; /* Para alinhar o ícone e o texto */
+            align-items: center;
+            gap: 5px; /* Espaço entre o ícone e o texto */
+        }
+
+        .btn-back-form:hover {
+            background-color: #5a6268;
+            color: white; /* Manter a cor do texto branca no hover */
         }
         
-        /* Ajuste para o botão submit 'accept' do seu formulário */
+        /* Ajuste para o botão submit 'accept' do seu formulário (se você o tiver com essa classe) */
         .btn.accept {
             background-color: #2e4d41; /* Cor verde para o botão de aceitar/cadastrar */
             border-color: #2e4d41;
@@ -191,9 +208,12 @@ while ($row = $result->fetch_assoc()) {
     </div>
 
     <div class="content">
-        <a href="index.php?page=gerenciarLojas" class="btn btn-dark mb-3">Voltar</a>
-        
-        <div class="form-container"> <h2>Cadastro de Nova Loja</h2> <form action="cadLojas.php" method="POST" enctype="multipart/form-data">
+        <div class="form-container"> 
+            <a href="index.php?page=gerenciarLojas" class="btn-back-form">
+                <span class="bi-arrow-left"></span> Voltar
+            </a>
+            <h2>Cadastro de Nova Loja</h2> 
+            <form action="cadLojas.php" method="POST" enctype="multipart/form-data">
                 
                 <div class="mb-3">
                     <label class="form-label">Empresa (Locatário):</label>
@@ -203,7 +223,7 @@ while ($row = $result->fetch_assoc()) {
                             <option 
                                 value="<?= htmlspecialchars($contrato['empresa_nome']) ?>" 
                                 data-espaco="<?= $contrato['espaco_id'] ?>" 
-                                data-piso="<?= $contrato['espaco_piso'] ?>">
+                                data-piso="<?= htmlspecialchars($contrato['espaco_piso']) ?>">
                                 <?= htmlspecialchars($contrato['empresa_nome']) ?> - Espaço <?= htmlspecialchars($contrato['espaco_id']) ?>
                             </option>
                         <?php endforeach; ?>
@@ -264,5 +284,6 @@ while ($row = $result->fetch_assoc()) {
   <?php endif; ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../conteudo_livre/assets/js/alerts.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   </body>
 </html>
