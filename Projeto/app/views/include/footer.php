@@ -34,7 +34,7 @@
 
         <div class="footer-col">
             <h4>Contato 💬</h4>
-            <p>Para mais informações, ligar para:<br>(XX) XXXXX-XXXX</p>
+            <p>Para mais informações, ligar para:<br>(41) 98514-3977</p>
         </div>
 
         <div class="footer-col">
