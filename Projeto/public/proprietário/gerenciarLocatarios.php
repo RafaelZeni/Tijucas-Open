@@ -61,7 +61,7 @@ possa editar e excluir um proprietário já cadastrado-->
                               $conn = conecta_db();
                               $query = "SELECT l.empresa_id, l.empresa_nome, l.empresa_cnpj, l.empresa_email, l.empresa_telefone, lg.email_usu 
                                       FROM tb_locatarios l
-                                      JOIN tb_logins lg ON l.logins_id = lg.logins_id";
+                                      JOIN tb_logins lg ON l.logins_id = lg.logins_id where lg.tipo_usu = 'locatario'";
 
                               $resultado = $conn->query($query);
 
