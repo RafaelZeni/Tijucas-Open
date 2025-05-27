@@ -44,6 +44,7 @@ editar ou excluir os contratos já existentes-->
         <div class="col">
           <a href="index.php?page=gerarContratos" class="btn btn-primary mb-3">Criar Contrato</a>
           <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
+          <h2>Contratos Ativos</h2>
           <div class="table-wrapper">
             <table class="table table-striped-green text-center">
               <thead>
@@ -55,14 +56,15 @@ editar ou excluir os contratos já existentes-->
                   <th>Data do Término</th>
                   <th>Valor Mensal</th>
                   <th>Responsável</th>
-                  <th>Excluir</th>
+                  <th>Status</th>
+                  <th>Desativar</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
                 require '../../app/database/connection.php';
                 $conn = conecta_db();
-                $query = "SELECT c.contrato_id, c.espaco_id, l.empresa_nome, c.data_inicio, c.nome_loc, c.valor_mensal, c.nome_loc FROM tb_contrato c JOIN tb_locatarios l ON c.empresa_id = l.empresa_id";
+                $query = "SELECT c.contrato_id, c.espaco_id, l.empresa_nome, c.data_inicio, c.nome_loc, c.valor_mensal, c.contrato_status FROM tb_contrato c JOIN tb_locatarios l ON c.empresa_id = l.empresa_id WHERE c.contrato_status = 'Ativo'";
 
                 $resultado = $conn->query($query);
 
@@ -82,13 +84,63 @@ editar ou excluir os contratos já existentes-->
                   echo "<td>{$data_fim}</td>";
                   echo "<td>{$linha->valor_mensal}</td>";
                   echo "<td>{$linha->nome_loc}</td>";
+                  echo "<td>{$linha->contrato_status}</td>";
 
                   echo "<td>
-                              <a class='btn btn-danger btn-excluir' href='index.php?page=removerContrato&id={$linha->contrato_id}' data-text='Deseja excluir o contrato da empresa {$linha->empresa_nome}?'>
-                                <img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir'>
+                              <a class='btn btn-danger btn-excluir' href='index.php?page=removerContrato&id={$linha->contrato_id}' data-text='Deseja desativar o contrato da empresa {$linha->empresa_nome}?'>
+                                <img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Desativar'>
                               </a>
                             </td>";
                   echo "</tr>";
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+
+
+
+
+
+
+          <h2 style="margin-top: 10px;">Contratos Invativos</h2>
+          <div class="table-wrapper">
+            <table class="table table-striped-green text-center">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nome da Empresa</th>
+                  <th>Espaço Locado</th>
+                  <th>Data do Início</th>
+                  <th>Data do Término</th>
+                  <th>Valor Mensal</th>
+                  <th>Responsável</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $query = "SELECT c.contrato_id, c.espaco_id, l.empresa_nome, c.data_inicio, c.nome_loc, c.valor_mensal, c.contrato_status FROM tb_contrato c JOIN tb_locatarios l ON c.empresa_id = l.empresa_id WHERE c.contrato_status = 'Inativo'";
+
+                $resultado = $conn->query($query);
+
+                while ($linha = $resultado->fetch_object()) {
+                  //faz com que apareça a data de fim, como definida no contrato, 12 meses após a data inicial
+                  $data_inicio_obj = new DateTime($linha->data_inicio);
+                  $data_inicio_formatada = $data_inicio_obj->format('d-m-Y');
+
+                  $data_fim_obj = clone $data_inicio_obj;
+                  $data_fim = $data_fim_obj->add(new DateInterval('P12M'))->format('d-m-Y');
+
+                  echo "<tr>";
+                  echo "<td>{$linha->contrato_id}</td>";
+                  echo "<td>{$linha->empresa_nome}</td>";
+                  echo "<td>{$linha->espaco_id}</td>";
+                  echo "<td>{$data_inicio_formatada}</td>";
+                  echo "<td>{$data_fim}</td>";
+                  echo "<td>{$linha->valor_mensal}</td>";
+                  echo "<td>{$linha->nome_loc}</td>";
+                  echo "<td>{$linha->contrato_status}</td>";
                 }
                 ?>
               </tbody>

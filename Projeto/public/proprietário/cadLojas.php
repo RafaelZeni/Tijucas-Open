@@ -51,7 +51,7 @@ $query = "
     INNER JOIN tb_locatarios l ON c.empresa_id = l.empresa_id
     INNER JOIN tb_espacos e ON c.espaco_id = e.espaco_id
     LEFT JOIN tb_lojas lo ON c.espaco_id = lo.espaco_id
-    WHERE lo.espaco_id IS NULL"; 
+    WHERE lo.espaco_id IS NULL AND c.contrato_status = 'Ativo'"; 
 $result = $conn->query($query);
 
 $contratos = [];

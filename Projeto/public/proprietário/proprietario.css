@@ -62,7 +62,6 @@ body {
 
 .sidebar nav a.ativo {
   background-color: #2e4b26;
-  border-radius: 8px;
 }
 
 .logout {

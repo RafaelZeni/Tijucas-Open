@@ -57,9 +57,10 @@ ele se encontra -->
 
                               $conn = conecta_db();
                               $query = "SELECT e.espaco_id, e.espaco_piso, e.espaco_area, e.espaco_status, l.empresa_nome
-                              FROM tb_espacos e 
-                              LEFT JOIN tb_contrato c ON e.espaco_id = c.espaco_id
-                              LEFT JOIN tb_locatarios l ON c.empresa_id = l.empresa_id";
+                                        FROM tb_espacos e 
+                                        LEFT JOIN tb_contrato c ON e.espaco_id = c.espaco_id AND c.contrato_status = 'Ativo'
+                                        LEFT JOIN tb_locatarios l ON c.empresa_id = l.empresa_id";
+
           
                               $resultado = $conn->query($query);
 
