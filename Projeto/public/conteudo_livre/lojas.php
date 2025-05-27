@@ -34,10 +34,14 @@ if ($filtro != '') {
 <body class="lojas">
     
     <section class="banner">
-        <img src="conteudo_livre/assets/imgs/bannerEstacionamento.png" alt="Estacionamento Tijucas Open">
+        <img src="conteudo_livre/assets/imgs/bannerCachoeiraBorrado.jpg" alt="Estacionamento Tijucas Open">
+        <div class="banner-conteudo">
+            <h2>Visite nossas lojas abaixo:</h2>
+            <a href="#filtro" class="btn-visitar">Visitar lojas</a>
+    </div>
     </section>
 
-    <section class="lojass">
+    <section class="lojass" id="filtro">
         <h2>Nossas Lojas:</h2>
         <label>Filtros</label>
         <form id="filtro" method="POST">

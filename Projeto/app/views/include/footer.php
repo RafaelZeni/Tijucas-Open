@@ -12,13 +12,8 @@
             <h4>Horários 🕒</h4>
             <p><strong>Lojas:</strong><br>
             Seg a Sex: das 10:00 às 22:00<br>
-            Sáb: das 09:00 às 22:00<br>
-            Dom: das 11:00 às 20:00</p>
-
-            <p><strong>Alimentação:</strong><br>
-            Seg a Sex: das 12:00 às 23:00<br>
-            Sáb: das 12:00 à 00:00<br>
-            Dom: das 12:00 às 22:00</p>
+            Sáb: das 10:00 às 23:00<br>
+            Dom: das 11:00 às 22:00</p>
         </div>
 
         <div class="footer-col">

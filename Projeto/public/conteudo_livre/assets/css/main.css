@@ -6,22 +6,50 @@ body {
 
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: white;
+  background-color: none;
   transition: background-color 0.3s, opacity 0.3s;
   z-index: 1000;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+.botoesMenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 header.scrolled {
   background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(5px);
+}
+.conteudo-banner {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  color: white;
+  max-width: 500px;
+}
+
+.logo-tijucas {
+  width: 180px;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+.botao-explorar {
+  background-color: #3b5323;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .logo img {
@@ -33,9 +61,19 @@ header.scrolled {
 nav ul {
   list-style: none;
   display: flex;
+  justify-content: center;
+  align-items: center;
+
   gap: 30px;
 }
-
+.trio{
+  width: 33%;
+}
+.trio .divBotaoEntrar{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
 nav ul li a {
   text-decoration: none;
   color: black;
@@ -54,47 +92,20 @@ nav ul li a {
   right: 0;
   border-radius: 10px;
   margin-right: 20px;
+  margin-left: 20px;  
 }
 
 .banner img {
-  margin-top: 100px;
   width: 100%;
   height: auto;
   display: block;
   border: none;
-}
-
-.explorar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-top: 80px;
-  padding-bottom: 40px;
-  background-color: white;
-  position: relative;
-}
-
-.explorar-texto {
-  background-color: #3b5c2f;
-  color: white;
-  padding: 15px 20px;
-  border-radius: 20px;
-  font-size: 22px;
-  position: absolute;
-  left: 40%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.explorar img {
-  width: 50%;
-  border-radius: 50px 0 0 50px;
-  display: block;
-  border: none;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  max-height: 100vh; 
 }
 .destaque {
   border-bottom: solid #3b5c2f 3px;
+}
+h2{
+  color: white;
+  font-size: 25px;
 }

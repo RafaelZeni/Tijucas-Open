@@ -10,13 +10,14 @@
 </head>
 <body>  
     <section class="banner">
-        <img src="conteudo_livre/assets/imgs/bannerEstacionamento.png" alt="Estacionamento Tijucas Open">
+        <img src="conteudo_livre/assets/imgs/bannerCachoeira.jpg" alt="Estacionamento Tijucas Open">
     </section>
+    <div class="conteudo-banner">
+        <img src="conteudo_livre/assets/imgs/logoTijucasBranca.png" alt="Logo Tijucas Open" class="logo-tijucas">
+        <h1>Gostaria de explorar os espaços do Tijucas Open?</h1>
+        <a href="index.php?page=mapa"><button class="botao-explorar">Explorar Tijucas Open</button></a>
+    </div>
 
-    <section class="explorar">
-        <div class="explorar-texto">Gostaria de explorar <br>os espaços do Tijucas Open?</div>
-        <img src="conteudo_livre/assets/imgs/imagemInterior.jpg" alt="Interior Tijucas Open">
-    </section>
 
 </body>
 </html>

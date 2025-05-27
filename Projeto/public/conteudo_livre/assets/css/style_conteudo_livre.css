@@ -477,6 +477,9 @@
   margin-bottom: 1rem;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 .lojas .loja p {
   font-weight: bold;
   margin-top: 0.5rem;
@@ -488,12 +491,40 @@
   height: auto;
   display: block;
 }
+.lojas .banner-conteudo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  z-index: 2;
+}
+.lojas .banner-conteudo h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+.lojas .btn-visitar {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #385e3b;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.lojas .btn-visitar:hover {
+  background-color: #2e4f31;
+}
 
 .lojas form{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
   border-radius: 15px;
 }
 
@@ -505,7 +536,6 @@
   background-color: #f9f9f9;
   color: #333;
   font-size: 16px;
-
   background-image: url('caminhoSeta.svg'); /* se quiser mudar a seta */
   background-repeat: no-repeat;
   background-position: right 10px center;

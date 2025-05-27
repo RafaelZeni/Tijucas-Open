@@ -8,33 +8,30 @@
 </head>
 <body>
 
-<header>
-  <div class="logo">
-    <img src='/Tijucas-Open/Projeto/public/conteudo_livre/assets/imgs/logo.jpeg' alt="Logo Tijucas Open">
+<header class="header">
+  <div class="trio">
+
   </div>
-  <nav>
+  <div class="trio">
+    <nav class="botoesMenu">
     <ul>
       <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/main.php') ? 'destaque' : '' ?>">
-        <a href="/Tijucas-Open/Projeto/public/index.php">Início</a>
+        <a href="/Tijucas-Open/Projeto/public/index.php"> <h2>Início</h2></a>
       </li>
       <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/lojas.php') ? 'destaque' : '' ?>">
-        <a href="index.php?page=lojas">Lojas</a>
-      </li>
-
-      <!--
-      <li class="<?//= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/gastronomia.php') ? 'destaque' : '' ?>">
-        <a href="index.php?page=gastronomia">Gastronomia</a>
-      </li>
-      -->
-      <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/contato.php') ? 'destaque' : '' ?>">
-        <a href="index.php?page=contato">Fale Conosco</a>
+        <a href="index.php?page=lojas"><h2>Lojas</h2></a>
       </li>
       <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/mapa.php') ? 'destaque' : '' ?>">
-        <a href="index.php?page=mapa">Mapa-interativo</a>
+        <a href="index.php?page=mapa"><h2>Mapa-interativo</h2></a>
       </li>
     </ul>
   </nav>
-  <a href="index.php?page=entrar"><button class="btn-entrar">Entrar</button></a>
+  </div>
+  <div class="trio">
+    <div class="divBotaoEntrar">
+      <a href="index.php?page=entrar"><button class="btn-entrar">Entrar</button></a>
+    </div>
+  </div>
 </header>
 
 </body>
