@@ -1,6 +1,3 @@
-<!--Página que permite o Proprietário cadastrar uma loja, desde que já 
-tenha um proprietário com um contrato ativo-->
-
 <?php
 require '../../app/database/connection.php';
 $conn = conecta_db();
@@ -68,10 +65,100 @@ while ($row = $result->fetch_assoc()) {
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>Perfil do Proprietário</title>
+    <title>Cadastro de Loja</title>
     <link rel="stylesheet" href="proprietario.css">
-    <link rel="stylesheet" href="./assets/css/cadlojas.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos específicos para o conteúdo e formulário */
+        .content {
+            margin-left: 250px; /* Margem esquerda para compensar a sidebar */
+            padding: 20px;
+            flex-grow: 1; /* Ocupa o restante do espaço horizontal */
+            display: flex; /* Para centralizar o conteúdo do formulário */
+            flex-direction: column;
+            align-items: center; /* Centraliza horizontalmente o conteúdo */
+            justify-content: flex-start; /* Alinha o conteúdo ao topo do container */
+            min-height: 100vh; /* Garante que o content ocupe pelo menos a altura da viewport */
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Ajuste a largura do formulário */
+            max-width: 600px; /* Largura máxima do formulário para evitar que fique muito largo */
+            margin-top: -20px; /* Espaço acima do formulário */
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 5px;
+            width: 100%; /* Garante que os inputs e selects ocupem toda a largura disponível */
+            padding: 8px 12px;
+            margin-bottom: 15px; /* Espaço entre os campos */
+            border: 1px solid #ced4da;
+        }
+
+        .form-label {
+            display: block; /* Garante que o label ocupe sua própria linha */
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Estilo para o input file */
+        input[type="file"] {
+            padding-top: 8px; /* Ajuste para melhor alinhamento visual */
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            background-color: #2e4d41; /* Cor do botão primário */
+            border-color: #2e4d41;
+            color: white; /* Cor do texto do botão */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #4e7d69;
+            border-color: #4e7d69;
+        }
+
+        .btn-dark {
+            margin-bottom: 20px; /* Espaço abaixo do botão "Voltar" */
+            align-self: flex-start; /* Alinha o botão "Voltar" à esquerda do content */
+        }
+        
+        /* Ajuste para o botão submit 'accept' do seu formulário */
+        .btn.accept {
+            background-color: #2e4d41; /* Cor verde para o botão de aceitar/cadastrar */
+            border-color: #2e4d41;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px; /* Espaço acima do botão */
+            transition: background-color 0.3s ease;
+        }
+
+        .btn.accept:hover {
+            background-color: #4e7d69;
+            border-color: #4e7d69;
+        }
+
+    </style>
     <script>
     function preencherEspacoEPiso() {
         const selectEmpresa = document.getElementById('empresa_select');
@@ -104,47 +191,60 @@ while ($row = $result->fetch_assoc()) {
     </div>
 
     <div class="content">
-    <a href="index.php?page=gerenciarLojas" class="btn btn-dark mb-3">Voltar</a>
-    <form action="cadLojas.php" method="POST" enctype="multipart/form-data">
+        <a href="index.php?page=gerenciarLojas" class="btn btn-dark mb-3">Voltar</a>
         
-        <label>Empresa (Locatário):</label>
-        <select id="empresa_select" name="loja_nome" onchange="preencherEspacoEPiso()" required>
-            <option value="">Selecione a empresa</option>
-            <?php foreach ($contratos as $contrato): ?>
-                <option 
-                    value="<?= htmlspecialchars($contrato['empresa_nome']) ?>" 
-                    data-espaco="<?= $contrato['espaco_id'] ?>" 
-                    data-piso="<?= $contrato['espaco_piso'] ?>">
-                    <?= htmlspecialchars($contrato['empresa_nome']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select><br>
+        <div class="form-container"> <h2>Cadastro de Nova Loja</h2> <form action="cadLojas.php" method="POST" enctype="multipart/form-data">
+                
+                <div class="mb-3">
+                    <label class="form-label">Empresa (Locatário):</label>
+                    <select id="empresa_select" name="loja_nome" class="form-select" onchange="preencherEspacoEPiso()" required>
+                        <option value="">Selecione a empresa</option>
+                        <?php foreach ($contratos as $contrato): ?>
+                            <option 
+                                value="<?= htmlspecialchars($contrato['empresa_nome']) ?>" 
+                                data-espaco="<?= $contrato['espaco_id'] ?>" 
+                                data-piso="<?= $contrato['espaco_piso'] ?>">
+                                <?= htmlspecialchars($contrato['empresa_nome']) ?> - Espaço <?= htmlspecialchars($contrato['espaco_id']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-        <label>Telefone da Loja:</label>
-        <input type="text" name="loja_telefone" required placeholder="Digite o Telefone" maxlength="15" oninput="mascararTelefone(this)"><br>
+                <div class="mb-3">
+                    <label class="form-label">Telefone da Loja:</label>
+                    <input type="text" name="loja_telefone" class="form-control" required placeholder="Digite o Telefone" maxlength="15" oninput="mascararTelefone(this)">
+                </div>
 
-        <label>Andar:</label>
-        <input type="text" name="loja_andar" readonly required><br>
+                <div class="mb-3">
+                    <label class="form-label">Andar:</label>
+                    <input type="text" name="loja_andar" class="form-control" readonly required>
+                </div>
 
-        <label>Espaço:</label>
-        <input type="text" name="espaco_id" readonly required><br>
+                <div class="mb-3">
+                    <label class="form-label">Espaço:</label>
+                    <input type="text" name="espaco_id" class="form-control" readonly required>
+                </div>
 
-        <label>Tipo da Loja:</label>
-        <select name="loja_tipo" required>
-            <option value="Alimentação">Restaurante</option>
-            <option value="Roupas">Roupas</option>
-            <option value="Esportes">Esportes</option>
-            <option value="Livros">Livros</option>
-            <option value="Jóias">Jóias</option>
-        </select><br>
+                <div class="mb-3">
+                    <label class="form-label">Tipo da Loja:</label>
+                    <select name="loja_tipo" class="form-select" required>
+                        <option value="Alimentação">Restaurante</option>
+                        <option value="Roupas">Roupas</option>
+                        <option value="Esportes">Esportes</option>
+                        <option value="Livros">Livros</option>
+                        <option value="Jóias">Jóias</option>
+                    </select>
+                </div>
 
-        <label>Logo da Loja:</label>
-        <input type="file" name="loja_logo" required><br>
+                <div class="mb-3">
+                    <label class="form-label">Logo da Loja:</label>
+                    <input type="file" name="loja_logo" class="form-control" required>
+                </div>
 
-        <input type="submit" class="btn accept mb-3" value="Cadastrar Loja">
-    </form>
+                <button type="submit" class="btn btn-primary">Cadastrar Loja</button>
+            </form>
+        </div>
     </div>
-
 
   <script>
     function mascararTelefone(input) {
@@ -156,7 +256,6 @@ while ($row = $result->fetch_assoc()) {
       input.value = formatado;
     }
   </script>
-
 
   <?php if(isset($sweetAlert)): ?>
     <script>

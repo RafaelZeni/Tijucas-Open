@@ -1,8 +1,3 @@
-<!-- Página de gestão de contratos, permite criar um contrato se 
-já houver um locatário cadastrado através de seu CNPJ. É necessário 
-inserir o nome do responsável, selecionar um dos CNPJ já cadastrados, 
-selecionar o espaço de locação, colocar a data de início.-->
-
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
 require '../../app/database/connection.php';
@@ -129,7 +124,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
@@ -137,6 +131,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
     <title>Gerar Contrato</title>
     <link rel="stylesheet" href="proprietario.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos específicos para o conteúdo e formulário */
+        .content {
+            margin-left: 250px; /* Margem esquerda para compensar a sidebar */
+            padding: 20px;
+            flex-grow: 1; /* Ocupa o restante do espaço horizontal */
+            display: flex; /* Para centralizar o conteúdo do formulário */
+            flex-direction: column;
+            align-items: center; /* Centraliza horizontalmente o conteúdo */
+            justify-content: flex-start; /* Alinha o conteúdo ao topo do container */
+            min-height: 100vh; /* Garante que o content ocupe pelo menos a altura da viewport */
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Ajuste a largura do formulário */
+            max-width: 600px; /* Largura máxima do formulário para evitar que fique muito largo */
+            margin-top: -20px; /* Espaço acima do formulário */
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            background-color: #2e4d41; /* Cor do botão primário */
+            border-color: #2e4d41;
+        }
+
+        .btn-primary:hover {
+            background-color: #4e7d69;
+            border-color: #4e7d69;
+        }
+
+        .btn-dark {
+            margin-bottom: 20px; /* Espaço abaixo do botão "Voltar" */
+            align-self: flex-start; /* Alinha o botão "Voltar" à esquerda do content */
+        }
+    </style>
     <script>
         const empresas = <?php echo json_encode($empresas); ?>;
         
@@ -173,59 +220,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
     </div>
 
     <div class="content">
-    <a href="index.php?page=gerenciarContratos" class="btn btn-dark mb-3">Voltar</a>
-    <h2>Preencha os dados do locatário para criar o contrato:</h2>
+        <a href="index.php?page=gerenciarContratos" class="btn btn-dark mb-3">Voltar</a>
+        
+        <div class="form-container"> <h2>Criação de Contrato:</h2>
 
-    <form method="POST" action="">
+            <form method="POST" action="">
 
-        <div class="mb-3">
-            <label class="form-label">CNPJ:</label>
-            <select name="cnpj" id="cnpj" class="form-select" onchange="atualizarLoja()" required>
-                <option value="">Selecione um CNPJ</option>
-                <?php
-                foreach ($empresas as $e) {
-                    echo "<option value='{$e['cnpj']}'>{$e['cnpj']} - {$e['loja']}</option>";
-                }
-                ?>
-            </select>
+                <div class="mb-3">
+                    <label class="form-label">CNPJ:</label>
+                    <select name="cnpj" id="cnpj" class="form-select" onchange="atualizarLoja()" required>
+                        <option value="">Selecione um CNPJ</option>
+                        <?php
+                        foreach ($empresas as $e) {
+                            echo "<option value='{$e['cnpj']}'>{$e['cnpj']} - {$e['loja']}</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nome do Responsável:</label>
+                    <input type="text" name="nome" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nome da Loja:</label>
+                    <input type="text" name="loja" id="loja" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Selecione o espaço alugado:</label>
+                    <select name="espaco" class="form-select" required>
+                        <option value="">Selecione um espaço</option>
+                        <?php
+                        foreach ($espacos as $e) {
+                            echo "<option value='{$e['id']}'>Espaço {$e['id']} - {$e['area']} m²</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Data de Início: (Contrato válido por 12 meses)</label>
+                    <input type="date" name="data" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tipo de contrato:</label>
+                    <select name="modelo" class="form-select" required>
+                        <option value="assets/imgs/1.pdf">CONTRATO DE LOCAÇÃO</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Gerar e Baixar Contrato</button>
+            </form>
         </div>
-
-        <div class="mb-3">
-            <label class="form-label">Nome do Responsável:</label>
-            <input type="text" name="nome" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Nome da Loja:</label>
-            <input type="text" name="loja" id="loja" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Selecione o espaço alugado:</label>
-            <select name="espaco" class="form-select" required>
-                <option value="">Selecione um espaço</option>
-                <?php
-                foreach ($espacos as $e) {
-                    echo "<option value='{$e['id']}'>Espaço {$e['id']} - {$e['area']} m²</option>";
-                }
-                ?>
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Data de Início: (Contrato válido por 12 meses)</label>
-            <input type="date" name="data" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Tipo de contrato:</label>
-            <select name="modelo" class="form-select" required>
-                <option value="assets/imgs/1.pdf">CONTRATO DE LOCAÇÃO</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Gerar e Baixar Contrato</button>
-    </form>
     </div>
   </body>
 </html>

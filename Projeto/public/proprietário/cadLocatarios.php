@@ -1,8 +1,3 @@
-<!-- Página para que o proprietário cadastre um locatário. 
- Para que ele possa cadastra-lo com sucesso, o locatário precisa 
- possuir um CNPJ válido, precisa inserir o telefone, o e-mail e a 
- senha para cadastrar o locatário-->
-
 <?php
 require '../../app/database/connection.php';
 
@@ -36,7 +31,7 @@ function validar_senha($senha) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi enviado
     $cnpj = str_replace(['.', '/', '-'], '', $_POST['cnpjCAD']);
-    $senha    = $_POST['passCAD'];
+    $senha = $_POST['passCAD'];
 
     if (!validar_cnpj($cnpj)) {
         $sweetAlert = [
@@ -44,15 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi en
             'title' => 'CNPJ inválido!',
             'text' => 'Por favor, insira um CNPJ válido.'
         ];
-    } 
-    
-    if (!validar_senha($senha)) {
+    } elseif (!validar_senha($senha)) { // Use elseif para evitar múltiplas mensagens de erro
         $sweetAlert = [
             'icon' => 'error',
             'title' => 'Senha fraca!',
             'text' => 'A senha deve ter no mínimo 8 caracteres, incluindo 1 letra maiúscula, 1 número e 1 caractere especial.'
         ];
-    } else { // Se o CNPJ for válido, prossegue com o cadastro
+    } else { // Se o CNPJ e a senha forem válidos, prossegue com o cadastro
         $conn = conecta_db();
 
         $stmtCheck = $conn->prepare("SELECT COUNT(*) FROM tb_locatarios WHERE empresa_cnpj = ?");
@@ -70,9 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi en
             ];
         } else {
             // Prossegue com o cadastro
-            $nome     = $_POST['nomeCAD'];
+            $nome = $_POST['nomeCAD'];
             $telefone = str_replace(['(', ')', ' ', '-'], '', $_POST['telefoneCAD']);
-            $email    = $_POST['emailCAD'];
+            $email = $_POST['emailCAD'];
             
             $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
@@ -108,15 +101,90 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi en
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Perfil do Proprietário</title>
+  <title>Cadastro de Locatário</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="proprietario.css" />
-  <link rel="stylesheet" href="assets/css/cadloc.css" />
   <style>
+    /* Estilos específicos para o conteúdo e formulário */
+    .content {
+        margin-left: 250px; /* Margem esquerda para compensar a sidebar */
+        padding: 20px;
+        flex-grow: 1; /* Ocupa o restante do espaço horizontal */
+        display: flex; /* Para centralizar o conteúdo do formulário */
+        flex-direction: column;
+        align-items: center; /* Centraliza horizontalmente o conteúdo */
+        justify-content: flex-start; /* Alinha o conteúdo ao topo do container */
+        min-height: 100vh; /* Garante que o content ocupe pelo menos a altura da viewport */
+    }
+
+    .form-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Ajuste a largura do formulário */
+        max-width: 600px; /* Largura máxima do formulário para evitar que fique muito largo */
+        margin-top: 20px; /* Espaço acima do formulário */
+    }
+
+    .form-container h2 { /* Alterado de h3 para h2 para consistência */
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 5px;
+        width: 100%; /* Garante que os inputs e selects ocupem toda a largura disponível */
+        padding: 8px 12px;
+        margin-bottom: 15px; /* Espaço entre os campos */
+        border: 1px solid #ced4da;
+    }
+
+    .form-label {
+        display: block; /* Garante que o label ocupe sua própria linha */
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 1.1em;
+        background-color: #2e4d41; /* Cor do botão primário */
+        border-color: #2e4d41;
+        color: white; /* Cor do texto do botão */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #4e7d69;
+        border-color: #4e7d69;
+    }
+
+    .btn-dark {
+        margin-bottom: 20px; /* Espaço abaixo do botão "Voltar" */
+        align-self: flex-start; /* Alinha o botão "Voltar" à esquerda do content */
+    }
+    
+    /* Estilo para inputs inválidos, mantenha se desejar */
     input.is-invalid {
       border-color: red;
       background-color: #ffe6e6;
     }
+
+    /* Ajustes para as mensagens de erro de validação */
+    .text-danger {
+        color: red;
+        font-size: 0.9em;
+        margin-bottom: 5px;
+        display: none; /* Inicia oculto, será mostrado via JS */
+    }
+
   </style>
 </head>
 <body>
@@ -137,38 +205,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi en
   </div>
 
   <div class="content">
-    <section>
-      <div class="quadrado">
-        <section class="form-container">
-          <h3>Cadastrar Locatário</h3>
-          <a href="index.php?page=gerenciarLocatarios" class="btn btn-dark mb-3">Voltar</a>
-          <form method="post">
-            <label for="nomeCAD">Nome</label>
-            <input type="text" id="nomeCAD" name="nomeCAD" required placeholder="Digite o Nome da empresa" oninput="apenasLetras(this)" />
+    <a href="index.php?page=gerenciarLocatarios" class="btn btn-dark mb-3">Voltar</a>
+    
+    <div class="form-container"> <h2>Cadastrar Locatário</h2> <form method="post">
+        <div class="mb-3">
+            <label for="nomeCAD" class="form-label">Nome da Empresa</label>
+            <input type="text" id="nomeCAD" name="nomeCAD" class="form-control" required placeholder="Digite o Nome da empresa" oninput="apenasLetras(this)" />
+        </div>
 
-            <label for="cnpjCAD">CNPJ</label>
-            <div id="erroCNPJ" style="color: red; display: none; font-size: 0.9em; margin-bottom: 5px;">
+        <div class="mb-3">
+            <label for="cnpjCAD" class="form-label">CNPJ</label>
+            <div id="erroCNPJ" class="text-danger">
               CNPJ inválido! Por favor, corrija antes de enviar.
             </div>
-            <input type="text" id="cnpjCAD" name="cnpjCAD" required placeholder="Digite o CNPJ" oninput="formatarCNPJ(this); esconderErroCNPJ();" />
+            <input type="text" id="cnpjCAD" name="cnpjCAD" class="form-control" required placeholder="Digite o CNPJ" oninput="formatarCNPJ(this); esconderErroCNPJ();" />
+        </div>
 
-            <label for="telefoneCAD">Telefone</label>
-            <input type="text" id="telefoneCAD" name="telefoneCAD" required placeholder="Digite o Telefone" maxlength="15" oninput="mascararTelefone(this)" />
+        <div class="mb-3">
+            <label for="telefoneCAD" class="form-label">Telefone</label>
+            <input type="text" id="telefoneCAD" name="telefoneCAD" class="form-control" required placeholder="Digite o Telefone" maxlength="15" oninput="mascararTelefone(this)" />
+        </div>
 
-            <label for="emailCAD">Email</label>
-            <input type="email" id="emailCAD" name="emailCAD" required placeholder="Digite o E-mail" />
+        <div class="mb-3">
+            <label for="emailCAD" class="form-label">Email</label>
+            <input type="email" id="emailCAD" name="emailCAD" class="form-control" required placeholder="Digite o E-mail" />
+        </div>
 
-            <label for="passCAD">Senha</label>
-            <div id="erroPass" style="color: red; display: none; font-size: 0.9em; margin-bottom: 5px;">
+        <div class="mb-3">
+            <label for="passCAD" class="form-label">Senha</label>
+            <div id="erroPass" class="text-danger">
               A senha deve ter no mínimo 8 caracteres, incluindo 1 letra maiúscula, 1 número e 1 caractere especial.
             </div>
-            <input type="password" id="passCAD" name="passCAD" required placeholder="Digite a senha" />
+            <input type="password" id="passCAD" name="passCAD" class="form-control" required placeholder="Digite a senha" />
+        </div>
 
-            <button type="submit" class="enviar">Cadastrar</button>
-          </form>
-        </section>
-      </div>
-    </section>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+      </form>
+    </div>
   </div>
 
   <script>
@@ -201,6 +274,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi en
       erroCNPJ.style.display = "none";
       cnpjInput.classList.remove("is-invalid");
     }
+
+    // Adicionado para ocultar a mensagem de erro da senha ao digitar
+    document.getElementById('passCAD').addEventListener('input', function() {
+        document.getElementById('erroPass').style.display = 'none';
+        this.classList.remove('is-invalid');
+    });
 
   </script>
 
