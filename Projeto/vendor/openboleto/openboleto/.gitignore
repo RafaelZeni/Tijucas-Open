@@ -1,0 +1,17 @@
+*~
+*.bak
+Thumbs.db
+desktop.ini
+.DS_Store
+.buildpath
+.project
+.settings
+*.tmproj
+build
+nbproject/
+.idea
+.phpunit.cache/
+vendor/
+
+.phpunit.result.cache
+composer.lock

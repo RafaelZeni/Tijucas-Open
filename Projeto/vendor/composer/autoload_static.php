@@ -4,12 +4,21 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit960079c979c9ddfecd9bd22f330f5e57
+class ComposerStaticInit810ec495463b0f80405c59a9ecb3ef2f
 {
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
             'setasign\\Fpdi\\' => 14,
+        ),
+        'c' => 
+        array (
+            'chillerlan\\Settings\\' => 20,
+            'chillerlan\\QRCode\\' => 18,
+        ),
+        'O' => 
+        array (
+            'OpenBoleto\\' => 11,
         ),
     );
 
@@ -17,6 +26,18 @@ class ComposerStaticInit960079c979c9ddfecd9bd22f330f5e57
         'setasign\\Fpdi\\' => 
         array (
             0 => __DIR__ . '/..' . '/setasign/fpdi/src',
+        ),
+        'chillerlan\\Settings\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chillerlan/php-settings-container/src',
+        ),
+        'chillerlan\\QRCode\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chillerlan/php-qrcode/src',
+        ),
+        'OpenBoleto\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/openboleto/openboleto/src',
         ),
     );
 
@@ -28,9 +49,9 @@ class ComposerStaticInit960079c979c9ddfecd9bd22f330f5e57
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit960079c979c9ddfecd9bd22f330f5e57::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit960079c979c9ddfecd9bd22f330f5e57::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit960079c979c9ddfecd9bd22f330f5e57::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit810ec495463b0f80405c59a9ecb3ef2f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit810ec495463b0f80405c59a9ecb3ef2f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit810ec495463b0f80405c59a9ecb3ef2f::$classMap;
 
         }, null, ClassLoader::class);
     }

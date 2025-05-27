@@ -1,5 +1,0 @@
-{
-    "require": {
-        "openboleto/openboleto": "^2.0"
-    }
-}

@@ -1,6 +1,7 @@
 {
     "require": {
-      "setasign/fpdi": "^2.6",
-      "setasign/fpdf": "^1.8"
+        "setasign/fpdf": "^1.8",
+        "setasign/fpdi": "^2.6",
+        "openboleto/openboleto": "^2.0"
     }
-  }
+}
