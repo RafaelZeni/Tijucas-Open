@@ -35,6 +35,12 @@ if(isset($_GET['page'])) {
 
   } else if ($_GET['page'] == 'editarcontrato') {
     include 'editarLoc.php';
+  
+  } else if ($_GET['page'] == 'boletosContrato') {
+    include 'boletosContrato.php';
+  
+  } else if ($_GET['page'] == 'gerarBoleto') {
+    include 'gerarBoleto.php';
 
   } else if ($_GET['page'] == 'gerenciarEspacos') {
     include 'gerenciarEspacos.php';
