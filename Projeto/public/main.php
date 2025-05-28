@@ -10,8 +10,11 @@
 </head>
 <body>  
     <section class="banner">
-        <img src="conteudo_livre/assets/imgs/bannerCachoeira.jpg" alt="Estacionamento Tijucas Open">
+        <video autoplay muted loop playsinline class="video-banner">
+            <source src="conteudo_livre/assets/videos/CACHOEIRA.mp4" type="video/mp4">
+        </video>
     </section>
+    
     <div class="conteudo-banner">
         <img src="conteudo_livre/assets/imgs/logoTijucasBranca.png" alt="Logo Tijucas Open" class="logo-tijucas">
         <h1>Gostaria de explorar os espaços do Tijucas Open?</h1>
