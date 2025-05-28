@@ -16,6 +16,7 @@ header {
   z-index: 1000;
 
 }
+
 .botoesMenu {
   display: flex;
   align-items: center;
@@ -43,6 +44,7 @@ header.scrolled {
   display: flex;
   justify-content: center;
 }
+
 .botao-explorar {
   background-color: #3b5323;
   color: white;
@@ -67,14 +69,17 @@ nav ul {
 
   gap: 30px;
 }
+
 .trio{
   width: 33%;
 }
+
 .trio .divBotaoEntrar{
   display: flex;
   justify-content: end;
   align-items: center;
 }
+
 nav ul li a {
   text-decoration: none;
   color: black;
@@ -107,6 +112,7 @@ nav ul li a {
   z-index: -1; 
 }
 
+ 
 .banner {
   position: relative;
   height: 100vh; 
@@ -114,9 +120,11 @@ nav ul li a {
 }
 
 
-.destaque {
+
+.ativo {
   border-bottom: solid #3b5c2f 3px;
 }
+
 h2{
   color: white;
   font-size: 25px;

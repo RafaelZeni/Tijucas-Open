@@ -57,6 +57,7 @@ editar ou excluir os contratos já existentes-->
                   <th>Valor Mensal</th>
                   <th>Responsável</th>
                   <th>Status</th>
+                  <th>Boletos</th>
                   <th>Desativar</th>
                 </tr>
               </thead>
@@ -85,7 +86,9 @@ editar ou excluir os contratos já existentes-->
                   echo "<td>{$linha->valor_mensal}</td>";
                   echo "<td>{$linha->nome_loc}</td>";
                   echo "<td>{$linha->contrato_status}</td>";
-
+                  echo "<td>
+                            <a class='btn btn-primary' href='index.php?page=boletosContrato&id={$linha->contrato_id}'>Ver</a>
+                        </td>";
                   echo "<td>
                               <a class='btn btn-danger btn-excluir' href='index.php?page=removerContrato&id={$linha->contrato_id}' data-text='Deseja desativar o contrato da empresa {$linha->empresa_nome}?'>
                                 <img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Desativar'>
@@ -103,7 +106,7 @@ editar ou excluir os contratos já existentes-->
 
 
 
-          <h2 style="margin-top: 10px;">Contratos Invativos</h2>
+          <h2 style="margin-top: 10px;">Contratos Inativos</h2>
           <div class="table-wrapper">
             <table class="table table-striped-green text-center">
               <thead>
