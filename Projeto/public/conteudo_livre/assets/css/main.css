@@ -14,7 +14,6 @@ header {
   background-color: none;
   transition: background-color 0.3s, opacity 0.3s;
   z-index: 1000;
-
 }
 
 .botoesMenu {
@@ -30,11 +29,11 @@ header.scrolled {
 
 .conteudo-banner {
   position: absolute;
-  top: 50%;
+  top: 51%;
   left: 10%;
   transform: translateY(-50%);
   color: white;
-  z-index: 1;
+  max-width: 500px;
 }
 
 .logo-tijucas {
@@ -70,11 +69,11 @@ nav ul {
   gap: 30px;
 }
 
-.trio{
+.trio {
   width: 33%;
 }
 
-.trio .divBotaoEntrar{
+.trio .divBotaoEntrar {
   display: flex;
   justify-content: end;
   align-items: center;
@@ -98,11 +97,10 @@ nav ul li a {
   right: 0;
   border-radius: 10px;
   margin-right: 20px;
-  margin-left: 20px;  
+  margin-left: 20px;
 }
 
-
-.video-banner {
+/*.video-banner {
   position: absolute;
   top: 0;
   left: 0;
@@ -118,14 +116,21 @@ nav ul li a {
   height: 100vh; 
   overflow: hidden;
 }
+**/
 
-
+.banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: none;
+  max-height: 100vh;
+}
 
 .ativo {
   border-bottom: solid #3b5c2f 3px;
 }
 
-h2{
+h2 {
   color: white;
   font-size: 25px;
 }

@@ -10,9 +10,11 @@
 </head>
 <body>  
     <section class="banner">
-        <video autoplay muted loop playsinline class="video-banner">
+        <!--<video autoplay muted loop playsinline class="video-banner">
             <source src="conteudo_livre/assets/videos/CACHOEIRA.mp4" type="video/mp4">
         </video>
+        -->
+        <img src="conteudo_livre/assets/imgs/bannerCachoeira.jpg" alt="">
     </section>
     
     <div class="conteudo-banner">
