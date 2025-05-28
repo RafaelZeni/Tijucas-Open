@@ -14,14 +14,17 @@
   </div>
   <div class="trio">
     <nav class="botoesMenu">
+      <?php
+        $page = $_GET['page'] ?? 'inicio';
+      ?>
     <ul>
-      <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/main.php') ? 'destaque' : '' ?>">
+      <li class="<?= ($page == 'inicio') ? 'ativo' : '' ?>">
         <a href="/Tijucas-Open/Projeto/public/index.php"> <h2>Início</h2></a>
       </li>
-      <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/lojas.php') ? 'destaque' : '' ?>">
+      <li class="<?= ($page == 'lojas') ? 'ativo' : '' ?>">
         <a href="index.php?page=lojas"><h2>Lojas</h2></a>
       </li>
-      <li class="<?= ($current_page == '/Tijucas-Open/Projeto/public/conteudo_livre/mapa.php') ? 'destaque' : '' ?>">
+      <li class="<?= ($page == 'mapa') ? 'ativo' : '' ?>">
         <a href="index.php?page=mapa"><h2>Mapa-interativo</h2></a>
       </li>
     </ul>
