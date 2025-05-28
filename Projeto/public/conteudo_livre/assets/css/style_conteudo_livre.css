@@ -111,7 +111,7 @@
   background-color: none;
   transition: background-color 0.3s, opacity 0.3s;
   z-index: 1000;
-
+  font-family: Arial, sans-serif;
 }
 
 .login .botoesMenu {
@@ -233,6 +233,7 @@ html, body {
   align-items: center;
   justify-content: center;
   text-align: center;
+    font-family: Arial, sans-serif;
 }
 
 .login .form-container {
