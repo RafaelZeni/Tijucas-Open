@@ -11,6 +11,9 @@ o usuário a se localizar corretamente dentro do espaço do Tijucas Open-->
     <link rel="stylesheet" href="conteudo_livre/assets/css/style_conteudo_livre.css">
 </head>
 <body class="mapas">
+      <section class="banner">
+        <img src="conteudo_livre/assets/imgs/bannerCachoeiraBorrado.jpg" alt="Estacionamento Tijucas Open">
+    </section>
 <section class="mapa">
   <div class="link-andar">
     <button type="button">L1</button>
