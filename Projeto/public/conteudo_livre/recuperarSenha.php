@@ -33,6 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'title' => 'Troca de Senha Restrita',
                     'text' => 'Usuário do tipo Proprietário não pode alterar a senha.'
                 ];
+            } else if ($row['tipo_usu'] === 'inativo') {
+                $sweetAlert = [
+                    'icon' => 'warning',
+                    'title' => 'Troca de Senha Restrita',
+                    'text' => 'Usuário do tipo Inativo não pode alterar a senha.'
+                ];
             } else {
                 $novaSenhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
 
