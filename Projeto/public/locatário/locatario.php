@@ -22,7 +22,6 @@ if (isset($_SESSION['logins_id'])) {
             
             error_log("Erro ao preparar a query: " . $conn->error);
         }
-        $conn->close();
     } else {
        
         error_log("Erro ao conectar ao banco de dados.");
@@ -69,21 +68,56 @@ if (isset($_SESSION['logins_id'])) {
 
     <div class="content">
         <h1>Bem-Vindo <?php echo htmlspecialchars($empresa_nome); ?></h1>
-        
-        <?php
-        /*
-        if ($page == 'home') {
-            // include 'conteudo_home.php';
-            echo "<p>Conteúdo da página inicial.</p>";
-        } elseif ($page == 'visualizarEspacos') {
-            // include 'conteudo_visualizar_espacos.php';
-            echo "<p>Conteúdo para visualizar espaços.</p>";
-        } elseif ($page == 'gestaoContratos') {
-            // include 'conteudo_gestao_contratos.php';
-            echo "<p>Conteúdo para gestão de contratos.</p>";
-        }
-        */
-        ?>
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1>Gerenciar Boletos</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
+                <div class="table-wrapper">
+                  <table class="table table-striped-green text-center">
+                      <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>Contrato</th>
+                              <th>Número do Boleto</th>
+                              <th>Valor</th>
+                              <th>Vencimento</th>
+                              <th>Banco</th>
+                              <th>Codigo de Barras</th>
+
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php
+                              $query = "SELECT b.boleto_id, b.contrato_id, b.numero_documento, b.valor, b.vencimento, b.banco, b.linha_digitavel
+                                        FROM tb_boletos b";
+
+          
+                              $resultado = $conn->query($query);
+
+                              while($linha = $resultado->fetch_object()){
+                                  $html = "<tr>";
+                                  $html .= "<td>".$linha->boleto_id."</td>";
+                                  $html .= "<td>".$linha->contrato_id."</td>";
+                                  $html .= "<td>".$linha->numero_documento."</td>";
+                                  $html .= "<td>".$linha->valor."</td>";
+                                  $html .= "<td>".$linha->vencimento."</td>";
+                                  $html .= "<td>".$linha->banco."</td>";
+                                  $html .= "<td>".$linha->linha_digitavel."</td>";
+                                  $html .= "</tr>";
+                                  echo $html;
+                              }
+                          ?>
+                      </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
     <script>
