@@ -167,11 +167,11 @@
   gap: 30px;
 }
 
-.login .trio{
+.login .trio {
   width: 33%;
 }
 
-.login .trio .divBotaoEntrar{
+.login .trio .divBotaoEntrar {
   display: flex;
   justify-content: end;
   align-items: center;
@@ -180,7 +180,7 @@
 .login .botoesMenu ul li a {
   text-decoration: none;
   color: rgb(255, 255, 255);
-  font-size: 18px;
+  font-size: 16.67px;
   font-weight: bold;
 }
 
@@ -195,10 +195,11 @@
   right: 0;
   border-radius: 10px;
   margin-right: 20px;
-  margin-left: 20px;  
+  margin-left: 20px;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -207,17 +208,17 @@ html, body {
   margin: 0 auto;
 }
 .login .banner {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .login .banner img {
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    filter: brightness(0.7);
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  filter: brightness(0.7);
 }
 .login .banner .quadrado {
   position: absolute;
@@ -233,7 +234,7 @@ html, body {
   align-items: center;
   justify-content: center;
   text-align: center;
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .login .form-container {
@@ -284,7 +285,7 @@ html, body {
   font-size: 30px;
   margin: 0px;
 }
-.login .senha-container { 
+.login .senha-container {
   position: relative !important;
   display: flex !important;
   align-items: center !important;
@@ -292,7 +293,7 @@ html, body {
 
 .login .senha-container input {
   width: 100% !important;
-  padding-right: 40px !important; 
+  padding-right: 40px !important;
 }
 
 .login .toggle-senha {
@@ -452,7 +453,7 @@ html, body {
   width: 100%;
   height: 100%;
   backface-visibility: hidden; /* Esconde a parte de trás quando virada */
-  transition: transform 1.0s; /* Transição suave para o efeito de flip */
+  transition: transform 1s; /* Transição suave para o efeito de flip */
 }
 
 /* Efeito de flip: quando o card é hover, gira em torno do eixo Y */
@@ -470,7 +471,7 @@ html, body {
   /* Adicione o estilo desejado para a frente do card */
 }
 
-.card-front img{
+.card-front img {
   padding-top: 20px;
 }
 
@@ -489,10 +490,7 @@ html, body {
 
 .lojas .grid-lojas {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(150px, 1fr)
-  ); 
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 2rem;
   padding: 2rem;
   justify-items: center;
@@ -503,7 +501,7 @@ html, body {
 
 .lojass {
   text-align: center;
-  margin: 50px 0 ;
+  margin: 50px 0;
   background-color: white;
 }
 
@@ -557,7 +555,7 @@ html {
 .lojas .banner-conteudo h2 {
   font-size: 2rem;
   margin-bottom: 20px;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 .lojas .btn-visitar {
   display: inline-block;
@@ -567,7 +565,7 @@ html {
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
 }
 
@@ -575,7 +573,7 @@ html {
   background-color: #2e4f31;
 }
 
-.lojas form{
+.lojas form {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -590,11 +588,11 @@ html {
   background-color: #f9f9f9;
   color: #333;
   font-size: 16px;
-  background-image: url('caminhoSeta.svg'); 
+  background-image: url("caminhoSeta.svg");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 16px;
-} 
+}
 
 /*css mapa------------------------------------------------------------------------------*/
 .mapas body {
@@ -613,10 +611,10 @@ html {
 }
 
 .mapas .banner img {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* Mapa posicionado em cima da imagem */

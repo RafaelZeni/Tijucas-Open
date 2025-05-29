@@ -26,7 +26,6 @@ if(isset($_GET['page'])) {
         // ou pode mostrar uma página de erro 404.
         // Se locatario.php é a home, o redirecionamento abaixo é para ela.
         header('Location: index.php'); // Redireciona para a index principal (que vai carregar locatario.php por padrão)
-        exit();
     }
 } else {
     // Se nenhuma página for especificada, carrega a página inicial do painel

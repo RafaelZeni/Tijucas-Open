@@ -1,16 +1,28 @@
+<!-- Página de gestão de contratos, permite criar um contrato se 
+já houver um locatário cadastrado através de seu CNPJ. É necessário 
+inserir o nome do responsável, selecionar um dos CNPJ já cadastrados, 
+selecionar o espaço de locação, colocar a data de início.-->
+
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
 require '../../app/database/connection.php';
 use setasign\Fpdi\Fpdi;
+use OpenBoleto\Banco\BancoDoBrasil;
+use OpenBoleto\Agente;
 
 $conn = conecta_db();
 
 // Buscar empresas (CNPJs) que não têm contrato ainda
 $querySelect = "
-    SELECT l.empresa_cnpj, l.empresa_nome 
+    SELECT l.empresa_id, l.empresa_nome, l.empresa_cnpj
     FROM tb_locatarios l
-    LEFT JOIN tb_contrato c ON l.empresa_id = c.empresa_id
-    WHERE c.empresa_id IS NULL";
+    LEFT JOIN tb_contrato c 
+        ON l.empresa_id = c.empresa_id AND c.contrato_status = 'Ativo'
+    JOIN tb_logins lg 
+        ON l.logins_id = lg.logins_id
+    WHERE c.contrato_id IS NULL
+    AND lg.tipo_usu = 'locatario'";
+
 $resultadoCnpjs = $conn->query($querySelect);
 
 $empresas = [];
@@ -72,6 +84,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
         $updateEspaco->bind_param("i", $espaco);
         $updateEspaco->execute();
         $updateEspaco->close();
+
+        $puxarContrato_id = $conn->query("SELECT LAST_INSERT_ID() AS contrato_id");
+        $linhaContrato_id = $puxarContrato_id->fetch_object();
+        $contrato_id = $linhaContrato_id->contrato_id;
+
+        if(!$contrato_id){
+            die('Erro: contrato_id não obtido após criação de contrato!');
+        }
+
+        $pagador = new Agente($nome, $cnpj);
+        $cedente = new Agente('Tijucas Open', '86.398.751/0001-23', 'Rua Fictícia 123', 'Tijucas do Sul', 'PR', '00000-000');
+
+        $valorMensal = 3000;
+
+        for ($i = 0; $i < 12; $i++){
+            $vencimento = (clone $data)->modify("+$i months");
+            $vencimentoFormatado = $vencimento->format('Y-m-d');
+
+            $numeroDocumento = $empresa_id . str_pad($i + 1, 3, '0', STR_PAD_LEFT);
+
+            $boleto = new BancoDoBrasil([
+                'dataVencimento' => $vencimento,
+                'valor' => $valorMensal,
+                'numero' => $i + 1,
+                'sacado' => $pagador,
+                'cedente' => $cedente,
+                'agencia' => 1234,
+                'carteira' => 18,
+                'conta' => 123456,
+                'convenio' => 123456,
+                'numeroDocumento' => (string)$numeroDocumento
+            ]);
+
+            $linhaDigitavel = $boleto->getLinhaDigitavel();
+
+            $stmt = $conn->prepare("INSERT INTO tb_boletos (contrato_id, numero_documento, valor, vencimento, banco, linha_digitavel) VALUES (?, ?, ?, ?, ?, ?)");
+            $banco = "BancoDoBrasil";
+            $stmt->bind_param("isdsss", $contrato_id, $numeroDocumento, $valorMensal, $vencimentoFormatado, $banco, $linhaDigitavel);
+
+            $stmt->execute();
+            $stmt->close();
+        }
     } else {
         $error = addslashes(htmlspecialchars($insert->error));
         $sweetAlert = ['icon' => 'error',
@@ -220,61 +274,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
     </div>
 
     <div class="content">
-        <a href="index.php?page=gerenciarContratos" class="btn btn-dark mb-3">Voltar</a>
-        
+    <a href="index.php?page=gerenciarContratos" class="btn btn-dark mb-3">Voltar</a>
+    
         <div class="form-container"> <h2>Criação de Contrato:</h2>
 
-            <form method="POST" action="">
+    <form method="POST" action="">
 
-                <div class="mb-3">
-                    <label class="form-label">CNPJ:</label>
-                    <select name="cnpj" id="cnpj" class="form-select" onchange="atualizarLoja()" required>
-                        <option value="">Selecione um CNPJ</option>
-                        <?php
-                        foreach ($empresas as $e) {
-                            echo "<option value='{$e['cnpj']}'>{$e['cnpj']} - {$e['loja']}</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Nome do Responsável:</label>
-                    <input type="text" name="nome" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Nome da Loja:</label>
-                    <input type="text" name="loja" id="loja" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Selecione o espaço alugado:</label>
-                    <select name="espaco" class="form-select" required>
-                        <option value="">Selecione um espaço</option>
-                        <?php
-                        foreach ($espacos as $e) {
-                            echo "<option value='{$e['id']}'>Espaço {$e['id']} - {$e['area']} m²</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Data de Início: (Contrato válido por 12 meses)</label>
-                    <input type="date" name="data" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Tipo de contrato:</label>
-                    <select name="modelo" class="form-select" required>
-                        <option value="assets/imgs/1.pdf">CONTRATO DE LOCAÇÃO</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Gerar e Baixar Contrato</button>
-            </form>
+        <div class="mb-3">
+            <label class="form-label">CNPJ:</label>
+            <select name="cnpj" id="cnpj" class="form-select" onchange="atualizarLoja()" required>
+                <option value="">Selecione um CNPJ</option>
+                <?php
+                foreach ($empresas as $e) {
+                    echo "<option value='{$e['cnpj']}'>{$e['cnpj']} - {$e['loja']}</option>";
+                }
+                ?>
+            </select>
         </div>
+
+        <div class="mb-3">
+            <label class="form-label">Nome do Responsável:</label>
+            <input type="text" name="nome" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Nome da Loja:</label>
+            <input type="text" name="loja" id="loja" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Selecione o espaço alugado:</label>
+            <select name="espaco" class="form-select" required>
+                <option value="">Selecione um espaço</option>
+                <?php
+                foreach ($espacos as $e) {
+                    echo "<option value='{$e['id']}'>Espaço {$e['id']} - {$e['area']} m²</option>";
+                }
+                ?>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Data de Início: (Contrato válido por 12 meses)</label>
+            <input type="date" name="data" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tipo de contrato:</label>
+            <select name="modelo" class="form-select" required>
+                <option value="assets/imgs/1.pdf">CONTRATO DE LOCAÇÃO</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Gerar e Baixar Contrato</button>
+    </form>
+    </div>
     </div>
   </body>
 </html>

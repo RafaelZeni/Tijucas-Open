@@ -32,8 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 case 'locatario':
                     header("Location: ./locatário/index.php");
                     break;
+                case 'inativo':
+                    break;
+
                 default:
-                    header("Location: login.php");
+                    header("Location: index.php?page=entrar");
                     break;
             }
             exit;

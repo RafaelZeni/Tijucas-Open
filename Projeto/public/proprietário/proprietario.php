@@ -50,7 +50,7 @@ FROM (
     ) AS meses
 ) AS mes
 LEFT JOIN tb_contrato c 
-    ON mes.m BETWEEN c.data_inicio AND DATE_ADD(c.data_inicio, INTERVAL 1 YEAR)
+    ON mes.m BETWEEN c.data_inicio AND DATE_ADD(c.data_inicio, INTERVAL 1 YEAR) AND c.contrato_status = 'Ativo'
 GROUP BY mes.m
 ORDER BY mes.m;
 ";

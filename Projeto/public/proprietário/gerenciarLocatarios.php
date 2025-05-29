@@ -52,7 +52,7 @@ possa editar e excluir um proprietário já cadastrado-->
                               <th>Email</th>
                               <th>Telefone</th>
                               <th>Editar</th>
-                              <th>Excluir</th>
+                              <th>Desativar</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -75,10 +75,51 @@ possa editar e excluir um proprietário já cadastrado-->
                                   $html .= "<td>
                                             <a class='btn btn-success' href='index.php?page=editarlocatario&id=" . $linha->empresa_id . "'><img src='../conteudo_livre/assets/imgs/editar.png' alt='Editar';'></a>
                                             </td>";
+                                  
                                   $html .= "<td>
-                                            <a class='btn btn-danger btn-excluir' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "' data-text='Deseja excluir o locatário " . $linha->empresa_nome . "?'><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir';'></a>
+                                            <a class='btn btn-danger btn-excluir' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "' data-text='Deseja desativar o locatário " . $linha->empresa_nome . "?'><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir';'></a>
                                             </td>";
                                   $html .= "</tr>";
+                                  echo $html;
+                              }
+                          ?>
+                      </tbody>
+                  </table>
+                </div>
+
+
+
+                <div class="table-wrapper">
+                  <table class="table table-striped-green text-center">
+                      <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>Nome da Empresa</th>
+                              <th>CNPJ</th>
+                              <th>Email</th>
+                              <th>Telefone</th>
+                              <th>Reativar</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php
+                              $query = "SELECT l.empresa_id, l.empresa_nome, l.empresa_cnpj, l.empresa_email, l.empresa_telefone, lg.email_usu 
+                                      FROM tb_locatarios l
+                                      JOIN tb_logins lg ON l.logins_id = lg.logins_id where lg.tipo_usu = 'inativo'";
+
+                              $resultado = $conn->query($query);
+
+                              while ($linha = $resultado->fetch_object()) {
+                                  $html = "<tr>";
+                                  $html .= "<td>" . $linha->empresa_id . "</td>";
+                                  $html .= "<td>" . $linha->empresa_nome . "</td>";
+                                  $html .= "<td>" . $linha->empresa_cnpj . "</td>";
+                                  $html .= "<td>" . $linha->empresa_email . "</td>";
+                                  $html .= "<td>" . $linha->empresa_telefone . "</td>";
+                                  $html .= "<td>
+                                            <a class='btn btn-info' href='index.php?page=reativarLocatario&id=" . $linha->empresa_id . "'><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir';'></a>
+                                            </td>";
+
                                   echo $html;
                               }
                           ?>
@@ -94,7 +135,6 @@ possa editar e excluir um proprietário já cadastrado-->
     <script src="../conteudo_livre/assets/js/alerts_confirmacao.js"></script>
   </body>
 </html>
-
 
 
 

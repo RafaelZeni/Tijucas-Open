@@ -61,7 +61,7 @@
 
                                 $contrato_id = $_GET['id'];
                                 $conn = conecta_db();
-                                $query = "SELECT b.boleto_id, b.numero_documento, b.valor, b.banco, b.codigo_barras, b.linha_digitavel, b.vencimento, l.empresa_nome FROM tb_boletos b JOIN tb_contrato c ON b.contrato_id = c.contrato_id JOIN tb_locatarios l ON l.empresa_id = c.empresa_id WHERE b.contrato_id = ?";
+                                $query = "SELECT b.boleto_id, b.numero_documento, b.valor, b.banco, b.linha_digitavel, b.vencimento, l.empresa_nome FROM tb_boletos b JOIN tb_contrato c ON b.contrato_id = c.contrato_id JOIN tb_locatarios l ON l.empresa_id = c.empresa_id WHERE b.contrato_id = ?";
 
                                 $stmt = $conn->prepare($query);
                                 $stmt->bind_param("i", $contrato_id);

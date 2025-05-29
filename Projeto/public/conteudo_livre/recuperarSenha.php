@@ -33,6 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'title' => 'Troca de Senha Restrita',
                     'text' => 'Usuário do tipo Proprietário não pode alterar a senha.'
                 ];
+            } else if ($row['tipo_usu'] === 'inativo') {
+                $sweetAlert = [
+                    'icon' => 'warning',
+                    'title' => 'Troca de Senha Restrita',
+                    'text' => 'Usuário do tipo Inativo não pode alterar a senha.'
+                ];
             } else {
                 $novaSenhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
 
@@ -89,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="login">
 
 <section class="banner">
-    <img src="conteudo_livre/assets/imgs/maisde40espaços.jpeg" alt="Estacionamento Tijucas Open">
+    <img src="conteudo_livre/assets/imgs/bannerCachoeira.jpg" alt="Estacionamento Tijucas Open">
     <div class="quadrado">
         <section class="form-container">
             <h3>Recuperar Senha</h3>
