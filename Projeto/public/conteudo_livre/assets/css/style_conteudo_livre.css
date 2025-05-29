@@ -662,7 +662,8 @@ html {
   font-family: Arial, sans-serif;
   transition: background-color 0.3s ease;
   margin-top: 250%;
-
+  width: 60px;
+  height: 60px;
 }
 
 .mapas .link-andar button:hover {
