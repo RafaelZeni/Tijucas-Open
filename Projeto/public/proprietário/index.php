@@ -21,6 +21,9 @@ if(isset($_GET['page'])) {
   } else if ($_GET['page'] == 'removerlocatario') {
     include 'removerLoc.php';
     
+  } else if ($_GET['page'] == 'reativarLocatario') {
+    include 'reativarLocatario.php';
+
   } else if ($_GET['page'] == 'editarlocatario') {
     include 'editarLoc.php';
     

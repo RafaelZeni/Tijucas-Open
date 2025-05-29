@@ -14,10 +14,15 @@ $conn = conecta_db();
 
 // Buscar empresas (CNPJs) que não têm contrato ainda
 $querySelect = "
-    SELECT l.empresa_cnpj, l.empresa_nome 
+    SELECT l.empresa_id, l.empresa_nome, l.empresa_cnpj
     FROM tb_locatarios l
-    LEFT JOIN tb_contrato c ON l.empresa_id = c.empresa_id
-    WHERE c.empresa_id IS NULL";
+    LEFT JOIN tb_contrato c 
+        ON l.empresa_id = c.empresa_id AND c.contrato_status = 'Ativo'
+    JOIN tb_logins lg 
+        ON l.logins_id = lg.logins_id
+    WHERE c.contrato_id IS NULL
+    AND lg.tipo_usu = 'locatario'";
+
 $resultadoCnpjs = $conn->query($querySelect);
 
 $empresas = [];
