@@ -78,7 +78,7 @@
                                     $html .= "<td>" . $boleto->empresa_nome . "</td>";
                                     $html .= "<td>" . $boleto->banco . "</td>";
                                     $html .= "<td>" . $boleto->linha_digitavel . "</td>";
-                                    $html .= "<td><a class='btn btn-primary' href='index.php?page=gerarBoleto&id={$boleto->boleto_id}'>Gerar</a></td>";
+                                    $html .= "<td><a class='btn btn-primary' href='index.php?page=gerarBoletoProp&id={$boleto->boleto_id}'>Gerar</a></td>";
                                     $html .= "</tr>";
                                     echo $html;
                                 }

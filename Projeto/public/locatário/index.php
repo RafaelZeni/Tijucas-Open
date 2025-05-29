@@ -18,6 +18,8 @@ if(isset($_GET['page'])) {
         include 'gestaoContratos.php';
     } else if ($_GET['page'] == 'visualizarEspacos') {
         include 'visualizarEspacos.php';
+    } else if ($_GET['page'] == 'gerarBoletoLoc') {
+        include 'gerarBoletoLoc.php';
     } else if ($_GET['page'] == 'home') { // Adicionar condição explícita para home
         include 'locatario.php'; // Assumindo que locatario.php é sua página inicial do painel
     }

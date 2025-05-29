@@ -7,14 +7,15 @@ if (isset($_SESSION['logins_id'])) {
     $conn = conecta_db();
     if ($conn) {
         $logins_id = $_SESSION['logins_id'];
-        $query = "SELECT empresa_nome FROM tb_locatarios WHERE logins_id = ?";
+        $query = "SELECT empresa_id, empresa_nome FROM tb_locatarios WHERE logins_id = ?";
         $stmt = $conn->prepare($query);
 
         if ($stmt) {
             $stmt->bind_param("i", $logins_id);
             $stmt->execute();
-            $stmt->bind_result($empresa_nome_db); 
+            $stmt->bind_result($empresa_id_db,$empresa_nome_db); 
             if ($stmt->fetch()) {
+                $empresa_id = $empresa_id_db;
                 $empresa_nome = $empresa_nome_db; 
             }
             $stmt->close();
@@ -88,26 +89,27 @@ if (isset($_SESSION['logins_id'])) {
                               <th>Vencimento</th>
                               <th>Banco</th>
                               <th>Codigo de Barras</th>
-
+                              <th>Gerar</th>
                           </tr>
                       </thead>
                       <tbody>
                           <?php
                               $query = "SELECT b.boleto_id, b.contrato_id, b.numero_documento, b.valor, b.vencimento, b.banco, b.linha_digitavel
-                                        FROM tb_boletos b";
+                                        FROM tb_boletos b JOIN tb_contrato c ON b.contrato_id = c.contrato_id WHERE c.empresa_id = $empresa_id";
 
           
                               $resultado = $conn->query($query);
 
-                              while($linha = $resultado->fetch_object()){
+                              while($boleto = $resultado->fetch_object()){
                                   $html = "<tr>";
-                                  $html .= "<td>".$linha->boleto_id."</td>";
-                                  $html .= "<td>".$linha->contrato_id."</td>";
-                                  $html .= "<td>".$linha->numero_documento."</td>";
-                                  $html .= "<td>".$linha->valor."</td>";
-                                  $html .= "<td>".$linha->vencimento."</td>";
-                                  $html .= "<td>".$linha->banco."</td>";
-                                  $html .= "<td>".$linha->linha_digitavel."</td>";
+                                  $html .= "<td>".$boleto->boleto_id."</td>";
+                                  $html .= "<td>".$boleto->contrato_id."</td>";
+                                  $html .= "<td>".$boleto->numero_documento."</td>";
+                                  $html .= "<td>".$boleto->valor."</td>";
+                                  $html .= "<td>".$boleto->vencimento."</td>";
+                                  $html .= "<td>".$boleto->banco."</td>";
+                                  $html .= "<td>".$boleto->linha_digitavel."</td>";
+                                  $html .= "<td><a class='btn btn-primary' href='index.php?page=gerarBoletoLoc&id={$boleto->boleto_id}'>Gerar</a></td>";
                                   $html .= "</tr>";
                                   echo $html;
                               }
