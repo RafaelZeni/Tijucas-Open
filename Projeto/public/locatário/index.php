@@ -18,6 +18,10 @@ if(isset($_GET['page'])) {
         include 'gestaoContratos.php';
     } else if ($_GET['page'] == 'visualizarEspacos') {
         include 'visualizarEspacos.php';
+    } else if ($_GET['page'] == 'ativar2fa') {
+        include '../conteudo_livre/autenticacao/ativar_2fa.php';
+    } else if ($_GET['page'] == 'verificar2fa') {
+        include '../conteudo_livre/autenticacao/verificar_2fa.php';
     } else if ($_GET['page'] == 'gerarBoletoLoc') {
         include 'gerarBoletoLoc.php';
     } else if ($_GET['page'] == 'home') { // Adicionar condição explícita para home

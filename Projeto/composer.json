@@ -1,5 +1,6 @@
 {
     "require": {
+        "phpgangsta/googleauthenticator": "dev-master",
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.6",
         "openboleto/openboleto": "^2.0"

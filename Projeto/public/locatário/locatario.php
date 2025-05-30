@@ -77,6 +77,7 @@ if (isset($_SESSION['logins_id'])) {
         </div>
         <div class="row">
             <div class="col">
+                <a href="index.php?page=ativar2fa" class="btn btn-primary mb-3">Ativar 2FA</a>
                 <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
                 <div class="table-wrapper">
                   <table class="table table-striped-green text-center">

@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '80e2f01ed33e774b509cf34ba7bb7b1903b270e1',
+        'reference' => '6f4a18970355b0fe9318d64aca6093260e1fd673',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '80e2f01ed33e774b509cf34ba7bb7b1903b270e1',
+            'reference' => '6f4a18970355b0fe9318d64aca6093260e1fd673',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -44,6 +44,17 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../openboleto/openboleto',
             'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'phpgangsta/googleauthenticator' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '505c2af8337b559b33557f37cda38e5f843f3768',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpgangsta/googleauthenticator',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
             'dev_requirement' => false,
         ),
         'setasign/fpdf' => array(
