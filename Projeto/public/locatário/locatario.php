@@ -91,6 +91,7 @@ if (isset($_SESSION['logins_id'])) {
                               <th>Banco</th>
                               <th>Codigo de Barras</th>
                               <th>Gerar</th>
+                              <th>Comprovante</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -111,6 +112,7 @@ if (isset($_SESSION['logins_id'])) {
                                   $html .= "<td>".$boleto->banco."</td>";
                                   $html .= "<td>".$boleto->linha_digitavel."</td>";
                                   $html .= "<td><a class='btn btn-primary' href='index.php?page=gerarBoletoLoc&id={$boleto->boleto_id}'>Gerar</a></td>";
+                                  $html .= "<td><a class='btn btn-success' href='index.php?page=enviarComprovante&id={$boleto->boleto_id}'>Enviar</a></td>";
                                   $html .= "</tr>";
                                   echo $html;
                               }

@@ -2,7 +2,6 @@
 require_once '../../vendor/autoload.php';
 require '../../app/database/connection.php';
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $codigo = $_POST['codigo'];
     $conn = conecta_db();
@@ -17,23 +16,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($linha && $linha->auth_secret) {
         $ga = new PHPGangsta_GoogleAuthenticator;
         $secret = $linha->auth_secret;
-        $checkResultado = $ga->verifyCode($secret, $codigo, 2); // 2 = tolerância de 2*30 segundos
+        $checkResultado = $ga->verifyCode($secret, $codigo, 4); // tolerância de 2 min
 
         if ($checkResultado) {
             $_SESSION['2fa_passed'] = true;
 
-            switch ($_SESSION['tipo_usu']) { // redireciona para a página correta
+            switch ($_SESSION['tipo_usu']) {
                 case 'proprietario':
-                    header("Location: ./proprietário/index.php");
+                    header("Location: /Tijucas-Open/Projeto/public/proprietário/index.php");
                     break;
                 case 'locatario':
-                    header("Location: ./locatário/index.php");
+                    header("Location: /Tijucas-Open/Projeto/public/locatário/index.php");
                     break;
-                case 'inativo':
-                    break;
-
                 default:
-                    header("Location: index.php?page=entrar");
+                    header("Location: /Tijucas-Open/Projeto/public/index.php?page=entrar");
                     break;
             }
             exit;
@@ -52,5 +48,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <label>Digite o código do Google Authenticator: </label>
     <input type="text" name="codigo" required>
     <button type="submit">Verificar</button>
-     <?php if (isset($erro)) echo "<p style='color:red;'>$erro</p>"; ?>
+    <?php if (isset($erro)) echo "<p style='color:red;'>$erro</p>"; ?>
 </form>
