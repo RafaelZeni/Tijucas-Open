@@ -204,6 +204,7 @@ $conn->close();
 
   <div class="content">
     <h1>Bem-Vindo Cristiano</h1>
+    <a href="index.php?page=ativar2fa" class="btn btn-primary mb-3">Ativar 2FA</a>
 
     <div class="row mt-2">
       <div class="col-md-12"> <div class="card-chart">

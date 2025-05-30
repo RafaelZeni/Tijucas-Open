@@ -26,7 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['tipo_usu'] = $row['tipo_usu'];
 
             if (!empty($row['auth_secret'])) {
-                header("Location: /Tijucas-Open/Projeto/public/locatário/index.php?page=verificar2fa");
+                if ($_SESSION['tipo_usu'] == 'locatario'){
+                    header("Location: /Tijucas-Open/Projeto/public/locatário/index.php?page=verificar2fa");
+                } else if ($_SESSION['tipo_usu'] == 'proprietario'){
+                    header("Location: /Tijucas-Open/Projeto/public/proprietário/index.php?page=verificar2fa");
+                }
                 exit;
 
             } else {

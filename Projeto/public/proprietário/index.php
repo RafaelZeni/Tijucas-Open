@@ -11,63 +11,70 @@ if (!isset($_SESSION['logins_id']) || $_SESSION['tipo_usu'] !== 'proprietario') 
 //include '../../app/views/include/headerProp.php';
 //ORGANIZAR DIRECIONAMENTOS DAS PÁGINAS
 
-if(isset($_GET['page'])) {
+if (isset($_GET['page'])) {
   if ($_GET['page'] == 'gerenciarLocatarios') {
     include 'gerenciarLocatarios.php';
-    
+
   } else if ($_GET['page'] == 'cadLocatarios') {
     include 'cadLocatarios.php';
-    
+
   } else if ($_GET['page'] == 'removerlocatario') {
     include 'removerLoc.php';
-    
+
   } else if ($_GET['page'] == 'reativarLocatario') {
     include 'reativarLocatario.php';
 
   } else if ($_GET['page'] == 'editarlocatario') {
     include 'editarLoc.php';
-    
+
   } else if ($_GET['page'] == 'gerenciarContratos') {
     include 'gerenciarContratos.php';
-    
+
   } else if ($_GET['page'] == 'gerarContratos') {
     include 'gerarContratos.php';
-    
+
   } else if ($_GET['page'] == 'removerContrato') {
     include 'removerContrato.php';
 
   } else if ($_GET['page'] == 'editarcontrato') {
     include 'editarLoc.php';
-  
+
   } else if ($_GET['page'] == 'boletosContrato') {
     include 'boletosContrato.php';
-  
+
   } else if ($_GET['page'] == 'gerarBoletoProp') {
     include 'gerarBoletoProp.php';
 
   } else if ($_GET['page'] == 'gerenciarEspacos') {
     include 'gerenciarEspacos.php';
-    
+
   } else if ($_GET['page'] == 'gerenciarLojas') {
-    include 'gerenciarLojas.php'; 
+    include 'gerenciarLojas.php';
 
   } else if ($_GET['page'] == 'projecao') {
-    include 'projecao.php'; 
+    include 'projecao.php';
 
   } else if ($_GET['page'] == 'cadLojas') {
-    include 'cadLojas.php'; 
+    include 'cadLojas.php';
 
-  } else if ($_GET['page'] == 'editarLojas'){
+  } else if ($_GET['page'] == 'editarLojas') {
     include 'editarLoja.php';
-    
+
   } else if ($_GET['page'] == 'removerLoja') {
     include 'removerLoja.php';
+    
+  } else if ($_GET['page'] == 'ativar2fa') {
+    include '../conteudo_livre/autenticacao/ativar_2fa.php';
+
+  } else if ($_GET['page'] == 'verificar2fa') {
+    include '../conteudo_livre/autenticacao/verificar_2fa.php';
+    
   } else {
     include '../../app/views/include/headerProp.php';
     header('location: index.php');
-    
+
   }
-  
+
 } else {
   include 'proprietario.php';
 }
