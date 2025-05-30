@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['tipo_usu'] = $row['tipo_usu'];
 
             if (!empty($row['auth_secret'])) {
-                header("Location: ../conteudo_livre/autenticacao/verificar_2fa.php");
+                header("Location: conteudo_livre/autenticacao/verificar_2fa.php");
                 exit;
 
             } else {
