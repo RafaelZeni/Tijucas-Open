@@ -27,7 +27,7 @@ FROM (
         UNION SELECT 18 UNION SELECT 19 UNION SELECT 20 UNION SELECT 21 UNION SELECT 22 UNION SELECT 23
     ) AS meses
 ) AS mes
-LEFT JOIN tb_contrato c ON mes.m BETWEEN c.data_inicio AND DATE_ADD(c.data_inicio, INTERVAL 1 YEAR)
+LEFT JOIN tb_contrato c ON mes.m BETWEEN c.data_inicio AND DATE_ADD(c.data_inicio, INTERVAL 1 YEAR) AND c.contrato_status = 'Ativo'
 GROUP BY mes.m
 ORDER BY mes.m;
 ";
