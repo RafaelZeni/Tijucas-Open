@@ -27,15 +27,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("isssss", $espaco_id, $nome, $telefone, $logoPath, $andar, $tipo);
 
     if ($stmt->execute()) {
-        $sweetAlert = ['icon' => 'success',
-                'title' => 'Sucesso!',
-                'text' => 'Loja cadastrada com sucesso!',
-                'redirect' => 'index.php?page=gerenciarLojas'];
+        $sweetAlert = [
+            'icon' => 'success',
+            'title' => 'Sucesso!',
+            'text' => 'Loja cadastrada com sucesso!',
+            'redirect' => 'index.php?page=gerenciarLojas'
+        ];
     } else {
-       $error = addslashes(htmlspecialchars($stmt->error));
-       $sweetAlert = ['icon' => 'error',
-                'title' => 'Erro!',
-                'text' => "Erro ao cadastrar loja: {$error}"];
+        $error = addslashes(htmlspecialchars($stmt->error));
+        $sweetAlert = [
+            'icon' => 'error',
+            'title' => 'Erro!',
+            'text' => "Erro ao cadastrar loja: {$error}"
+        ];
     }
     $stmt->close();
 }
@@ -62,7 +66,8 @@ while ($row = $result->fetch_assoc()) {
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <title>Cadastro de Loja</title>
     <link rel="stylesheet" href="proprietario.css">
@@ -156,7 +161,7 @@ while ($row = $result->fetch_assoc()) {
             background-color: #5a6268;
             color: white; /* Manter a cor do texto branca no hover */
         }
-        
+
         /* Ajuste para o botão submit 'accept' do seu formulário (se você o tiver com essa classe) */
         .btn.accept {
             background-color: #2e4d41; /* Cor verde para o botão de aceitar/cadastrar */
@@ -174,57 +179,67 @@ while ($row = $result->fetch_assoc()) {
             background-color: #4e7d69;
             border-color: #4e7d69;
         }
-
     </style>
     <script>
-    function preencherEspacoEPiso() {
-        const selectEmpresa = document.getElementById('empresa_select');
-        const selectedOption = selectEmpresa.options[selectEmpresa.selectedIndex];
-        const espacoId = selectedOption.getAttribute('data-espaco');
-        const piso = selectedOption.getAttribute('data-piso');
+        function preencherEspacoEPiso() {
+            const selectEmpresa = document.getElementById('empresa_select');
+            const selectedOption = selectEmpresa.options[selectEmpresa.selectedIndex];
+            const espacoId = selectedOption.getAttribute('data-espaco');
+            const piso = selectedOption.getAttribute('data-piso');
 
-        document.querySelector('[name="espaco_id"]').value = espacoId;
-        document.querySelector('[name="loja_andar"]').value = piso;
-    }
+            document.querySelector('[name="espaco_id"]').value = espacoId;
+            document.querySelector('[name="loja_andar"]').value = piso;
+        }
     </script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="sidebar">
-      <div class="logo">
-        <img src="../conteudo_livre/assets/imgs/LogoTijucasBranca.png" alt="Tijucas Open" />
-      </div>
+        <div class="logo">
+            <img src="../conteudo_livre/assets/imgs/LogoTijucasBranca.png" alt="Tijucas Open" />
+        </div>
 
-      <nav>
-        <a href="index.php">Início</a>
-        <a href="index.php?page=gerenciarLocatarios" class="<?= ($_GET['page'] == 'gerenciarLocatarios') ? 'ativo' : ''; ?>">Gerenciar Locatários</a>
-        <a href="index.php?page=gerenciarContratos" class="<?= ($_GET['page'] == 'gerenciarContratos') ? 'ativo' : ''; ?>">Gerenciar Contratos</a>
-        <a href="index.php?page=gerenciarLojas" class="<?= ($_GET['page'] == 'gerenciarLojas') ? 'ativo' : ''; ?>">Gerenciar Lojas</a>
-        <a href="index.php?page=gerenciarEspacos" class="<?= ($_GET['page'] == 'gerenciarEspacos') ? 'ativo' : ''; ?>">Gerenciar Espaços</a>
-      </nav>
+        <nav>
+            <a href="index.php">Início</a>
+            <a href="index.php?page=gerenciarLocatarios"
+                class="<?= (isset($_GET['page']) && $_GET['page'] == 'gerenciarLocatarios') ? 'ativo' : ''; ?>">Gerenciar
+                Locatários</a>
+            <a href="index.php?page=gerenciarContratos"
+                class="<?= (isset($_GET['page']) && $_GET['page'] == 'gerenciarContratos') ? 'ativo' : ''; ?>">Gerenciar
+                Contratos</a>
+            <a href="index.php?page=gerenciarLojas"
+                class="<?= (isset($_GET['page']) && $_GET['page'] == 'gerenciarLojas') ? 'ativo' : ''; ?>">Gerenciar
+                Lojas</a>
+            <a href="index.php?page=gerenciarEspacos"
+                class="<?= (isset($_GET['page']) && $_GET['page'] == 'gerenciarEspacos') ? 'ativo' : ''; ?>">Gerenciar
+                Espaços</a>
+        </nav>
 
-      <div class="logout">
-        <a href="../logout.php"><span>↩</span> Log Out</a>
-      </div>
+
+        <div class="logout">
+            <a href="../logout.php"><span>↩</span> Log Out</a>
+        </div>
     </div>
 
     <div class="content">
-        <div class="form-container"> 
+        <div class="form-container">
             <a href="index.php?page=gerenciarLojas" class="btn-back-form">
                 <span class="bi-arrow-left"></span> Voltar
             </a>
-            <h2>Cadastro de Nova Loja</h2> 
+            <h2>Cadastro de Nova Loja</h2>
             <form action="cadLojas.php" method="POST" enctype="multipart/form-data">
-                
+
                 <div class="mb-3">
                     <label class="form-label">Empresa (Locatário):</label>
-                    <select id="empresa_select" name="loja_nome" class="form-select" onchange="preencherEspacoEPiso()" required>
+                    <select id="empresa_select" name="loja_nome" class="form-select" onchange="preencherEspacoEPiso()"
+                        required>
                         <option value="">Selecione a empresa</option>
                         <?php foreach ($contratos as $contrato): ?>
-                            <option 
-                                value="<?= htmlspecialchars($contrato['empresa_nome']) ?>" 
-                                data-espaco="<?= $contrato['espaco_id'] ?>" 
+                            <option value="<?= htmlspecialchars($contrato['empresa_nome']) ?>"
+                                data-espaco="<?= $contrato['espaco_id'] ?>"
                                 data-piso="<?= htmlspecialchars($contrato['espaco_piso']) ?>">
-                                <?= htmlspecialchars($contrato['empresa_nome']) ?> - Espaço <?= htmlspecialchars($contrato['espaco_id']) ?>
+                                <?= htmlspecialchars($contrato['empresa_nome']) ?> - Espaço
+                                <?= htmlspecialchars($contrato['espaco_id']) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -232,7 +247,8 @@ while ($row = $result->fetch_assoc()) {
 
                 <div class="mb-3">
                     <label class="form-label">Telefone da Loja:</label>
-                    <input type="text" name="loja_telefone" class="form-control" required placeholder="Digite o Telefone" maxlength="15" oninput="mascararTelefone(this)">
+                    <input type="text" name="loja_telefone" class="form-control" required
+                        placeholder="Digite o Telefone" maxlength="15" oninput="mascararTelefone(this)">
                 </div>
 
                 <div class="mb-3">
@@ -266,24 +282,24 @@ while ($row = $result->fetch_assoc()) {
         </div>
     </div>
 
-  <script>
-    function mascararTelefone(input) {
-      let valor = input.value.replace(/\D/g, "").slice(0, 11);
-      let formatado = valor;
-      if (valor.length >= 1) formatado = "(" + valor.substring(0, 2);
-      if (valor.length >= 3) formatado += ") " + valor.substring(2, valor.length >= 7 ? 7 : valor.length);
-      if (valor.length >= 7) formatado += "-" + valor.substring(7);
-      input.value = formatado;
-    }
-  </script>
-
-  <?php if(isset($sweetAlert)): ?>
     <script>
-    const sweetAlertData = <?= json_encode($sweetAlert) ?>;
+        function mascararTelefone(input) {
+            let valor = input.value.replace(/\D/g, "").slice(0, 11);
+            let formatado = valor;
+            if (valor.length >= 1) formatado = "(" + valor.substring(0, 2);
+            if (valor.length >= 3) formatado += ") " + valor.substring(2, valor.length >= 7 ? 7 : valor.length);
+            if (valor.length >= 7) formatado += "-" + valor.substring(7);
+            input.value = formatado;
+        }
     </script>
-  <?php endif; ?>
+
+    <?php if (isset($sweetAlert)): ?>
+        <script>
+            const sweetAlertData = <?= json_encode($sweetAlert) ?>;
+        </script>
+    <?php endif; ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../conteudo_livre/assets/js/alerts.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  </body>
+</body>
+
 </html>
