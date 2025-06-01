@@ -22,6 +22,9 @@ if(isset($_GET['page'])) {
         include '../conteudo_livre/autenticacao/ativar_2fa.php';
     } else if ($_GET['page'] == 'verificar2fa') {
         include '../conteudo_livre/autenticacao/verificar_2fa.php';
+    } else if ($_GET['page'] == 'enviarComprovante') {
+        include 'enviarComprovante.php';
+
     } else if ($_GET['page'] == 'gerarBoletoLoc') {
         include 'gerarBoletoLoc.php';
     } else if ($_GET['page'] == 'home') { // Adicionar condição explícita para home

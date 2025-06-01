@@ -19,7 +19,7 @@ if ($conn && isset($_SESSION['logins_id'])) { // Verifica conexão e se logins_i
         if ($rowEmpresa = $resultEmpresa->fetch_assoc()) {
             $empresa_id = $rowEmpresa['empresa_id'];
 
-            $sql = "SELECT contrato_id, espaco_id, data_inicio, nome_loc, valor_mensal
+            $sql = "SELECT contrato_id, espaco_id, data_inicio, nome_loc, valor_mensal, contrato_status
                     FROM tb_contrato
                     WHERE empresa_id = ?";
             $stmt = $conn->prepare($sql);
@@ -99,6 +99,7 @@ if ($conn && isset($_SESSION['logins_id'])) { // Verifica conexão e se logins_i
                                     <th>Data de Fim</th>
                                     <th>Responsável</th>
                                     <th>Valor do Contrato</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -118,6 +119,7 @@ if ($conn && isset($_SESSION['logins_id'])) { // Verifica conexão e se logins_i
                                             <td data-label="Data Fim"><?= htmlspecialchars($data_fim_formatada) ?></td>
                                             <td data-label="Responsável"><?= htmlspecialchars($contrato['nome_loc']) ?></td>
                                             <td data-label="Valor Contrato">R$<?= htmlspecialchars($valor_formatado) ?></td>
+                                            <td> <?=$contrato['contrato_status']?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else: ?>
