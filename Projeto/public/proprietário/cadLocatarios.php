@@ -194,10 +194,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi en
     </div>
     <nav>
         <a href="index.php">Início</a>
-        <a href="index.php?page=gerenciarLocatarios" class="<?= ($_GET['page'] == 'gerenciarLocatarios') ? 'ativo' : ''; ?>">Gerenciar Locatários</a>
-        <a href="index.php?page=gerenciarContratos" class="<?= ($_GET['page'] == 'gerenciarContratos') ? 'ativo' : ''; ?>">Gerenciar Contratos</a>
-        <a href="index.php?page=gerenciarLojas" class="<?= ($_GET['page'] == 'gerenciarLojas') ? 'ativo' : ''; ?>">Gerenciar Lojas</a>
-        <a href="index.php?page=gerenciarEspacos" class="<?= ($_GET['page'] == 'gerenciarEspacos') ? 'ativo' : ''; ?>">Gerenciar Espaços</a>
+        <a href="index.php?page=gerenciarLocatarios" class="ativo">Gerenciar Locatários</a>
+        <a href="index.php?page=gerenciarContratos">Gerenciar Contratos</a>
+        <a href="index.php?page=gerenciarLojas">Gerenciar Lojas</a>
+        <a href="index.php?page=gerenciarEspacos">Gerenciar Espaços</a>
       </nav>
     <div class="logout">
       <a href="../logout.php"><span>↩</span> Log Out</a>
