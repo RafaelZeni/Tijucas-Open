@@ -189,7 +189,7 @@ if (isset($_SESSION['logins_id'])) {
                                 <?php endwhile; ?>
                                 <?php else: ?>
                                     <tr>
-                                        <td colspan="8">Nenhum contrato encontrado ou erro ao buscar dados.</td>
+                                        <td colspan="8">Nenhum boleto encontrado ou erro ao buscar dados.</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>

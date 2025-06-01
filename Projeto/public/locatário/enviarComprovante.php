@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["comprovante"])) {
             </div>
             <input type="hidden" name="boleto_id" value="<?php echo $boleto_id; ?>">
             <button type="submit" class="btn btn-success">Enviar</button>
-            <a href="index.php" class="btn btn-secondary">Voltar</a>
+            <a href="index.php" class="btn btn-dark">Voltar</a>
         </form>
 
     </div>
