@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["comprovante"])) {
 
 
         <nav>
-            <a href="index.php">Início</a>
+            <a href="index.php" class="ativo">Início</a>
             <a href="index.php?page=visualizarEspacos">Visualizar Espaços</a>
             <a href="index.php?page=gestaoContratos">Gestão de Contrato</a>
         </nav>

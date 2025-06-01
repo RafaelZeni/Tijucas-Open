@@ -218,11 +218,11 @@ $conn->close();
   <div class="content">
     <h1>Bem-Vindo Cristiano</h1>
     <?php if (empty($auth_secret)) : ?>
-      <a href="index.php?page=ativar2fa" class="btn btn-primary mb-3">Ativar 2FA</a>
+      <a href="index.php?page=ativar2fa" class="btn btn-secondary mb-3">Ativar 2FA</a>
     <?php else : ?>
         <span class="btn btn-success mb-3" style="cursor: default;">2FA ativa</span>
     <?php endif; ?>
-    <a href="index.php?page=desativar2fa" class="btn btn-dark mb-3">Desativar 2FA</a>
+    <a href="index.php?page=desativar2fa" class="btn btn-danger mb-3">Desativar 2FA</a>
 
 
     <div class="row mt-2">

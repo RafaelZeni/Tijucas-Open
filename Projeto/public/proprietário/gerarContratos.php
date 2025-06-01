@@ -68,10 +68,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
     $stmt->close();
 
     if (!$empresa_id) {
-        $sweetAlert = ['icon' => 'error',
-                'title' => 'Erro!',
-                'text' => "CNPJ não encontrado na tabela de locatários!",
-                'redirect' => 'index.php?page=gerarContratos'];
+        $sweetAlert = [
+            'icon' => 'error',
+            'title' => 'Erro!',
+            'text' => "CNPJ não encontrado na tabela de locatários!",
+            'redirect' => 'index.php?page=gerarContratos'
+        ];
     }
 
     // Inserir na tabela tb_contrato
@@ -89,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
         $linhaContrato_id = $puxarContrato_id->fetch_object();
         $contrato_id = $linhaContrato_id->contrato_id;
 
-        if(!$contrato_id){
+        if (!$contrato_id) {
             die('Erro: contrato_id não obtido após criação de contrato!');
         }
 
@@ -98,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
 
         $valorMensal = 3000;
 
-        for ($i = 0; $i < 12; $i++){
+        for ($i = 0; $i < 12; $i++) {
             $vencimento = (clone $data)->modify("+$i months");
             $vencimentoFormatado = $vencimento->format('Y-m-d');
 
@@ -114,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
                 'carteira' => 18,
                 'conta' => 123456,
                 'convenio' => 123456,
-                'numeroDocumento' => (string)$numeroDocumento
+                'numeroDocumento' => (string) $numeroDocumento
             ]);
 
             $linhaDigitavel = $boleto->getLinhaDigitavel();
@@ -126,11 +128,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
             $stmt->execute();
             $stmt->close();
         }
+        $sweetAlert = [
+            'icon' => 'success',
+            'title' => 'Sucesso!',
+            'text' => 'Contrato gerado e baixado!',
+            'redirect' => 'index.php?page=gerenciarContratos'
+        ];
     } else {
         $error = addslashes(htmlspecialchars($insert->error));
-        $sweetAlert = ['icon' => 'error',
-                'title' => 'Erro!',
-                'text' => "Erro ao salvar dados do contrato: {$error}"];
+        $sweetAlert = [
+            'icon' => 'error',
+            'title' => 'Erro!',
+            'text' => "Erro ao salvar dados do contrato: {$error}"
+        ];
     }
     $insert->close();
 
@@ -180,7 +190,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <title>Gerar Contrato</title>
     <link rel="stylesheet" href="proprietario.css">
@@ -188,14 +199,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
     <style>
         /* Estilos específicos para o conteúdo e formulário */
         .content {
-            margin-left: 250px; /* Margem esquerda para compensar a sidebar */
+            margin-left: 250px;
+            /* Margem esquerda para compensar a sidebar */
             padding: 20px;
-            flex-grow: 1; /* Ocupa o restante do espaço horizontal */
-            display: flex; /* Para centralizar o conteúdo do formulário */
+            flex-grow: 1;
+            /* Ocupa o restante do espaço horizontal */
+            display: flex;
+            /* Para centralizar o conteúdo do formulário */
             flex-direction: column;
-            align-items: center; /* Centraliza horizontalmente o conteúdo */
-            justify-content: flex-start; /* Alinha o conteúdo ao topo do container */
-            min-height: 100vh; /* Garante que o content ocupe pelo menos a altura da viewport */
+            align-items: center;
+            /* Centraliza horizontalmente o conteúdo */
+            justify-content: flex-start;
+            /* Alinha o conteúdo ao topo do container */
+            min-height: 100vh;
+            /* Garante que o content ocupe pelo menos a altura da viewport */
         }
 
         .form-container {
@@ -203,9 +220,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 100%; /* Ajuste a largura do formulário */
-            max-width: 600px; /* Largura máxima do formulário para evitar que fique muito largo */
-            margin-top: -20px; /* Espaço acima do formulário */
+            width: 100%;
+            /* Ajuste a largura do formulário */
+            max-width: 600px;
+            /* Largura máxima do formulário para evitar que fique muito largo */
+            margin-top: -20px;
+            /* Espaço acima do formulário */
         }
 
         .form-container h2 {
@@ -224,7 +244,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
             padding: 10px;
             border-radius: 5px;
             font-size: 1.1em;
-            background-color: #385c30; /* Cor do botão primário */
+            background-color: #385c30;
+            /* Cor do botão primário */
             border-color: #385c30;
         }
 
@@ -234,13 +255,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
         }
 
         .btn-dark {
-            margin-bottom: 20px; /* Espaço abaixo do botão "Voltar" */
-            align-self: flex-start; /* Alinha o botão "Voltar" à esquerda do content */
+            margin-bottom: 20px;
+            /* Espaço abaixo do botão "Voltar" */
+            align-self: flex-start;
+            /* Alinha o botão "Voltar" à esquerda do content */
         }
     </style>
     <script>
         const empresas = <?php echo json_encode($empresas); ?>;
-        
+
         function atualizarLoja() { // Função para atualizar o campo "loja" com base no CNPJ selecionado
             const cnpjSelecionado = document.getElementById('cnpj').value;
             const campoLoja = document.getElementById('loja');
@@ -253,82 +276,93 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
             }
         }
     </script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="sidebar">
-      <div class="logo">
-        <img src="../conteudo_livre/assets/imgs/LogoTijucasBranca.png" alt="Tijucas Open" />
-      </div>
+        <div class="logo">
+            <img src="../conteudo_livre/assets/imgs/LogoTijucasBranca.png" alt="Tijucas Open" />
+        </div>
 
-      <nav>
-        <a href="index.php">Início</a>
-        <a href="index.php?page=gerenciarLocatarios">Gerenciar Locatários</a>
-        <a href="index.php?page=gerenciarContratos" class="ativo">Gerenciar Contratos</a>
-        <a href="index.php?page=gerenciarLojas">Gerenciar Lojas</a>
-        <a href="index.php?page=gerenciarEspacos">Gerenciar Espaços</a>
-      </nav>
+        <nav>
+            <a href="index.php">Início</a>
+            <a href="index.php?page=gerenciarLocatarios">Gerenciar Locatários</a>
+            <a href="index.php?page=gerenciarContratos" class="ativo">Gerenciar Contratos</a>
+            <a href="index.php?page=gerenciarLojas">Gerenciar Lojas</a>
+            <a href="index.php?page=gerenciarEspacos">Gerenciar Espaços</a>
+        </nav>
 
-      <div class="logout">
-        <a href="../logout.php"><span>↩</span> Log Out</a>
-      </div>
+        <div class="logout">
+            <a href="../logout.php"><span>↩</span> Log Out</a>
+        </div>
     </div>
 
     <div class="content">
-    <a href="index.php?page=gerenciarContratos" class="btn btn-dark mb-3">Voltar</a>
-    
-        <div class="form-container"> <h2>Criação de Contrato:</h2>
+        <a href="index.php?page=gerenciarContratos" class="btn btn-dark mb-3">Voltar</a>
 
-    <form method="POST" action="">
+        <div class="form-container">
+            <h2>Criação de Contrato:</h2>
 
-        <div class="mb-3">
-            <label class="form-label">CNPJ:</label>
-            <select name="cnpj" id="cnpj" class="form-select" onchange="atualizarLoja()" required>
-                <option value="">Selecione um CNPJ</option>
-                <?php
-                foreach ($empresas as $e) {
-                    echo "<option value='{$e['cnpj']}'>{$e['cnpj']} - {$e['loja']}</option>";
-                }
-                ?>
-            </select>
+            <form method="POST" action="">
+
+                <div class="mb-3">
+                    <label class="form-label">CNPJ:</label>
+                    <select name="cnpj" id="cnpj" class="form-select" onchange="atualizarLoja()" required>
+                        <option value="">Selecione um CNPJ</option>
+                        <?php
+                        foreach ($empresas as $e) {
+                            echo "<option value='{$e['cnpj']}'>{$e['cnpj']} - {$e['loja']}</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nome do Responsável:</label>
+                    <input type="text" name="nome" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nome da Loja:</label>
+                    <input type="text" name="loja" id="loja" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Selecione o espaço alugado:</label>
+                    <select name="espaco" class="form-select" required>
+                        <option value="">Selecione um espaço</option>
+                        <?php
+                        foreach ($espacos as $e) {
+                            echo "<option value='{$e['id']}'>Espaço {$e['id']} - {$e['area']} m²</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Data de Início: (Contrato válido por 12 meses)</label>
+                    <input type="date" name="data" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tipo de contrato:</label>
+                    <select name="modelo" class="form-select" required>
+                        <option value="assets/imgs/1.pdf">CONTRATO DE LOCAÇÃO</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Gerar e Baixar Contrato</button>
+            </form>
         </div>
-
-        <div class="mb-3">
-            <label class="form-label">Nome do Responsável:</label>
-            <input type="text" name="nome" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Nome da Loja:</label>
-            <input type="text" name="loja" id="loja" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Selecione o espaço alugado:</label>
-            <select name="espaco" class="form-select" required>
-                <option value="">Selecione um espaço</option>
-                <?php
-                foreach ($espacos as $e) {
-                    echo "<option value='{$e['id']}'>Espaço {$e['id']} - {$e['area']} m²</option>";
-                }
-                ?>
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Data de Início: (Contrato válido por 12 meses)</label>
-            <input type="date" name="data" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Tipo de contrato:</label>
-            <select name="modelo" class="form-select" required>
-                <option value="assets/imgs/1.pdf">CONTRATO DE LOCAÇÃO</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Gerar e Baixar Contrato</button>
-    </form>
     </div>
-    </div>
-  </body>
+    <?php if (isset($sweetAlert)): ?>
+        <script>
+            const sweetAlertData = <?= json_encode($sweetAlert) ?>;
+        </script>
+    <?php endif; ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../conteudo_livre/assets/js/alerts.js"></script>
+    <script></script>
+</body>
+
 </html>

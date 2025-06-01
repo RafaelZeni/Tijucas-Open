@@ -63,14 +63,11 @@ if (isset($_SESSION['logins_id'])) {
             <img src="../conteudo_livre/assets/imgs/LogoTijucasBranca.png" alt="Tijucas Open" />
         </div>
 
-        <?php
-        $page = isset($_GET['page']) ? $_GET['page'] : 'home';
-        ?>
-
+        <?php $activePage = isset($_GET['page']) ? $_GET['page'] : 'home'; ?>
         <nav>
-            <a href="index.php">Início</a>
-            <a href="index.php?page=visualizarEspacos">Visualizar Espaços</a>
-            <a href="index.php?page=gestaoContratos">Gestão de Contrato</a>
+            <a href="index.php" class="<?= ($activePage == 'home') ? 'ativo' : ''; ?>">Início</a>
+            <a href="index.php?page=visualizarEspacos" class="<?= ($activePage == 'visualizarEspacos') ? 'ativo' : ''; ?>">Visualizar Espaços</a>
+            <a href="index.php?page=gestaoContratos" class="<?= ($activePage == 'gestaoContratos') ? 'ativo' : ''; ?>">Gestão de Contrato</a>
         </nav>
 
         <div class="logout">
@@ -90,11 +87,11 @@ if (isset($_SESSION['logins_id'])) {
                 <div class="col">
                     <!-- Botão Ativar 2FA ou texto "2FA ativa" -->
                     <?php if (empty($auth_secret)) : ?>
-                        <a href="index.php?page=ativar2fa" class="btn btn-primary mb-3">Ativar 2FA</a>
+                        <a href="index.php?page=ativar2fa" class="btn btn-secondary mb-3">Ativar 2FA</a>
                     <?php else : ?>
                         <span class="btn btn-success mb-3" style="cursor: default;">2FA ativa</span>
                     <?php endif; ?>
-                    <a href="index.php?page=desativar2fa" class="btn btn-dark mb-3">Desativar 2FA</a>
+                    <a href="index.php?page=desativar2fa" class="btn btn-danger mb-3">Desativar 2FA</a>
 
                     <h2>Boletos Pendentes</h2>
                     <div class="table-wrapper">
@@ -117,21 +114,32 @@ if (isset($_SESSION['logins_id'])) {
                                           FROM tb_boletos b JOIN tb_contrato c ON b.contrato_id = c.contrato_id 
                                           WHERE c.empresa_id = $empresa_id AND b.status_boleto = 'Pendente'";
 
-                                $resultado = $conn->query($query);
+                               $stmt = $conn->prepare($query);
+                                $stmt->execute();
+                                $resultado = $stmt->get_result();
 
-                                while ($boleto = $resultado->fetch_object()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $boleto->boleto_id . "</td>";
-                                    echo "<td>" . $boleto->contrato_id . "</td>";
-                                    echo "<td>" . $boleto->numero_documento . "</td>";
-                                    echo "<td>" . $boleto->valor . "</td>";
-                                    echo "<td>" . $boleto->vencimento . "</td>";
-                                    echo "<td>" . $boleto->banco . "</td>";
-                                    echo "<td><a class='btn btn-primary' href='index.php?page=gerarBoletoLoc&id={$boleto->boleto_id}'>Gerar</a></td>";
-                                    echo "<td><a class='btn btn-success' href='index.php?page=enviarComprovante&id={$boleto->boleto_id}'>Enviar</a></td>";
-                                    echo "</tr>";
-                                }
-                                ?>
+                                if ($resultado->num_rows > 0): ?>
+
+                                    <?php while ($boleto = $resultado->fetch_object()): ?>
+                                        <tr>
+                                            <td> <?= htmlspecialchars($boleto->boleto_id) ?> </td>
+                                            <td> <?= htmlspecialchars($boleto->contrato_id) ?> </td>
+                                            <td> <?= htmlspecialchars($boleto->numero_documento) ?></td>
+                                            <td> <?= htmlspecialchars($boleto->valor) ?> </td>
+                                            <td> <?= htmlspecialchars($boleto->vencimento) ?> </td>
+                                            <td> <?= htmlspecialchars($boleto->banco) ?> </td>
+                                            <td><a class='btn btn-primary'
+                                                    href='index.php?page=gerarBoletoLoc&id=<?= $boleto->boleto_id ?>'>Gerar</a></td>
+                                            <td><a class='btn btn-success'
+                                                    href='index.php?page=enviarComprovante&id=<?= $boleto->boleto_id ?>'>Enviar</a>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="6">Nenhum boleto encontrado ou erro ao buscar dados.</td>
+                                    </tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -159,23 +167,31 @@ if (isset($_SESSION['logins_id'])) {
                                           LEFT JOIN tb_comprovantes cpr ON b.boleto_id = cpr.boleto_id
                                           WHERE c.empresa_id = $empresa_id AND b.status_boleto = 'Enviado'";
 
-                                $resultado = $conn->query($query);
+                                $stmt = $conn->prepare($query);
+                                $stmt->execute();
+                                $resultado = $stmt->get_result();
 
-                                while ($boleto = $resultado->fetch_object()) {
+                                if ($resultado->num_rows > 0): ?>
+
+                                <?php while ($boleto = $resultado->fetch_object()): 
                                     $data = $boleto->data_envio;
-                                    $dataFormatada = date('d/m/Y H:i', strtotime($data));
-                                    echo "<tr>";
-                                    echo "<td>" . $boleto->boleto_id . "</td>";
-                                    echo "<td>" . $boleto->contrato_id . "</td>";
-                                    echo "<td>" . $boleto->numero_documento . "</td>";
-                                    echo "<td>" . $boleto->valor . "</td>";
-                                    echo "<td>" . $boleto->vencimento . "</td>";
-                                    echo "<td>" . $boleto->banco . "</td>";
-                                    echo "<td>" . $boleto->status_boleto . "</td>";
-                                    echo "<td>" . $dataFormatada . "</td>";
-                                    echo "</tr>";
-                                }
-                                ?>
+                                    $dataFormatada = date('d/m/Y H:i', strtotime($data));?>
+                                    <tr>
+                                     <td> <?= htmlspecialchars($boleto->boleto_id) ?></td>
+                                     <td> <?= htmlspecialchars($boleto->contrato_id) ?></td>
+                                     <td> <?= htmlspecialchars($boleto->numero_documento) ?></td>
+                                     <td> <?= htmlspecialchars($boleto->valor) ?></td>
+                                     <td> <?= htmlspecialchars($boleto->vencimento) ?></td>
+                                     <td> <?= htmlspecialchars($boleto->banco) ?></td>
+                                     <td> <?= htmlspecialchars($boleto->status_boleto) ?></td>
+                                     <td> <?= htmlspecialchars($dataFormatada) ?></td>
+                                     </tr>
+                                <?php endwhile; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="6">Nenhum contrato encontrado ou erro ao buscar dados.</td>
+                                    </tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
