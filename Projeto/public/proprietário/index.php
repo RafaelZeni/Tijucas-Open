@@ -69,6 +69,9 @@ if (isset($_GET['page'])) {
   } else if ($_GET['page'] == 'verificar2fa') {
     include '../conteudo_livre/autenticacao/verificar_2fa.php';
     
+  } else if ($_GET['page'] == 'desativar2fa') {
+    include '../conteudo_livre/autenticacao/desativar2fa.php';
+
   } else {
     include '../../app/views/include/headerProp.php';
     header('location: index.php');

@@ -19,6 +19,8 @@ if ($result_auth->num_rows > 0) {
 }
 $stmt_auth->close();
 
+
+
 // ----------- Rosquinha - Espaços -------------------
 $sql = "SELECT espaco_status, COUNT(*) AS total FROM tb_espacos GROUP BY espaco_status";
 $result = $conn->query($sql);
@@ -220,6 +222,8 @@ $conn->close();
     <?php else : ?>
         <span class="btn btn-success mb-3" style="cursor: default;">2FA ativa</span>
     <?php endif; ?>
+    <a href="index.php?page=desativar2fa" class="btn btn-dark mb-3">Desativar 2FA</a>
+
 
     <div class="row mt-2">
       <div class="col-md-12"> <div class="card-chart">
