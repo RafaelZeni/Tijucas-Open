@@ -21,12 +21,16 @@ editar ou excluir os contratos já existentes-->
     </div>
 
     <nav>
-        <a href="index.php">Início</a>
-        <a href="index.php?page=gerenciarLocatarios" class="<?= ($_GET['page'] == 'gerenciarLocatarios') ? 'ativo' : ''; ?>">Gerenciar Locatários</a>
-        <a href="index.php?page=gerenciarContratos" class="<?= ($_GET['page'] == 'gerenciarContratos') ? 'ativo' : ''; ?>">Gerenciar Contratos</a>
-        <a href="index.php?page=gerenciarLojas" class="<?= ($_GET['page'] == 'gerenciarLojas') ? 'ativo' : ''; ?>">Gerenciar Lojas</a>
-        <a href="index.php?page=gerenciarEspacos" class="<?= ($_GET['page'] == 'gerenciarEspacos') ? 'ativo' : ''; ?>">Gerenciar Espaços</a>
-      </nav>
+      <a href="index.php">Início</a>
+      <a href="index.php?page=gerenciarLocatarios"
+        class="<?= ($_GET['page'] == 'gerenciarLocatarios') ? 'ativo' : ''; ?>">Gerenciar Locatários</a>
+      <a href="index.php?page=gerenciarContratos"
+        class="<?= ($_GET['page'] == 'gerenciarContratos') ? 'ativo' : ''; ?>">Gerenciar Contratos</a>
+      <a href="index.php?page=gerenciarLojas"
+        class="<?= ($_GET['page'] == 'gerenciarLojas') ? 'ativo' : ''; ?>">Gerenciar Lojas</a>
+      <a href="index.php?page=gerenciarEspacos"
+        class="<?= ($_GET['page'] == 'gerenciarEspacos') ? 'ativo' : ''; ?>">Gerenciar Espaços</a>
+    </nav>
 
     <div class="logout">
       <a href="../logout.php"><span>↩</span> Log Out</a>
@@ -69,32 +73,37 @@ editar ou excluir os contratos já existentes-->
 
                 $resultado = $conn->query($query);
 
-                while ($linha = $resultado->fetch_object()) {
-                  //faz com que apareça a data de fim, como definida no contrato, 12 meses após a data inicial
-                  $data_inicio_obj = new DateTime($linha->data_inicio);
-                  $data_inicio_formatada = $data_inicio_obj->format('d-m-Y');
+                if ($resultado->num_rows > 0) {
 
-                  $data_fim_obj = clone $data_inicio_obj;
-                  $data_fim = $data_fim_obj->add(new DateInterval('P12M'))->format('d-m-Y');
+                  while ($linha = $resultado->fetch_object()) {
+                    //faz com que apareça a data de fim, como definida no contrato, 12 meses após a data inicial
+                    $data_inicio_obj = new DateTime($linha->data_inicio);
+                    $data_inicio_formatada = $data_inicio_obj->format('d-m-Y');
 
-                  echo "<tr>";
-                  echo "<td>{$linha->contrato_id}</td>";
-                  echo "<td>{$linha->empresa_nome}</td>";
-                  echo "<td>{$linha->espaco_id}</td>";
-                  echo "<td>{$data_inicio_formatada}</td>";
-                  echo "<td>{$data_fim}</td>";
-                  echo "<td>{$linha->valor_mensal}</td>";
-                  echo "<td>{$linha->nome_loc}</td>";
-                  echo "<td>{$linha->contrato_status}</td>";
-                  echo "<td>
+                    $data_fim_obj = clone $data_inicio_obj;
+                    $data_fim = $data_fim_obj->add(new DateInterval('P12M'))->format('d-m-Y');
+
+                    echo "<tr>";
+                    echo "<td>{$linha->contrato_id}</td>";
+                    echo "<td>{$linha->empresa_nome}</td>";
+                    echo "<td>{$linha->espaco_id}</td>";
+                    echo "<td>{$data_inicio_formatada}</td>";
+                    echo "<td>{$data_fim}</td>";
+                    echo "<td>{$linha->valor_mensal}</td>";
+                    echo "<td>{$linha->nome_loc}</td>";
+                    echo "<td>{$linha->contrato_status}</td>";
+                    echo "<td>
                             <a class='btn btn-primary' href='index.php?page=boletosContrato&id={$linha->contrato_id}'>Ver</a>
                         </td>";
-                  echo "<td>
+                    echo "<td>
                               <a class='btn btn-danger btn-excluir' href='index.php?page=removerContrato&id={$linha->contrato_id}' data-text='Deseja desativar o contrato da empresa {$linha->empresa_nome}?'>
                                 <img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Desativar'>
                               </a>
                             </td>";
-                  echo "</tr>";
+                    echo "</tr>";
+                  }
+                } else {
+                  echo "<tr><td colspan='10'>Nenhum contrato encontrado.</td></tr>";
                 }
                 ?>
               </tbody>
@@ -127,29 +136,32 @@ editar ou excluir os contratos já existentes-->
                 $query = "SELECT c.contrato_id, c.espaco_id, l.empresa_nome, c.data_inicio, c.nome_loc, c.valor_mensal, c.contrato_status FROM tb_contrato c JOIN tb_locatarios l ON c.empresa_id = l.empresa_id WHERE c.contrato_status = 'Inativo'";
 
                 $resultado = $conn->query($query);
+                if ($resultado->num_rows > 0) {
 
-                while ($linha = $resultado->fetch_object()) {
-                  //faz com que apareça a data de fim, como definida no contrato, 12 meses após a data inicial
-                  $data_inicio_obj = new DateTime($linha->data_inicio);
-                  $data_inicio_formatada = $data_inicio_obj->format('d-m-Y');
+                  while ($linha = $resultado->fetch_object()) {
+                    //faz com que apareça a data de fim, como definida no contrato, 12 meses após a data inicial
+                    $data_inicio_obj = new DateTime($linha->data_inicio);
+                    $data_inicio_formatada = $data_inicio_obj->format('d-m-Y');
 
-                  $data_fim_obj = clone $data_inicio_obj;
-                  $data_fim = $data_fim_obj->add(new DateInterval('P12M'))->format('d-m-Y');
+                    $data_fim_obj = clone $data_inicio_obj;
+                    $data_fim = $data_fim_obj->add(new DateInterval('P12M'))->format('d-m-Y');
 
-                  echo "<tr>";
-                  echo "<td>{$linha->contrato_id}</td>";
-                  echo "<td>{$linha->empresa_nome}</td>";
-                  echo "<td>{$linha->espaco_id}</td>";
-                  echo "<td>{$data_inicio_formatada}</td>";
-                  echo "<td>{$data_fim}</td>";
-                  echo "<td>{$linha->valor_mensal}</td>";
-                  echo "<td>{$linha->nome_loc}</td>";
-                  echo "<td>{$linha->contrato_status}</td>";
-                  echo "<td>
+                    echo "<tr>";
+                    echo "<td>{$linha->contrato_id}</td>";
+                    echo "<td>{$linha->empresa_nome}</td>";
+                    echo "<td>{$linha->espaco_id}</td>";
+                    echo "<td>{$data_inicio_formatada}</td>";
+                    echo "<td>{$data_fim}</td>";
+                    echo "<td>{$linha->valor_mensal}</td>";
+                    echo "<td>{$linha->nome_loc}</td>";
+                    echo "<td>{$linha->contrato_status}</td>";
+                    echo "<td>
                           <a class='btn btn-primary' href='index.php?page=boletosContrato&id={$linha->contrato_id}'>Ver</a>
                         </td>";
-                }
-                ?>
+                  }
+                } else {
+                  echo "<tr><td colspan='10'>Nenhum contrato encontrado.</td></tr>";
+                } ?>
               </tbody>
             </table>
           </div>
