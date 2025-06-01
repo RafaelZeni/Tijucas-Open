@@ -201,18 +201,10 @@ while ($row = $result->fetch_assoc()) {
 
         <nav>
             <a href="index.php">Início</a>
-            <a href="index.php?page=gerenciarLocatarios"
-                class="<?= (isset($_GET['page']) && $_GET['page'] == 'gerenciarLocatarios') ? 'ativo' : ''; ?>">Gerenciar
-                Locatários</a>
-            <a href="index.php?page=gerenciarContratos"
-                class="<?= (isset($_GET['page']) && $_GET['page'] == 'gerenciarContratos') ? 'ativo' : ''; ?>">Gerenciar
-                Contratos</a>
-            <a href="index.php?page=gerenciarLojas"
-                class="<?= (isset($_GET['page']) && $_GET['page'] == 'gerenciarLojas') ? 'ativo' : ''; ?>">Gerenciar
-                Lojas</a>
-            <a href="index.php?page=gerenciarEspacos"
-                class="<?= (isset($_GET['page']) && $_GET['page'] == 'gerenciarEspacos') ? 'ativo' : ''; ?>">Gerenciar
-                Espaços</a>
+            <a href="index.php?page=gerenciarLocatarios">Gerenciar Locatários</a>
+            <a href="index.php?page=gerenciarContratos">Gerenciar Contratos</a>
+            <a href="index.php?page=gerenciarLojas" class="ativo">Gerenciar Lojas</a>
+            <a href="index.php?page=gerenciarEspacos">Gerenciar Espaços</a>
         </nav>
 
 

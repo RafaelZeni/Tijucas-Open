@@ -127,8 +127,8 @@ $conn->close();
 
     <nav>
         <a href="index.php">Início</a>
-        <a href="index.php?page=gerenciarLocatarios">Gerenciar Locatários</a>
-        <a href="index.php?page=gerenciarContratos">Gerenciar Contratos</a>
+        <a href="index.php?page=gerenciarLocatarios" class="ativo">Gerenciar Locatários</a>
+        <a href="index.php?page=gerenciarContratos" >Gerenciar Contratos</a>
         <a href="index.php?page=gerenciarLojas">Gerenciar Lojas</a>
         <a href="index.php?page=gerenciarEspacos">Gerenciar Espaços</a>
       </nav>
