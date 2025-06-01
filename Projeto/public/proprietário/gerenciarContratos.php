@@ -119,6 +119,7 @@ editar ou excluir os contratos já existentes-->
                   <th>Valor Mensal</th>
                   <th>Responsável</th>
                   <th>Status</th>
+                  <th>Boletos</th>
                 </tr>
               </thead>
               <tbody>
@@ -144,6 +145,9 @@ editar ou excluir os contratos já existentes-->
                   echo "<td>{$linha->valor_mensal}</td>";
                   echo "<td>{$linha->nome_loc}</td>";
                   echo "<td>{$linha->contrato_status}</td>";
+                  echo "<td>
+                          <a class='btn btn-primary' href='index.php?page=boletosContrato&id={$linha->contrato_id}'>Ver</a>
+                        </td>";
                 }
                 ?>
               </tbody>

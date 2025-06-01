@@ -57,9 +57,9 @@ if (isset($_SESSION['logins_id'])) {
         ?>
 
         <nav>
-            <a href="index.php" class="<?= ($page == 'home' || $page == '') ? 'ativo' : ''; ?>">Início</a>
-            <a href="index.php?page=visualizarEspacos" class="<?= ($page == 'visualizarEspacos') ? 'ativo' : ''; ?>">Visualizar Espaços</a>
-            <a href="index.php?page=gestaoContratos" class="<?= ($page == 'gestaoContratos') ? 'ativo' : ''; ?>">Gestão de Contrato</a>
+            <a href="index.php">Início</a>
+            <a href="index.php?page=visualizarEspacos">Visualizar Espaços</a>
+            <a href="index.php?page=gestaoContratos">Gestão de Contrato</a>
         </nav>
 
         <div class="logout">
@@ -79,6 +79,7 @@ if (isset($_SESSION['logins_id'])) {
             <div class="col">
                 <a href="index.php?page=ativar2fa" class="btn btn-primary mb-3">Ativar 2FA</a>
                 <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
+                <h2>Boletos Pendentes</h2>
                 <div class="table-wrapper">
                   <table class="table table-striped-green text-center">
                       <thead>
@@ -89,15 +90,14 @@ if (isset($_SESSION['logins_id'])) {
                               <th>Valor</th>
                               <th>Vencimento</th>
                               <th>Banco</th>
-                              <th>Codigo de Barras</th>
                               <th>Gerar</th>
                               <th>Comprovante</th>
                           </tr>
                       </thead>
                       <tbody>
                           <?php
-                              $query = "SELECT b.boleto_id, b.contrato_id, b.numero_documento, b.valor, b.vencimento, b.banco, b.linha_digitavel
-                                        FROM tb_boletos b JOIN tb_contrato c ON b.contrato_id = c.contrato_id WHERE c.empresa_id = $empresa_id";
+                              $query = "SELECT b.boleto_id, b.contrato_id, b.numero_documento, b.valor, b.vencimento, b.banco, b.status_boleto
+                                        FROM tb_boletos b JOIN tb_contrato c ON b.contrato_id = c.contrato_id WHERE c.empresa_id = $empresa_id and b.status_boleto = 'Pendente'";
 
           
                               $resultado = $conn->query($query);
@@ -110,9 +110,56 @@ if (isset($_SESSION['logins_id'])) {
                                   $html .= "<td>".$boleto->valor."</td>";
                                   $html .= "<td>".$boleto->vencimento."</td>";
                                   $html .= "<td>".$boleto->banco."</td>";
-                                  $html .= "<td>".$boleto->linha_digitavel."</td>";
                                   $html .= "<td><a class='btn btn-primary' href='index.php?page=gerarBoletoLoc&id={$boleto->boleto_id}'>Gerar</a></td>";
                                   $html .= "<td><a class='btn btn-success' href='index.php?page=enviarComprovante&id={$boleto->boleto_id}'>Enviar</a></td>";
+                                  $html .= "</tr>";
+                                  echo $html;
+                              }
+                          ?>
+                      </tbody>
+                  </table>
+                </div>
+
+                <h2 style="margin-top: 40px;">Boletos Pagos</h2>
+                <div class="table-wrapper">
+                  <table class="table table-striped-green text-center">
+                      <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>Contrato</th>
+                              <th>Número do Boleto</th>
+                              <th>Valor</th>
+                              <th>Vencimento</th>
+                              <th>Banco</th>
+                              <th>Status</th>
+                              <th>Data de Envio</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php
+                              $query = "SELECT b.boleto_id, b.contrato_id, b.numero_documento, b.valor, b.vencimento, b.banco, b.status_boleto, cpr.data_envio 
+                                        FROM tb_boletos b JOIN tb_contrato c ON b.contrato_id = c.contrato_id 
+                                        LEFT JOIN tb_comprovantes cpr ON b.boleto_id = cpr.boleto_id
+                                        WHERE c.empresa_id = $empresa_id and b.status_boleto = 'Enviado'";
+
+          
+                              $resultado = $conn->query($query);
+
+
+
+
+                              while($boleto = $resultado->fetch_object()){
+                                $data = $boleto->data_envio;
+                                $dataFormatada = date('d/m/Y H:i', strtotime($data));
+                                  $html = "<tr>";
+                                  $html .= "<td>".$boleto->boleto_id."</td>";
+                                  $html .= "<td>".$boleto->contrato_id."</td>";
+                                  $html .= "<td>".$boleto->numero_documento."</td>";
+                                  $html .= "<td>".$boleto->valor."</td>";
+                                  $html .= "<td>".$boleto->vencimento."</td>";
+                                  $html .= "<td>".$boleto->banco."</td>";
+                                  $html .= "<td>".$boleto->status_boleto."</td>";
+                                  $html .= "<td>".$dataFormatada."</td>";
                                   $html .= "</tr>";
                                   echo $html;
                               }

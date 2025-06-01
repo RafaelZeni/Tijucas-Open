@@ -32,6 +32,7 @@ function validar_senha($senha) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi enviado
     $cnpj = str_replace(['.', '/', '-'], '', $_POST['cnpjCAD']);
     $senha = $_POST['passCAD'];
+    $email = $_POST['emailCAD'];
 
     if (!validar_cnpj($cnpj)) {
         $sweetAlert = [
@@ -55,17 +56,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Verifica se o formulário foi en
         $stmtCheck->fetch();
         $stmtCheck->close();
 
+        $stmtCheck = $conn->prepare("SELECT COUNT(*) FROM tb_locatarios WHERE empresa_email = ?");
+        $stmtCheck->bind_param("s", $email);
+        $stmtCheck->execute();
+        $stmtCheck->bind_result($emailExiste);
+        $stmtCheck->fetch();
+        $stmtCheck->close();
+
+
+
         if ($cnpjExiste > 0) { // Verifica se o CNPJ já está cadastrado
             $sweetAlert = [
                 'icon' => 'error',
                 'title' => 'CNPJ já cadastrado!',
                 'text' => 'Esse CNPJ já está em uso por outro locatário.'
             ];
+        } else if ($emailExiste > 0) {
+            $sweetAlert = [
+                'icon' => 'error',
+                'title' => 'Email já cadastrado!',
+                'text' => 'Esse email já está em uso por outro locatário.'
+            ];
+
         } else {
             // Prossegue com o cadastro
             $nome = $_POST['nomeCAD'];
             $telefone = str_replace(['(', ')', ' ', '-'], '', $_POST['telefoneCAD']);
-            $email = $_POST['emailCAD'];
+            
             
             $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 

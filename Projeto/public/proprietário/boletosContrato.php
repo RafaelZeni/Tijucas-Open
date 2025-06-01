@@ -40,7 +40,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <a href="index.php" class="btn btn-dark mb-3">Voltar</a>
+                    <a href="index.php?page=gerenciarContratos" class="btn btn-dark mb-3">Voltar</a>
                     <div class="table-wrapper">
                         <table class="table table-striped-green text-center">
                             <thead>
@@ -51,8 +51,10 @@
                                     <th>Vencimento</th>
                                     <th>Pagador</th>
                                     <th>Banco</th>
-                                    <th>Linha Digitável</th>
+                                    <th>Status</th>
                                     <th>Gerar</th>
+                                    <th>Comprovante</th>
+                            
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,7 +63,12 @@
 
                                 $contrato_id = $_GET['id'];
                                 $conn = conecta_db();
-                                $query = "SELECT b.boleto_id, b.numero_documento, b.valor, b.banco, b.linha_digitavel, b.vencimento, l.empresa_nome FROM tb_boletos b JOIN tb_contrato c ON b.contrato_id = c.contrato_id JOIN tb_locatarios l ON l.empresa_id = c.empresa_id WHERE b.contrato_id = ?";
+                                $query = "SELECT b.boleto_id, b.numero_documento, b.valor, b.banco, b.status_boleto , b.vencimento, l.empresa_nome, cpr.arquivo_nome
+                                FROM tb_boletos b 
+                                JOIN tb_contrato c ON b.contrato_id = c.contrato_id 
+                                JOIN tb_locatarios l ON l.empresa_id = c.empresa_id 
+                                LEFT JOIN tb_comprovantes cpr ON b.boleto_id = cpr.boleto_id
+                                WHERE b.contrato_id = ?";
 
                                 $stmt = $conn->prepare($query);
                                 $stmt->bind_param("i", $contrato_id);
@@ -77,8 +84,14 @@
                                     $html .= "<td>" . $vencimentoFormatado->format('d/m/Y') . "</td>";
                                     $html .= "<td>" . $boleto->empresa_nome . "</td>";
                                     $html .= "<td>" . $boleto->banco . "</td>";
-                                    $html .= "<td>" . $boleto->linha_digitavel . "</td>";
+                                    $html .= "<td>" . $boleto->status_boleto . "</td>";
                                     $html .= "<td><a class='btn btn-primary' href='index.php?page=gerarBoletoProp&id={$boleto->boleto_id}'>Gerar</a></td>";
+                                    if (!empty($boleto->arquivo_nome)) {
+                                        $html .= "<td><a class='btn btn-success' href='../locatário/comprovantes/{$boleto->arquivo_nome}' download>Baixar</a></td>";
+                                    } else {
+                                        $html .= "<td><span class='text-muted'>Não enviado</span></td>";
+                                    }
+
                                     $html .= "</tr>";
                                     echo $html;
                                 }
