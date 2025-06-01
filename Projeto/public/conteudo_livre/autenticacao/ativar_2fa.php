@@ -6,31 +6,56 @@ require '../../app/database/connection.php';
 $ga = new PHPGangsta_GoogleAuthenticator();
 $conn = conecta_db();
 
-// 1. Buscar auth_secret existente
-$query = "SELECT auth_secret FROM tb_logins WHERE logins_id = ?";
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['logins_id'])) {
+
+    header("Location: ../../public/login.php"); 
+    exit();
+}
+
+$logins_id = $_SESSION['logins_id'];
+$accountName = 'Proprietário'; 
+
+$query = "SELECT auth_secret, tipo_usu FROM tb_logins WHERE logins_id = ?";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("i", $_SESSION['logins_id']);
+$stmt->bind_param("i", $logins_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $linha = $result->fetch_assoc();
 
-// 2. Verifica se já existe um secret
 if (!empty($linha['auth_secret'])) {
     $secret = $linha['auth_secret'];
 } else {
-    // 3. Se não existir, gera um novo e salva
     $secret = $ga->createSecret();
 
-    $stmt = $conn->prepare("UPDATE tb_logins SET auth_secret = ? WHERE logins_id = ?");
-    $stmt->bind_param("si", $secret, $_SESSION['logins_id']);
-    $stmt->execute();
+    $stmt_update = $conn->prepare("UPDATE tb_logins SET auth_secret = ? WHERE logins_id = ?");
+    $stmt_update->bind_param("si", $secret, $logins_id);
+    $stmt_update->execute();
+    $stmt_update->close();
+}
+
+if ($linha['tipo_usu'] === 'locatario') {
+    $query_locatario = "SELECT empresa_nome FROM tb_locatarios WHERE logins_id = ?";
+    $stmt_locatario = $conn->prepare($query_locatario);
+    $stmt_locatario->bind_param("i", $logins_id);
+    $stmt_locatario->execute();
+    $result_locatario = $stmt_locatario->get_result();
+    $locatario_data = $result_locatario->fetch_assoc();
+
+    if ($locatario_data && !empty($locatario_data['empresa_nome'])) {
+        $accountName = $locatario_data['empresa_nome'];
+    }
+    $stmt_locatario->close();
 }
 
 $stmt->close();
 $conn->close();
 
 // Geração do QR code
-$qrCodeUrl = $ga->getQrCodeGoogleUrl('TijucasOpen', $secret);
+$qrCodeUrl = $ga->getQrCodeGoogleUrl($accountName, $secret);
 ?>
 
 <!DOCTYPE html>
