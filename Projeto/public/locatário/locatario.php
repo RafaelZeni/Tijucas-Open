@@ -94,6 +94,7 @@ if (isset($_SESSION['logins_id'])) {
                     <?php else : ?>
                         <span class="btn btn-success mb-3" style="cursor: default;">2FA ativa</span>
                     <?php endif; ?>
+                    <a href="index.php?page=desativar2fa" class="btn btn-dark mb-3">Desativar 2FA</a>
 
                     <h2>Boletos Pendentes</h2>
                     <div class="table-wrapper">
