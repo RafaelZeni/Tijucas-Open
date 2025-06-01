@@ -3,6 +3,22 @@
 require '../../app/database/connection.php';
 $conn = conecta_db();
 
+// Aqui supondo que o id do usuário logado está numa variável (exemplo fixo para demo)
+$user_id = 1; // Substitua pelo id real do usuário logado, normalmente da sessão
+
+// Busca o auth_secret do usuário para saber se já ativou 2FA
+$sql_auth = "SELECT auth_secret FROM tb_logins WHERE logins_id = ?";
+$stmt_auth = $conn->prepare($sql_auth);
+$stmt_auth->bind_param("i", $user_id);
+$stmt_auth->execute();
+$result_auth = $stmt_auth->get_result();
+$auth_secret = null;
+if ($result_auth->num_rows > 0) {
+    $row_auth = $result_auth->fetch_assoc();
+    $auth_secret = $row_auth['auth_secret'];
+}
+$stmt_auth->close();
+
 // ----------- Rosquinha - Espaços -------------------
 $sql = "SELECT espaco_status, COUNT(*) AS total FROM tb_espacos GROUP BY espaco_status";
 $result = $conn->query($sql);
@@ -54,7 +70,6 @@ LEFT JOIN tb_contrato c
 GROUP BY mes.m
 ORDER BY mes.m;
 ";
-
 
 $result_faturamento = $conn->query($sql_faturamento);
 
@@ -187,14 +202,10 @@ $conn->close();
 
     <nav>
       <a href="index.php" class="<?= ($page == 'home') ? 'ativo' : ''; ?>">Início</a>
-      <a href="index.php?page=gerenciarLocatarios"
-        class="<?= ($page == 'gerenciarLocatarios') ? 'ativo' : ''; ?>">Gerenciar Locatários</a>
-      <a href="index.php?page=gerenciarContratos"
-        class="<?= ($page == 'gerenciarContratos') ? 'ativo' : ''; ?>">Gerenciar Contratos</a>
-      <a href="index.php?page=gerenciarLojas"
-        class="<?= ($page == 'gerenciarLojas') ? 'ativo' : ''; ?>">Gerenciar Lojas</a>
-      <a href="index.php?page=gerenciarEspacos"
-        class="<?= ($page == 'gerenciarEspacos') ? 'ativo' : ''; ?>">Gerenciar Espaços</a>
+      <a href="index.php?page=gerenciarLocatarios">Gerenciar Locatários</a>
+      <a href="index.php?page=gerenciarContratos">Gerenciar Contratos</a>
+      <a href="index.php?page=gerenciarLojas">Gerenciar Lojas</a>
+      <a href="index.php?page=gerenciarEspacos">Gerenciar Espaços</a>
     </nav>
 
     <div class="logout">
@@ -204,7 +215,11 @@ $conn->close();
 
   <div class="content">
     <h1>Bem-Vindo Cristiano</h1>
-    <a href="index.php?page=ativar2fa" class="btn btn-primary mb-3">Ativar 2FA</a>
+    <?php if (empty($auth_secret)) : ?>
+      <a href="index.php?page=ativar2fa" class="btn btn-primary mb-3">Ativar 2FA</a>
+    <?php else : ?>
+        <span class="btn btn-success mb-3" style="cursor: default;">2FA ativa</span>
+    <?php endif; ?>
 
     <div class="row mt-2">
       <div class="col-md-12"> <div class="card-chart">
