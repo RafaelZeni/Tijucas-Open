@@ -82,7 +82,7 @@ if ($filtro != '') {
                     echo '<div class="card-face card-back">';
                     echo '<div class="card-body">';
                     echo '<h5 class="card-title">' . htmlspecialchars($row["loja_nome"]) . '</h5>';
-                    echo '<p class="card-text">' . htmlspecialchars($row["loja_andar"]) . '</p>';
+                    echo '<p class="card-text">Andar: ' . htmlspecialchars($row["loja_andar"]) . '</p>';
                     echo '<p class="card-text">' . htmlspecialchars($row["loja_telefone"]) . '</p>';
                     echo '</div>'; // card-body
                     echo '</div>'; // card-back
