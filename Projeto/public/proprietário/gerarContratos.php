@@ -12,6 +12,13 @@ use OpenBoleto\Agente;
 
 $conn = conecta_db();
 
+date_default_timezone_set('America/Sao_Paulo');
+$dataAtual = new DateTime();
+$dataUmAno = (clone $dataAtual)->modify('+1 year');
+
+$minDate = $dataAtual->format('Y-m-d');
+$maxDate = $dataUmAno->format('Y-m-d');
+
 // Buscar empresas (CNPJs) que não têm contrato ainda
 $querySelect = "
     SELECT l.empresa_id, l.empresa_nome, l.empresa_cnpj
@@ -275,6 +282,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
                 campoLoja.value = '';
             }
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const dataInput = document.getElementById('dataContrato');
+            const minDate = '<?php echo $minDate; ?>';
+            const maxDate = '<?php echo $maxDate; ?>';
+
+            dataInput.setAttribute('min', minDate);
+            dataInput.setAttribute('max', maxDate);
+
+            // Opcional: Definir a data atual como valor padrão
+            dataInput.value = minDate;
+        });
     </script>
 </head>
 
@@ -341,7 +360,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //função para verificar se o form
 
                 <div class="mb-3">
                     <label class="form-label">Data de Início: (Contrato válido por 12 meses)</label>
-                    <input type="date" name="data" class="form-control" required>
+                    <input type="date" name="data" id="dataContrato" class="form-control" required>
                 </div>
 
                 <div class="mb-3">
