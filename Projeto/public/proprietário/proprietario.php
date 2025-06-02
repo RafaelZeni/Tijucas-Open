@@ -3,8 +3,7 @@
 require '../../app/database/connection.php';
 $conn = conecta_db();
 
-// Aqui supondo que o id do usuário logado está numa variável (exemplo fixo para demo)
-$user_id = 1; // Substitua pelo id real do usuário logado, normalmente da sessão
+$user_id = $_SESSION['logins_id'];
 
 // Busca o auth_secret do usuário para saber se já ativou 2FA
 $sql_auth = "SELECT auth_secret FROM tb_logins WHERE logins_id = ?";
@@ -119,17 +118,16 @@ $conn->close();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    /* Estilos gerais para o conteúdo principal */
     .content {
-        margin-left: 250px; /* Margem esquerda para compensar a sidebar */
+        margin-left: 250px; 
         padding: 20px;
-        flex-grow: 1; /* Ocupa o restante do espaço horizontal */
+        flex-grow: 1; 
         display: flex;
         flex-direction: column;
-        align-items: center; /* Centraliza o conteúdo horizontalmente */
-        justify-content: flex-start; /* Alinha o conteúdo ao topo */
+        align-items: center; 
+        justify-content: flex-start; 
         min-height: 100vh;
-        background-color: #f8f9fa; /* Um cinza claro para o fundo */
+        background-color: #f8f9fa; 
     }
 
     .content h1 {
@@ -211,7 +209,7 @@ $conn->close();
     </nav>
 
     <div class="logout">
-      <a href="../logout.php"><span>↩</span> Log Out</a>
+       <a href="../logout.php" class="btn-confirmar" data-text="Deseja fazer logout?"><span>↩</span> Log Out</a>
     </div>
   </div>
 
@@ -330,6 +328,8 @@ $conn->close();
       }
     });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../conteudo_livre/assets/js/alerts_confirmacao.js"></script>
 </body>
 
 </html>

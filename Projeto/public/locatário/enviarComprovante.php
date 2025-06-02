@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["comprovante"])) {
         </nav>
 
         <div class="logout">
-            <a href="../logout.php"><span>↩</span> Log Out</a>
+             <a href="../logout.php" class="btn-confirmar" data-text="Deseja fazer logout?"><span>↩</span> Log Out</a>
         </div>
     </div>
 
@@ -126,24 +126,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["comprovante"])) {
         </form>
 
     </div>
-
+    
+    <script src="../conteudo_livre/assets/js/alerts_confirmacao.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    
     <?php if ($sweetAlert): ?>
       <script>
-        Swal.fire({
-          icon: '<?= $sweetAlert["icon"] ?>',
+          Swal.fire({
+              icon: '<?= $sweetAlert["icon"] ?>',
           title: '<?= $sweetAlert["title"] ?>',
           text: '<?= $sweetAlert["text"] ?>',
         }).then(() => {
-          <?php if (!empty($sweetAlert['redirect'])): ?>
-              window.location.href = "<?= $sweetAlert['redirect'] ?>";
-          <?php endif; ?>
-        });
-      </script>
+            <?php if (!empty($sweetAlert['redirect'])): ?>
+                window.location.href = "<?= $sweetAlert['redirect'] ?>";
+                <?php endif; ?>
+            });
+            </script>
     <?php endif; ?>
-
-
-    </body>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    
+</body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>

@@ -32,7 +32,7 @@ possa editar e excluir um proprietário já cadastrado-->
     </nav>
 
     <div class="logout">
-      <a href="../logout.php"><span>↩</span> Log Out</a>
+      <a href="../logout.php" class="btn-confirmar" data-text="Deseja fazer logout?"><span>↩</span> Log Out</a>
     </div>
   </div>
 
@@ -86,7 +86,7 @@ possa editar e excluir um proprietário já cadastrado-->
                                             </td>";
 
                     $html .= "<td>
-                                            <a class='btn btn-danger btn-excluir' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "' data-text='Deseja desativar o locatário " . $linha->empresa_nome . "?'><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir';'></a>
+                                            <a class='btn btn-danger btn-confirmar' href='index.php?page=removerlocatario&id=" . $linha->empresa_id . "' data-text='Deseja desativar o locatário " . $linha->empresa_nome . "?'><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir';'></a>
                                             </td>";
                     $html .= "</tr>";
                     echo $html;

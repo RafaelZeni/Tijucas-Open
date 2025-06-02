@@ -71,7 +71,7 @@ if (isset($_SESSION['logins_id'])) {
         </nav>
 
         <div class="logout">
-            <a href="../logout.php"><span>↩</span> Log Out</a>
+             <a href="../logout.php" class="btn-confirmar" data-text="Deseja fazer logout?"><span>↩</span> Log Out</a>
         </div>
     </div>
 
@@ -199,7 +199,8 @@ if (isset($_SESSION['logins_id'])) {
             </div>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../conteudo_livre/assets/js/alerts_confirmacao.js"></script>
     <script>
         const hamburgerButton = document.querySelector('.hamburger-menu');
         const sidebar = document.querySelector('.sidebar');

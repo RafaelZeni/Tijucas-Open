@@ -33,7 +33,7 @@ e excluir as lojas já cadastradas -->
     </nav>
 
     <div class="logout">
-      <a href="../logout.php"><span>↩</span> Log Out</a>
+      <a href="../logout.php" class="btn-confirmar" data-text="Deseja fazer logout?"><span>↩</span> Log Out</a>
     </div>
   </div>
 
@@ -84,7 +84,7 @@ e excluir as lojas já cadastradas -->
                         <a class='btn btn-success' href='index.php?page=editarLojas&id=" . $linha->loja_id . "'><img src='../conteudo_livre/assets/imgs/editar.png' alt='Editar'></a>
                         </td>";
                     $html .= "<td>
-                            <a class='btn btn-danger btn-excluir' href='index.php?page=removerLoja&id=" . $linha->loja_id . "' data-text='Deseja excluir a loja " . $linha->loja_nome . "?'><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir'></a>
+                            <a class='btn btn-danger btn-confirmar' href='index.php?page=removerLoja&id=" . $linha->loja_id . "' data-text='Deseja excluir a loja " . $linha->loja_nome . "?'><img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Excluir'></a>
                         </td>";
                     $html .= "</tr>";
                     echo $html;

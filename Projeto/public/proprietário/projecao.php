@@ -61,7 +61,7 @@ $conn->close();
       </nav>
 
   <div class="logout">
-    <a href="../logout.php"><span>↩</span> Log Out</a>
+     <a href="../logout.php" class="btn-confirmar" data-text="Deseja fazer logout?"><span>↩</span> Log Out</a>
   </div>
 </div>
 
@@ -106,7 +106,7 @@ $conn->close();
     </table>
   </div>
 </div>
-
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="../conteudo_livre/assets/js/alerts_confirmacao.js"></script>
 </body>
 </html>

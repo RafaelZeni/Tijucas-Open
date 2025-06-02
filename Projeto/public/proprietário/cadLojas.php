@@ -209,7 +209,7 @@ while ($row = $result->fetch_assoc()) {
 
 
         <div class="logout">
-            <a href="../logout.php"><span>↩</span> Log Out</a>
+            <a href="../logout.php" class="btn-confirmar" data-text="Deseja fazer logout?"><span>↩</span> Log Out</a>
         </div>
     </div>
 
@@ -292,6 +292,7 @@ while ($row = $result->fetch_assoc()) {
     <?php endif; ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../conteudo_livre/assets/js/alerts.js"></script>
+    <script src="../conteudo_livre/assets/js/alerts_confirmacao.js"></script>
 </body>
 
 </html>

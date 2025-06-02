@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.btn-excluir').forEach(button => {
+  document.querySelectorAll('.btn-confirmar').forEach(button => {
     button.addEventListener('click', function (event) {
       event.preventDefault();
 
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sim, excluir!',
+        confirmButtonText: 'Sim!',
         cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.isConfirmed) {

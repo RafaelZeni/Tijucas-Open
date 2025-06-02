@@ -33,7 +33,7 @@ editar ou excluir os contratos já existentes-->
     </nav>
 
     <div class="logout">
-      <a href="../logout.php"><span>↩</span> Log Out</a>
+       <a href="../logout.php" class="btn-confirmar" data-text="Deseja fazer logout?"><span>↩</span> Log Out</a>
     </div>
   </div>
 
@@ -96,7 +96,7 @@ editar ou excluir os contratos já existentes-->
                             <a class='btn btn-primary' href='index.php?page=boletosContrato&id={$linha->contrato_id}'>Ver</a>
                         </td>";
                     echo "<td>
-                              <a class='btn btn-danger btn-excluir' href='index.php?page=removerContrato&id={$linha->contrato_id}' data-text='Deseja desativar o contrato da empresa {$linha->empresa_nome}?'>
+                              <a class='btn btn-danger btn-confirmar' href='index.php?page=removerContrato&id={$linha->contrato_id}' data-text='Deseja desativar o contrato da empresa {$linha->empresa_nome}?'>
                                 <img src='../conteudo_livre/assets/imgs/lixeira.png' alt='Desativar'>
                               </a>
                             </td>";
